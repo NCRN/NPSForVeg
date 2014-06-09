@@ -1,13 +1,13 @@
 #' @title calcIV
 #' 
 #' @description
-#'| Calculates Importance Value from three Site by Sepcies data frames 
+#'| Calculates the Importance Value from three Site X Species data frames 
 #'| One for abundance, one for basal area, one for presence-absence
 #' 
-#' @param InCount A data.frame which is a site x species matrix where each cell is the number of individuals of a given species in a given site
-#' @param InSize A data.frame like InCount except each cell is a measure of the size of the speices such as total basal area or total seedling height
-#' @param InPres a data.frame whihc is a presence absence matrix
-#' @return Returns a data.frmae with the Improtance Valeus for each species, the columns are "Species" with the name of each specis, "Density" which is density IV, "Size" which is size IV, "Distribution" which is distribution IV and "Total" which is \eqn{Density + Size +Distribution}
+#' @param InCount A \code{data.frame} which is a site x species matrix where each cell is the number of individuals of a given species in a given site
+#' @param InSize A \code{data.frame} like InCount except each cell is a measure of the size of the speices such as total basal area or total seedling height
+#' @param InPres a \code{data.frame} which is a presence absence matrix
+#' @return Returns a \code{data.frame} with the Importance Values for each species, the columns are "Species" with the name of each species, "Density" which is density IV, "Size" which is size IV, "Distribution" which is distribution IV and "Total" which is \eqn{Density + Size +Distribution}
 #' @export
 
 ####################

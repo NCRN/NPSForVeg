@@ -33,20 +33,29 @@
 
 setGeneric(name="getPlants",function(object,group,status="alive", species=NA, cycles=NA, years=NA, plots=NA, crown=NA, size.min=NA, size.max=NA, BA.min=NA, BA.max=NA, host.tree=NA, in.crown=FALSE, common=FALSE, output="dataframe"){standardGeneric("getPlants")}, signature="object")
 
-setMethod(f="getPlants", signature=c(object="list"),
-          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,common,output){
-  
-          MC<-match.call()
-          XPlants<-vector(mode="list",length=length(object))
-          for (i in seq_along(object)) {
-            MC[2]<-object[[i]]
-            XPlants[[i]]<-eval(MC)
-          }
-          switch(output,
-                 list={names(XPlants)<-getNames(object,name.class="code")
-                   return(XPlants)},
-                 dataframe=return(do.call("rbind",XPlants) ))
-})
+#setMethod(f="getPlants", signature=c(object="list"),
+#          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,common,output){
+#  
+#          MC<-match.call()
+#          XPlants<-vector(mode="list",length=length(object))
+#          for (i in seq_along(object)) {
+#            MC[2]<-object[[i]]
+#            XPlants[[i]]<-eval(MC)
+#          }
+#          switch(output,
+#                 list={names(XPlants)<-getNames(object,name.class="code")
+#                   return(XPlants)},
+#                 dataframe=return(do.call("rbind",XPlants) ))
+#})
+
+setMethod(f="getPlants", signature="list",
+          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,common,output) 
+          {OutPlants<-lapply(X=object, FUN=getPlants, group=group, status=status, species=species, cycles=cycles, years=years, plots=plots, crown=crown,size.min=size.min, size.max=size.max, BA.min=BA.min, BA.max=BA.max, host.tree=host.tree, in.crown=in.crown, common=common,output=output)
+           switch(output,
+                  list=return(OutPlants),
+                  dataframe=return(do.call("rbind",OutPlants))
+           )
+          })
 
 
 setMethod(f="getPlants", signature=c(object="NPSForVeg"), 

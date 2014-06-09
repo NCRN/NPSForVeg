@@ -3,7 +3,7 @@
 \alias{getPlants}
 \title{getPlants}
 \usage{
-getPlants(object, group, ..., status = "alive", species = NA, cycles = NA,
+getPlants(object, group, status = "alive", species = NA, cycles = NA,
   years = NA, plots = NA, crown = NA, size.min = NA, size.max = NA,
   BA.min = NA, BA.max = NA, host.tree = NA, in.crown = FALSE,
   common = FALSE, output = "dataframe")

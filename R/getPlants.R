@@ -31,10 +31,10 @@
 
 
 
-setGeneric(name="getPlants",function(object,group,...,status="alive", species=NA, cycles=NA, years=NA, plots=NA, crown=NA, size.min=NA, size.max=NA, BA.min=NA, BA.max=NA, host.tree=NA, in.crown=FALSE, common=FALSE, output="dataframe"){standardGeneric("getPlants")}, signature="object")
+setGeneric(name="getPlants",function(object,group,status="alive", species=NA, cycles=NA, years=NA, plots=NA, crown=NA, size.min=NA, size.max=NA, BA.min=NA, BA.max=NA, host.tree=NA, in.crown=FALSE, common=FALSE, output="dataframe"){standardGeneric("getPlants")}, signature="object")
 
 setMethod(f="getPlants", signature=c(object="list"),
-          function(object,group,...){
+          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,common,output){
   
           MC<-match.call()
           XPlants<-vector(mode="list",length=length(object))
@@ -50,7 +50,7 @@ setMethod(f="getPlants", signature=c(object="list"),
 
 
 setMethod(f="getPlants", signature=c(object="NPSForVeg"), 
-          function(object,group,...){
+          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,common,output){
             switch(group,
                 seedlings=XPlants<-(object@Seedlings),
                 shseedlings=XPlants<-(object@ShSeedlings),

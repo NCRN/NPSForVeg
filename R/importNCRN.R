@@ -194,7 +194,7 @@ MANA<-new("NPSForVeg",
 MONO<-new("NPSForVeg",
           ParkCode="MONO",
           ShortName="Monocacy",
-          LongName="Manassas National Battlefield", 
+          LongName="Monocacy National Battlefield", 
           Network="NCRN", 
           
           TPlotSize=c(1,pi*15*15),

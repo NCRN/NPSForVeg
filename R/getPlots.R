@@ -19,28 +19,34 @@
 #'  @export
 
 
-setGeneric(name="getPlots",function(object,...,type = "active",visits=NA, years=NA, plots=NA, subparks=NA,output="dataframe"){standardGeneric("getPlots")},signature="object")
+setGeneric(name="getPlots",function(object,type = "active",visits=NA, years=NA, plots=NA, subparks=NA, output="dataframe"){standardGeneric("getPlots")}, signature="object")
 
 
 setMethod(f="getPlots", signature=c(object="list"),
-          function(object,...) {
-              MC<-match.call()
-              OutPlots<-vector(mode="list",length=length(object))
-              for (i in seq_along(object)) {
-                MC[2]<-object[[i]]
-                OutPlots[[i]]<-eval(MC)
-              }
-              switch(output,
-                     list={names(OutPlots)<-getNames(object,name.class="code")
-                       return(OutPlots)},
-                     dataframe=return( do.call("rbind",OutPlots) )
-              )
-            })
-
+          function(object,type,visits,years,plots,subparks,output) {
+#             MC<-match.call()
+#              OutPlots<-vector(mode="list",length=length(object))
+#             for (i in seq_along(object)) {
+#                MC[2]<-object[[i]]
+#                OutPlots[[i]]<-eval(MC)
+#              }
+#              switch(output,
+#                     list={names(OutPlots)<-getNames(object,name.class="code")
+#                       return(OutPlots)},
+#                     dataframe=return( do.call("rbind",OutPlots) )
+#              )
+#            })
+            OutPlots<-lapply(X=object, FUN=getPlots, type=type, visits=visits, years=years, plots=plots, subparks=subparks)
+            switch(output,
+              list={names(OutPlots)<-getNames(object,name.class="code")
+                    return(OutPlots)},
+                dataframe=return(do.call("rbind",OutPlots))
+            )
+})
 
 
 setMethod(f="getPlots", signature=c(object="NPSForVeg"),
-  function(object,...){
+  function(object,type,visits,years,plots,subparks,output){
   switch(type,
      all = XPlots<-object@Plots,
      active= XPlots<-object@Plots[object@Plots$Location_Status=="Active",], 

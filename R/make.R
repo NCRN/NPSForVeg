@@ -56,6 +56,20 @@ setMethod(f='make', signature=c(object="list"),
           if(all(lapply(X=object,FUN=getArea,"shseedlings","single")==getArea(object[1],"shseedlings","single"))) 
           {ShSdSize[2]=getArea(object[1],"shseedlings","single")}
           
+          VSize=c(NaN,NaN)
+          if(all(lapply(X=object,FUN=getArea,"vines","count")==getArea(object[1],"vines","count"))) 
+          {VSize[1]=getArea(object[1],"vines","count")}
+          
+          if(all(lapply(X=object,FUN=getArea,"vines","single")==getArea(object[1],"vines","single"))) 
+          {VSize[2]=getArea(object[1],"vines","single")}
+          
+          
+          HSize=c(NaN,NaN)
+          if(all(lapply(X=object,FUN=getArea,"herbs","count")==getArea(object[1],"herbs","count"))) 
+          {HSize[1]=getArea(object[1],"herbs","count")}
+          
+          if(all(lapply(X=object,FUN=getArea,"herbs","single")==getArea(object[1],"herbs","single"))) 
+          {HSize[2]=getArea(object[1],"herbs","single")}
           
           new("NPSForVeg",
               ParkCode=ParkCode,
@@ -69,8 +83,8 @@ setMethod(f='make', signature=c(object="list"),
               SeedPlotSize=SdSize,
               ShrubPlotSize=ShSize,
               ShSeedPlotSize=ShSdSize,
-              VPlotSize=VPlotSize,
-              HPlotSize=HPlotSize,
+              VPlotSize=VSize,
+              HPlotSize=HSize,
               
               Plots=getPlots(object,type="all", plots=plots, output="dataframe"),
               Events=getEvents(object, plots=plots, output="dataframe"),

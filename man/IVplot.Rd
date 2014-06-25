@@ -9,7 +9,7 @@ IVplot(object, top = NA, IVargs = NA, parts = FALSE, compare = NA,
 \arguments{
 \item{object}{Either a \code{data.frame} which is the output of \code{\link{IV}}, or an object of class \code{NPSForVeg}, or a \code{list} of objects of class \code{NPSForVeg}.}
 
-\item{top}{Defaults to \code{NA}. An integer. Indicates the number or species that should be included from each dataset in the graph (see \code{compare}). For a single dataset the species with the largest total IV values are selected. When multiple datasets are compared, the top species in each dataset are selected, which can result in more species than \code{top} be included in the final graph - e.g. if \code{top=3} and two datasets are used,  up to six species can be included in the graph, depeding on the amount of overlap it the top three species. If \code{top=NA} all species are displayed.}
+\item{top}{Defaults to \code{NA}. An integer. Indicates the number of species that should be included from each dataset in the graph (see \code{compare}). For a single dataset the species with the largest total IV values are selected. When multiple datasets are compared, the top species in each dataset are selected, which can result in more species than \code{top} included in the final graph - e.g. if \code{top=3} and two datasets are used,  up to six species can be included in the graph, depeding on the amount of overlap it the top three species. If \code{top=NA} all species are displayed.}
 
 \item{IVargs}{A required \code{list}, defaults to \code{NA}. The arguments in this list are passed to \code{\link{IV}} and are used to generate the data for the graph. Any argument that is valid for \code{IV} can be in this list, and should be written in arguement=value format e.g. \code{IVargs=list(group="trees", years=c(2010:2013))}}
 
@@ -19,7 +19,7 @@ IVplot(object, top = NA, IVargs = NA, parts = FALSE, compare = NA,
 
 \item{labels}{A character vector, defaults to \code{NA}. Labels for each dataset, only used when \code{compare} is not \code{NA}}
 
-\item{colors}{colors for the graph.}
+\item{colors}{Colors for the graph.}
 
 \item{...}{Other arguments passed to \code{barchart} in the \pkg{lattice} package.}
 }
@@ -30,7 +30,7 @@ Returns a barchart
 Makes a barchart of IV values
 }
 \details{
-This function uses the \code{barchart} function in the \pkg{lattice} package to create a horizontal barchart that displays IV values. The format of the display varies depending on the type of data to be displayed. If only a single dataset is considered (\code{compare=NA}), and \code{parts=FALSE}, then a simple horizontal bar chart is produced. If \code{parts=TRUE} a stacked bar chart is produced. Each component of IV: density, size and distribution, are shown in a different color.
+This function uses the \code{barchart} function in the \pkg{lattice} package to create a horizontal barchart that displays IV values. The format of the display varies depending on the type of data to be displayed. If only a single dataset is considered (\code{compare=NA}), and \code{parts=FALSE}, then a simple horizontal bar chart is produced. If \code{parts=TRUE} a stacked bar chart is produced. Each component of IV: density, size and distribution, is shown in a different color.
 
 If two or more datasets are used, and \code{parts=FALSE} then all results are graphed in a single panel. Each dataset is a different color, and the legend uses the contents of \code{labels} to identify each dataset. If \code{parts=TRUE} then each dataset is plotted in a separate panel, and the panel title is determined by \code{labels}. Within each panel, the three components of IV will each have a separate color, which will be consistent between panels.
 }

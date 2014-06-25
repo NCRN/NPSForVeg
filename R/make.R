@@ -1,13 +1,13 @@
 #' @title make
 #' 
-#' @description makes a new NPSForVeg object from one or more existing objects
+#' @description makes a new \code{NPSForVeg} object from one or more existing objects
 #' 
-#' @param object Either an NPSForVeg object or a list of such objects
-#' @param ParkCode The parkcode for the new NPSForVeg object
-#' @param ShortName The short name for the new NPSForVeg object
-#' @param LongName  The long name for the new NPSForVeg object 
-#' @param Network  The network code for hte new NPSForVeg object
-#' @param plots A charcter vector with plot names. When specificied, only data from the given plots will be included in the new NPSForVeg Object.
+#' @param object Either an \code{NPSForVeg} object or a list of such objects
+#' @param ParkCode The parkcode for the new \code{NPSForVeg} object
+#' @param ShortName The short name for the new \code{NPSForVeg} object
+#' @param LongName  The long name for the new \code{NPSForVeg} object 
+#' @param Network  The network code for the new \code{NPSForVeg} object
+#' @param plots A charcter vector with plot names. When specificied, only data from the given plots will be included in the new \code{NPSForVeg} Object.
 #' 
 #' @details This function creates new \code{NPSForVeg} objects by combining two or more previously existing objects and/or by subsetting exisitng objects. If more than one object is provided then the data for these objects is combined. The areas associated with the plots (eg. the size and number of sapling microplots) is taken from the first object. WARNING:  If the objects have different sized plots then area based calcuations will be in error. Providing a \code{plots} argument will indicate which plots are in the new object. The user must indicate the new network code, park code and park names. 
 #' 
@@ -69,6 +69,8 @@ setMethod(f='make', signature=c(object="list"),
               SeedPlotSize=SdSize,
               ShrubPlotSize=ShSize,
               ShSeedPlotSize=ShSdSize,
+              VPlotSize=VPlotSize,
+              HPlotSize=HPlotSize,
               
               Plots=getPlots(object,type="all", plots=plots, output="dataframe"),
               Events=getEvents(object, plots=plots, output="dataframe"),

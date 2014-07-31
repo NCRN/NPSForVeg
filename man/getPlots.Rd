@@ -22,7 +22,7 @@ getPlots(object, type = "active", visits = NA, years = NA, plots = NA,
 
 \item{subparks}{A character vector. Returns only data from plots where the subpark the plot is in matches one of the values in \code{subparks} The subpark a plot is locaed in is determined by the \code{SubUnit_Code} column in the \code{Plots} slot.}
 
-\item{output}{Either "dataframe" (the default) or "list". Note that this must be in qutoes. Determines the type of output from the function.}
+\item{output}{Either "dataframe" (the default) or "list". Note that this must be in quotes. Determines the type of output from the function.}
 }
 \description{
 Returns the contents of the \code{Plots} slot of an NPSForVeg object. The retunred data can be filtered to meet various criteria.

@@ -6,17 +6,17 @@
 getCommons(object, output = "dataframe")
 }
 \arguments{
-\item{object}{Either a NPSForVeg object or a list of such objects.}
+\item{object}{Either a \code{NPSForVeg} object or a list of such objects.}
 
-\item{output}{Used when "object" is a list to determine if the output is a data.frame or a list. Can be either "dataframe" (the default), or "list". Needs to be in quotes.}
+\item{output}{Used when "object" is a list, to determine if the output is a \code{data.frame} or a \code{list}. Can be either "dataframe" (the default), or "list". Needs to be in quotes.}
 }
 \value{
-Either a data.frame or a list containing the contents of the "Commons" slot for one or more NPSForVeg objects.
+Either a \code{data.frame} or a \code{list} containing the contents of the "Commons" slot for one or more \code{NPSForVeg} objects.
 }
 \description{
-gets common names data.frame from one or more NPSForVeg objects.
+gets the common names \code{data.frame} from one or more \code{NPSForVeg} objects.
 }
 \details{
-When the "object" is a single NPSForVeg object this funciton will return the data.frame in the "Commons" slot  which should have the Latin and common names of the plants. When "object" is a list and "output" is "dataframe" a combied data.frame with the "Commons" slot from all NPSForVeg elements in returned. If the "object" is a list and "output" is "list" then a list is returned. Each element of the list will be the "Commons" slot from one the input NPForVeg objects, and the name of each element corresponds to the name of the NPSForVeg object it comes from.
+When the "object" is a single \code{NPSForVeg} object this function will return the \code{data.frame} in the "Commons" slot  which should have the Latin and common names of the plants as well as the TSN Numbers. When "object" is a \code{list} and "output" is "dataframe" a combied \code{data.frame} with the "Commons" slot from all NPSForVeg elements is returned. If the "object" is a \code{list} and "output" is "list" then a \code{list} is returned. Each element of the \code{list} will be the "Commons" slot from one the input \code{NPForVeg} objects, and the name of each element corresponds to the name of the \code{NPSForVeg} object it comes from.
 }
 

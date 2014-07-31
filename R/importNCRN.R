@@ -31,6 +31,7 @@ importNCRN<-function(Dir){
   InHerbs<-read.csv("Herbs.csv",as.is=T, header=T)
   InCommons<-read.csv("CommonNames.csv", as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
+  InCommons$TSN<-as.character(InCommons$TSN)
   setwd(OldDir)
   
   

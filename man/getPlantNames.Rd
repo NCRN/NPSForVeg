@@ -3,22 +3,25 @@
 \alias{getPlantNames}
 \title{getPlantName}
 \usage{
-getPlantNames(object, names, style = "common")
+getPlantNames(object, names, out.style = "common", in.style = "Latin",
+  output = "dataframe")
 }
 \arguments{
-\item{object}{an \code{NPSForVeg} object}
+\item{object}{An \code{NPSForVeg} object}
 
-\item{names}{a character vector of Latin names to be translated}
+\item{names}{a character vector of Latin Names, common names or TSN numbers (as a character vector) to be translated}
 
-\item{style}{Currently only accepts "common", which is the default. May eventually allow a translation from common to Latin names}
+\item{out.style}{Either "common", "Latin", or "TSN". Indicates the type of name that should be returned. Defaults to "common"}
+
+\item{in.style}{Either "common", "Latin", or "TSN". Indicates the type of name found in the "names" argument.}
 }
 \value{
-A character vector of common names
+A character vector of names in the format speceified by out.style.
 }
 \description{
-Translates Latin names to common names
+Translates Latin names to common names using TSN numbers
 }
 \details{
-This funciton will match the Latin names in \code{names} with common names, using the data in the \code{Commons} slot of an object of class \code{NPSForVeg}.
+This function will covert the names in \code{names} to the style specified in out.style, using the data in the \code{Commons} slot of an object of class \code{NPSForVeg}. Note that TSN numbers are used to covert from one style of name to the other.
 }
 

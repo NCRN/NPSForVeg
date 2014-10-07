@@ -12,13 +12,13 @@
 #' @param cycles Defaults to \code{NA}. A numeric vector indicating which cycles should be included. This is passed on to \code{\link{getPlants}}.
 #' @param values Determines the data contained in the Site X Species matrix. Possible values are:
 #' \describe{
-#' \item{"count"}{The default. Each cell will incude a count of the number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the nubmer of plants, for vines, it the number of trees a vine species grows on, and for herbs it will be the number of quadrats the plant occurs in.}
+#' \item{"count"}{The default. Each cell will include a count of the number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants. For vines, it is the number of trees a vine species grows on. For herbs it will be the number of quadrats the plant occurs in.}
 #' \item{"size"}{For trees and saplings this is the total basal area. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the total percent cover across all quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
-#' \item{"presab"}{Produces a presrnce/absence matrix. When a plant species is present in a given plot the corresponding cell value will be one, otherwise it is zero.}
+#' \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
 #' }
-#' @param output Either "dataframe" or "list". Determines the output type When \code{object} is a list. "Dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be a single large matrix, containing all sites and species from all \code{NPSForVeg} objects. "List" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that object's \code{ParkCode} slot. 
-#' @param species A character vector of names. Defaults to \code{NA}. When not \code{NA} only species included in \code{species} will be included in the matrix. If a name is in \code{species}, but is not present in the data, it will not appear in the matrix. 
-#' @param Total Logical value. Determine if a "Total" column will be included in the matrix. Defaults to TRUE.
+#' @param output Either "dataframe" or "list". Determines the output type When \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be a single large \code{data.frame}, containing all sites and species from all \code{NPSForVeg} objects. "list" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that object's \code{ParkCode} slot. 
+#' @param species A character vector of names. Defaults to \code{NA}. When not \code{NA} only species included in \code{species} will be included in the matrix. If a name is in \code{species}, but is not present in the data, it will not appear in the output. 
+#' @param Total Logical value. Determine if a "Total" column will be included in the output. Defaults to TRUE.
 #' @param ... Other arguments passed on to \code{\link{getPlants}}
 #' 
 #' @details This function will first call \code{\link{getPlants}} to retrieve the plant data. Then a SiteXSpecies matrix will be created. Values in the cells are determined by the option selected with \code{values}. Each row corresponds to a different plot and each column to a different species. 
@@ -57,23 +57,23 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
             
             
             switch(values, 
-              count= OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)), .N], 
+              count= OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)), .N, by=.EACHI], 
                                                 formula=fPlot~Latin_Name, value.var="N"),
               size={
                 switch(group,
                   
                   trees=,saplings=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
-                                      sum(SumLiveBasalArea_cm2)],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
+                                      sum(SumLiveBasalArea_cm2), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                          
                          seedlings=,shseedlings=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), 
-                                      unique(Latin_Name)),sum(Height)],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
+                                      unique(Latin_Name)), sum(Height), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
                          herbs=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
-                                      sum(Percent_Cover)],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
+                                      sum(Percent_Cover), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
                          shrubs=,vines=stop("Cannot do a size based site x species matrix - no size measurement avaialable")
               )},
-              presab={OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)), .N], 
+              presab={OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)), .N, by=.EACHI], 
                                        formula=fPlot~Latin_Name, value.var="N")
                     for(xx in seq_along(OutData)) {set(OutData, i=which(is.numeric(OutData[[xx]]) & as.numeric(OutData[[xx]])>0), j=xx, value=1)}
                     

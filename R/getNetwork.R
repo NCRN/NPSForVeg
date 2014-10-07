@@ -1,10 +1,10 @@
-#' @title getNetowrk
+#' @title getNetwork
 #' 
-#' @description Returns the network code for a object of class NPSForVeg
+#' @description Returns the network code for a object of class \code{NPSForVeg}
 #' 
-#' @param object Either a NPSForVeg object, or a list of such objects
+#' @param object Either a \code{NPSForVeg} object, or a \code{list} of such objects
 #' 
-#' @return A characeter vector of network codes. For a single NPSForVeg object a single code is returned. For a list of objects, a network code for each object in the list is returned. 
+#' @return A characeter vector of network codes. For a single \code{NPSForVeg} object a single code is returned. For a \code{list} of objects, a network code for each object in the \code{list} is returned. 
 #' 
 #' @export
 #' 

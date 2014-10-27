@@ -4,7 +4,7 @@
 \title{SiteXSpec}
 \usage{
 SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
-  output = "dataframe", species = NA, Total = TRUE, ...)
+  output = "dataframe", species = NA, plots = NA, Total = TRUE, ...)
 }
 \arguments{
 \item{object}{either an object of class \code{NPSForVeg} or a list of such objects}
@@ -23,6 +23,8 @@ SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
 \item{output}{Either "dataframe" or "list". Determines the output type When \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be a single large \code{data.frame}, containing all sites and species from all \code{NPSForVeg} objects. "list" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that object's \code{ParkCode} slot.}
 
 \item{species}{A character vector of names. Defaults to \code{NA}. When not \code{NA} only species included in \code{species} will be included in the matrix. If a name is in \code{species}, but is not present in the data, it will not appear in the output.}
+
+\item{plots}{A character vector of plot names. Defaults to \code{NA}. When not \code{NA} only plots included in \code{plots} will be included in the matrix. If a plot name is in \code{plots}, but is not present in the data, it will not appear in the output.}
 
 \item{Total}{Logical value. Determine if a "Total" column will be included in the output. Defaults to TRUE.}
 

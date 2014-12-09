@@ -4,11 +4,11 @@
 #' 
 #' @param object Either an object of class \code{NPSForVeg} or a list of such objects
 #' @param group  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", or "herbs". 
-#' @param status  A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values from the agrument are matched to the \code{Trees$Tree_Status} field in the \code{Tree} slot, or the \code{Saplings$Sapling_Status} field in the \code{Saplings} slot.  Acceptable options are:
+#' @param status  A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this agrument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 #' \describe{
 #' \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" or "Alive Fallen"}
-#' \item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen" or "Dead Standing"}
-#' \item{"other"}{Includes any plant with a status of "Missing" or "Downgraded to Non-Sampled" }
+#' \item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead Leaning", Dead Standing", "Dead - Too Small"}
+#' \item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" or "Downgraded to Non-Sampled" }
 #' \item{"all"}{Includes all plants}
 #' }
 #' @param species  Defaults to \code{NA}. A character vector of Latin names. When included only those species are selected. This is determined by matching the appropriate \code{Latin_Name} field to  \code{species}
@@ -33,20 +33,7 @@
 
 setGeneric(name="getPlants",function(object,group,status="alive", species=NA, cycles=NA, years=NA, plots=NA, crown=NA, size.min=NA, size.max=NA, BA.min=NA, BA.max=NA, host.tree=NA, in.crown=FALSE, common=FALSE, output="dataframe"){standardGeneric("getPlants")}, signature="object")
 
-#setMethod(f="getPlants", signature=c(object="list"),
-#          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,common,output){
-#  
-#          MC<-match.call()
-#          XPlants<-vector(mode="list",length=length(object))
-#          for (i in seq_along(object)) {
-#            MC[2]<-object[[i]]
-#            XPlants[[i]]<-eval(MC)
-#          }
-#          switch(output,
-#                 list={names(XPlants)<-getNames(object,name.class="code")
-#                   return(XPlants)},
-#                 dataframe=return(do.call("rbind",XPlants) ))
-#})
+
 
 setMethod(f="getPlants", signature="list",
           function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,common,output) 
@@ -64,23 +51,8 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
                 seedlings=XPlants<-(object@Seedlings),
                 shseedlings=XPlants<-(object@ShSeedlings),
                 trees=XPlants<-object@Trees,  
-                    #switch(status,
-                     #    all = XPlants<-XPlants,
-                      #   alive = XPlants<-(XPlants[XPlants$Status %in% c("Alive Standing", "Alive Broken", "Alive Leaning", 
-                      #                                                   "Alive Fallen","Alive"),]),
-                      #   dead = XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Fallen", "Dead Standing"),]),
-                      #   other = XPlants<-(XPlants[XPlants$Status %in% c("Missing","Downgraded to Non-Sampled"),]),
-                      #   stop("Unknown Plant Status"))},
                 saplings= XPlants<-object@Saplings,
                 shrubs=XPlants<-object@Shrubs,
-                  
-              #    switch(status,
-              #          all=XPlants<-XPlants,
-              #          alive=XPlants<-(XPlants[XPlants$Status %in% c("Alive Standing", "Alive Broken", "Alive Leaning", 
-              #                                                           "Alive Fallen","Alive"),]),
-              #          dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Fallen", "Dead Standing"),]),
-              #          other=XPlants<-(XPlants[XPlants$Status %in% c("Missing","Downgraded to Non-Sampled"),]),
-              #          stop("Unknown Plant Status"))},
                 vines=XPlants<-object@Vines,
                 herbs=XPlants<-object@Herbs,
           stop("Unknown Plant Type")
@@ -91,8 +63,9 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
                             all=XPlants<-XPlants,
                             alive=XPlants<-(XPlants[XPlants$Status %in% c("Alive Standing", "Alive Broken", "Alive Leaning", 
                                                                           "Alive Fallen","Alive"),]),
-                            dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Fallen", "Dead Standing"),]),
-                            other=XPlants<-(XPlants[XPlants$Status %in% c("Missing","Downgraded to Non-Sampled"),]),
+                            dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Fallen","Dead Leaning", "Dead Standing","Dead - Too Small"),]),
+                            other=XPlants<-(XPlants[XPlants$Status %in% c("Missing","Missing - Presumed Dead","Missing -Uncertain",
+                                                                          "Downgraded to Non-Sampled"),]),
                             stop("Unknown Plant Status"))
             }
             

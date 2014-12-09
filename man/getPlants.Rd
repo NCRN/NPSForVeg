@@ -13,11 +13,11 @@ getPlants(object, group, status = "alive", species = NA, cycles = NA,
 
 \item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", or "herbs".}
 
-\item{status}{A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values from the agrument are matched to the \code{Trees$Tree_Status} field in the \code{Tree} slot, or the \code{Saplings$Sapling_Status} field in the \code{Saplings} slot.  Acceptable options are:
+\item{status}{A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this agrument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 \describe{
 \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" or "Alive Fallen"}
-\item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen" or "Dead Standing"}
-\item{"other"}{Includes any plant with a status of "Missing" or "Downgraded to Non-Sampled" }
+\item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead Leaning", Dead Standing", "Dead - Too Small"}
+\item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" or "Downgraded to Non-Sampled" }
 \item{"all"}{Includes all plants}
 }}
 

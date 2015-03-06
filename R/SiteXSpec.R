@@ -42,7 +42,7 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
               },
             
               list={
-                OutList<-llply(.dat=object, .fun=SiteXSpec, group=group,years=years,cycles=cycles, species=species,plots=plots...)
+                OutList<-llply(.dat=object, .fun=SiteXSpec, group=group,years=years,cycles=cycles, species=species,plots=plots,...)
                 names(OutList)<-getNames(object,name.class="code")
                 return(OutList)
                 }

@@ -1,8 +1,8 @@
 #' @title ChangeMatrix
 #' 
-#' @description Produces a matrix which indcates the change in some measure of plant abundance between two time periods
-#' 
 #' @import plyr
+#' 
+#' @description Produces a matrix which indcates the change in some measure of plant abundance between two time periods
 #' 
 #' @param object either an object of class \code{NPSForVeg} or a list of such objects
 #' @param groups  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings","shrubs", "shseedlings" (indicated shrub seedlings), "vines" or "herbs'.
@@ -19,6 +19,7 @@
 #' Additional arguments accepted by \code{\link{SiteXSpec}} or \code{\link{getPlants}} can be used as well. Currently using the \code{cycles} argument will result in errors. 
 #' Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in the function call. 
 #' 
+#' @include NPSForVeg_Class_def.R
 #' @export
 #' 
 

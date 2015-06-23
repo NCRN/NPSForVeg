@@ -17,6 +17,12 @@
 #' \item{"all"}{The default. Returns names from all types of plots.}
 #' \item{"retired}{Only returns names from plots which are listed as retired in the \code{Plots$Location_Status} field.}
 #' }
+#' @param values Determines the data contained in the Site X Species matrix. Possible values are:
+#' \describe{
+#' \item{"count"}{The default. Each cell will include a count of the number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants. For vines, it is the number of trees a vine species grows on. For herbs it will be the number of quadrats the plant occurs in.}
+#' \item{"size"}{For trees and saplings this is the total basal area. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the total percent cover across all quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
+#' \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
+#' }
 #' @param ... Other arguments passed on to \code{\link{SiteXSpec}}
 #' 
 #' 
@@ -34,18 +40,19 @@
 ##### Makes a Site X Species matrix which reflects changes between two time periods
 ##################################################
 
-setGeneric(name="ChangeMatrix",function(object,group,years1,years2,plots=NA,type="active",species=NA, output="dataframe",...){standardGeneric("ChangeMatrix")}, signature="object")
+setGeneric(name="ChangeMatrix",function(object,group,years1,years2,plots=NA,type="active",species=NA,values="count",
+                                        output="dataframe",...){standardGeneric("ChangeMatrix")}, signature="object")
 
 setMethod(f="ChangeMatrix", signature=c(object="list"), 
     function(object, ...){
       switch(output,
         dataframe={
           TempPark<-make(object,ParkCode="TEMPOBJ", ShortName="TempObj",LongName="Temp park for SiteXSpec", Network="SiteSpec")
-            return(ChangeMatrix(object=TempPark, group=group, years1=years1, years2=years2, plots=plots, type=type, species=species, ...))
+            return(ChangeMatrix(object=TempPark, group=group, years1=years1, years2=years2, plots=plots, type=type, species=species,values=values, ...))
         },
 
         list={
-            OutList<-llply(.dat=object, .fun=ChangeMatrix, group=group, years1=years1, years2=years2, plots=plots, type=type, species=species, ...)
+            OutList<-llply(.dat=object, .fun=ChangeMatrix, group=group, years1=years1, years2=years2, plots=plots, type=type, species=species, values=values,...)
             names(OutList)<-getNames(object,name.class="code")
             return(OutList)
         }
@@ -54,7 +61,7 @@ setMethod(f="ChangeMatrix", signature=c(object="list"),
 
 
 setMethod(f="ChangeMatrix", signature=c(object="NPSForVeg"), 
-         function(object,group,years1,years2,plots,type,species,...){
+         function(object,group,years1,years2,plots,type,species,values,...){
            
           
            #find plots common to both time periods
@@ -70,9 +77,9 @@ setMethod(f="ChangeMatrix", signature=c(object="NPSForVeg"),
            )
            
            ########## get the initial matrices
-           Matrix1<-SiteXSpec(object=object,group=group,years=years1,species=SpeciesUse,plots=PlotsUse,... )
+           Matrix1<-SiteXSpec(object=object,group=group,years=years1,species=SpeciesUse,plots=PlotsUse,values=values,... )
            
-           Matrix2<-SiteXSpec(object=object,group=group,years=years2,species=SpeciesUse,plots=PlotsUse,... )
+           Matrix2<-SiteXSpec(object=object,group=group,years=years2,species=SpeciesUse,plots=PlotsUse,values=values,... )
            
            ########## Make the  change matrix
            

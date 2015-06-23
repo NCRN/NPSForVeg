@@ -65,7 +65,7 @@ setMethod(f="ChangeMatrix", signature=c(object="NPSForVeg"),
            #find plants common to both time periods
            SpeciesUse<-sort(
              if(!is.na(species)) {species} else {
-              unique(getPlants(object=object,group=group,years=c(years1,years2), plots=PlotsUse)$Latin_Name,... )
+              unique(getPlants(object=object,group=group,years=c(years1,years2), plots=PlotsUse, ...)$Latin_Name )
              }
            )
            

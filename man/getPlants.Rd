@@ -16,9 +16,9 @@ getPlants(object, group, status = "alive", species = NA, cycles = NA,
 
 \item{status}{A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this agrument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 \describe{
-\item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" or "Alive Fallen"}
-\item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead Leaning", Dead Standing", "Dead - Too Small"}
-\item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" or "Downgraded to Non-Sampled" }
+\item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF", "AL","AM","AS","RB","RF","RL", "RS" or "TR"}
+\item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead Leaning", Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+\item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XP" or"XS" }
 \item{"all"}{Includes all plants}
 }}
 
@@ -30,13 +30,13 @@ getPlants(object, group, status = "alive", species = NA, cycles = NA,
 
 \item{plots}{Defaults to \code{NA} A character vector indicating which plots should be included. This is determined by macthing the appropriate \code{Plot_Name} field to \code{plots}.}
 
-\item{crown}{Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by macthing the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".}
+\item{crown}{Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by matching the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".}
 
 \item{size.min}{Defaults to \code{NA}. A single numeric value that indicates the minimum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.}
 
 \item{size.max}{Defaults to \code{NA}. A single numeric value that indciates the maximum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.}
 
-\item{BA.min}{Defaults to \code{NA}. A single numeric value that indciates the minimum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field.}
+\item{BA.min}{Defaults to \code{NA}. A single numeric value that indicates the minimum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field.}
 
 \item{BA.max}{Defaults to \code{NA}. A single numeric value that indicates the maximum basal area a plant may have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field.}
 

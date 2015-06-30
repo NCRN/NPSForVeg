@@ -6,19 +6,19 @@
 #' @param group  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", or "herbs". 
 #' @param status  A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this agrument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 #' \describe{
-#' \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" or "Alive Fallen"}
-#' \item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead Leaning", Dead Standing", "Dead - Too Small"}
-#' \item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" or "Downgraded to Non-Sampled" }
+#' \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF", "AL","AM","AS","RB","RF","RL", "RS" or "TR"}
+#' \item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead Leaning", Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+#' \item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XP" or"XS" }
 #' \item{"all"}{Includes all plants}
 #' }
 #' @param species  Defaults to \code{NA}. A character vector of Latin names. When included only those species are selected. This is determined by matching the appropriate \code{Latin_Name} field to  \code{species}
 #' @param cycles Defaults to \code{NA}. A numeric vector indicating which cycles should be included. This is determined by matching the appropriate \code{Cycle} field to \code{cycles}
 #' @param years  Defaults to \code{NA}. A numeric vector indicating which years should be included. This is determined by matching the appropriate \code{Sample_Year} field to \code{years}
 #' @param plots Defaults to \code{NA} A character vector indicating which plots should be included. This is determined by macthing the appropriate \code{Plot_Name} field to \code{plots}.
-#' @param crown Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by macthing the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".
+#' @param crown Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by matching the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".
 #' @param size.min Defaults to \code{NA}. A single numeric value that indicates the minimum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.
 #' @param size.max Defaults to \code{NA}. A single numeric value that indciates the maximum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.
-#' @param BA.min Defaults to \code{NA}. A single numeric value that indciates the minimum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field. 
+#' @param BA.min Defaults to \code{NA}. A single numeric value that indicates the minimum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field. 
 #' @param BA.max Defaults to \code{NA}. A single numeric value that indicates the maximum basal area a plant may have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field. 
 #' @param host.tree Defaults to \code{NA}. Only meaningful when \code{group} is "vines". A character vector containing Latin names of host trees. Only vines occuring in those hosts will be returned. Determined by matching the \code{Host_Latin_Name} in the \code{Vines} slot. 
 #' @param in.crown Defaults to \code{FALSE}. Only meaningful when \code{group} is "vines". When \code{TRUE} only vines which have reached the crown of the tree are returned. Determined by checking if the \code{Condition} field in the \code{Vines} slot has the text "Vines in the crown".
@@ -62,10 +62,11 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
                switch(status,
                             all=XPlants<-XPlants,
                             alive=XPlants<-(XPlants[XPlants$Status %in% c("Alive Standing", "Alive Broken", "Alive Leaning", 
-                                                                          "Alive Fallen","Alive"),]),
-                            dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Fallen","Dead Leaning", "Dead Standing","Dead - Too Small"),]),
+                                                                          "Alive Fallen","Alive","AB","AF","AL","AM","AS","RB","RF","RL","RS","TR"),]),
+                            dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Fallen","Dead Leaning", "Dead Standing","Dead - Too Small",
+                                                                         "DB","DC","DF","DL","DM","DS","DX"),]),
                             other=XPlants<-(XPlants[XPlants$Status %in% c("Missing","Missing - Presumed Dead","Missing -Uncertain",
-                                                                          "Downgraded to Non-Sampled"),]),
+                                                                          "Downgraded to Non-Sampled","ES","EX","NL","XP","XS"),]),
                             stop("Unknown Plant Status"))
             }
             

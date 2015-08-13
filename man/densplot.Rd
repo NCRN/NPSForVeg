@@ -10,13 +10,13 @@ densplot(object, Total = TRUE, top = NA, densargs = NA, compare = NA,
 \arguments{
 \item{object}{Either a \code{data.frame} which is the output of the \code{dens} funciton, an object of class \code{NPSForVeg} or a \code{list} of such objects.}
 
-\item{Total}{Logical, defaults to \code{TRUE}. Indicates if the the total values for all species, such as total numbers of seedligns, should be plotted.}
+\item{Total}{Logical, defaults to \code{TRUE}. Indicates if the the total values for all species, should be plotted.}
 
-\item{top}{Numeric, defaults to \code{NA}. When not \code{NA} only the number of species indicated in \code{top} will be used for each dataset (see \code{comnpare}). If several datasets are used, then more than \code{top} species can be plotted, if the most common species are not the same in all datasets.}
+\item{top}{Numeric, defaults to \code{NA}. When not \code{NA} only the number of species indicated in \code{top} will be used for each dataset (see \code{compare}). If several datasets are used, then more than \code{top} species can be plotted, if the most common species are not the same in all datasets.}
 
 \item{densargs}{A required \code{list}, defaults to \code{NA}. The arguments in this list are passed to \code{\link{dens}} and are used to generate the data for the graph. Any argument that is valid for \code{dens} can be in this list, and should be written in argument=value format e.g. \code{densargs=list(group="trees", years=c(2010:2013))}}
 
-\item{compare}{A \code{list} of lists. Defaults to \code{NA}. This can be used to compare the dens values from seveeral different data sets, such as trees from different parks, different time periods or trees, saplings and seedlings from the same park. Each list will be passed on to \code{\link{dens}}, and can contain any arguments that are valid for that function. Entries in the list should be written in argument=value format  e.g. \code{compare=list( list(object=CATO, group="saplings", years=c(2010:2013)), list(object=CATO, group="seedlings", years=c(2010:2013)) )} Any number of datasets can be added using \code{compare}.}
+\item{compare}{A \code{list} of lists. Defaults to \code{NA}. This can be used to compare the dens values from several different data sets, such as trees from different parks, different time periods, or trees, saplings and seedlings from the same park. Each list will be passed on to \code{\link{dens}}, and can contain any arguments that are valid for that function. Entries in the list should be written in argument=value format  e.g. \code{compare=list( list(object=CATO, group="saplings", years=c(2010:2013)), list(object=CATO, group="seedlings", years=c(2010:2013)) )} Any number of datasets can be added using \code{compare}.}
 
 \item{labels}{A character vector, defaults to \code{NA}. Labels for each dataset, only used when \code{compare} is not \code{NA}}
 
@@ -29,9 +29,9 @@ A plot of means and 95\% confidence intervals.
 Plots the mean and 95\% confidence intervals of abundance, size and distribution of species in an object of class \code{NPSForVeg}.
 }
 \details{
-This fucntion uses the \code{xyplot} function in the \pkg{lattice} package to create plots that display means and 95\% confidence inervals for a varielty of measures of plants: - abundance, basal area, cover, occupancy. The format of the display varies depending on the type of data to be displayed. If only a single dataset is considered (\code{compare=NA}), then each species will be displayed.
+This fucntion uses the \code{xyplot} function in the \pkg{lattice} package to create plots that display means and 95\% confidence inervals for a variety of measures of plants: - abundance, basal area, cover, and occupancy. The format of the display varies depending on the type of data to be displayed. If only a single dataset is considered (\code{compare=NA}), then each species will be displayed.
 
-If two or more datasets are used, then  each species is plotted in its own panel, with mean and CI for each dataset.In this case  and the legend uses the contents of \code{labels} to identify each dataset.
+If two or more datasets are used, then  each species is plotted in its own panel, with mean and CI for each dataset. In this case  and the legend uses the contents of \code{labels} to identify each dataset.
 If \code{top=0} and \code{Total=TRUE} then only the totals are displayed. If \code{top=NA} then all species are displayed. One or more particular species can be selected by including a \code{species=} argument to \code{densargs} and / or \code{compare}.
 }
 

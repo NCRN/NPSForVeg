@@ -20,7 +20,7 @@
 #' If \code{values="size"} no distirbution is assuemd for the underlying data. Instead, confidence intervals and detemrined using 1000 bootstrap replicates. Note that if a species is realtively rare this can lead to the 95% bootstrap confidence interval including 0.
 #' If \code{values="presab"} data is treat as being binomial and confidence intervals are detemined using \code{glm}.  
 #' 
-#' @return Returns a \code{data.frame},or a \code{list} or them, which indicate the mean and 95% condfidence intervals of the requested measurement.  
+#' @return Returns a \code{data.frame},or a \code{list} or them, which indicate the mean and 95\% condfidence intervals of the requested measurement.  
 #' 
 #' 
 #' @export

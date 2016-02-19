@@ -22,54 +22,67 @@ setMethod(f='make', signature=c(object="list"),
         if( all( sapply(X=object,FUN=class)=="NPSForVeg" ) ){
           
           TrSize=c(NaN,NaN)
-          if(all(lapply(X=object,FUN=getArea,"trees","count")==getArea(object[1],"trees","count"))) 
-          {TrSize[1]=getArea(object[1],"trees","count")}
+          if(all(lapply(X=object,FUN=getArea,"trees","count")==getArea(object[1],"trees","count")) &
+             !anyNA(lapply(X=object,FUN=getArea,"trees","count"))
+             )  {TrSize[1]=getArea(object[1],"trees","count")}
           
-          if(all(lapply(X=object,FUN=getArea,"trees","single")==getArea(object[1],"trees","single"))) 
-            {TrSize[2]=getArea(object[1],"trees","single")}
+          if(all(lapply(X=object,FUN=getArea,"trees","single")==getArea(object[1],"trees","single")) &
+             !anyNA(lapply(X=object,FUN=getArea,"trees","single"))
+             ) {TrSize[2]=getArea(object[1],"trees","single")}
         
           SpSize=c(NaN,NaN)
-          if(all(lapply(X=object,FUN=getArea,"saplings","count")==getArea(object[1],"saplings","count")))
-            {SpSize[1]=getArea(object[1],"saplings","count")}
+          if(all(lapply(X=object,FUN=getArea,"saplings","count")==getArea(object[1],"saplings","count")) &
+             !anyNA(lapply(X=object,FUN=getArea,"saplings","count"))
+             ){SpSize[1]=getArea(object[1],"saplings","count")}
           
-          if(all(lapply(X=object,FUN=getArea,"saplings","single")==getArea(object[1],"saplings","single"))) 
-            {SpSize[2]=getArea(object[1],"saplings","single")}
+          if(all(lapply(X=object,FUN=getArea,"saplings","single")==getArea(object[1],"saplings","single")) &
+             !anyNA(lapply(X=object,FUN=getArea,"saplings","single"))
+             ){SpSize[2]=getArea(object[1],"saplings","single")}
               
           SdSize=c(NaN,NaN)
-          if(all(lapply(X=object,FUN=getArea,"seedlings","count")==getArea(object[1],"seedlings","count"))) 
-          {SdSize[1]=getArea(object[1],"seedlings","count")}
+          if(all(lapply(X=object,FUN=getArea,"seedlings","count")==getArea(object[1],"seedlings","count")) &
+             !anyNA(lapply(X=object,FUN=getArea,"seedlings","count"))
+             ) {SdSize[1]=getArea(object[1],"seedlings","count")}
           
-          if(all(lapply(X=object,FUN=getArea,"seedlings","single")==getArea(object[1],"seedlings","single"))) 
-          {SdSize[2]=getArea(object[1],"seedlings","single")}
+          if(all(lapply(X=object,FUN=getArea,"seedlings","single")==getArea(object[1],"seedlings","single")) &
+             any(is.na(lapply(X=object,FUN=getArea,"seedlings","single")))
+             ) {SdSize[2]=getArea(object[1],"seedlings","single")}
           
           ShSize<-c(NaN,NaN)
-          if(all(lapply(X=object,FUN=getArea,"shrubs","count")==getArea(object[1],"shrubs","count"))) 
-          {ShSize[1]=getArea(object[1],"shrubs","count")}
+          if(all(lapply(X=object,FUN=getArea,"shrubs","count")==getArea(object[1],"shrubs","count")) &
+             !anyNA(lapply(X=object,FUN=getArea,"shrubs","count"))
+             ) {ShSize[1]=getArea(object[1],"shrubs","count")}
           
-          if(all(lapply(X=object,FUN=getArea,"shrubs","single")==getArea(object[1],"shrubs","single"))) 
-          {ShSize[2]=getArea(object[1],"shrubs","single")}
+          if(all(lapply(X=object,FUN=getArea,"shrubs","single")==getArea(object[1],"shrubs","single")) &
+             !anyNA(lapply(X=object,FUN=getArea,"shrubs","single"))
+             ) {ShSize[2]=getArea(object[1],"shrubs","single")}
           
           ShSdSize<-c(NaN,NaN)
-          if(all(lapply(X=object,FUN=getArea,"shseedlings","count")==getArea(object[1],"shseedlings","count"))) 
-          {ShSdSize[1]=getArea(object[1],"shseedlings","count")}
+          if(all(lapply(X=object,FUN=getArea,"shseedlings","count")==getArea(object[1],"shseedlings","count")) &
+             !anyNA(lapply(X=object,FUN=getArea,"shseedlings","count"))
+             ) {ShSdSize[1]=getArea(object[1],"shseedlings","count")}
           
-          if(all(lapply(X=object,FUN=getArea,"shseedlings","single")==getArea(object[1],"shseedlings","single"))) 
-          {ShSdSize[2]=getArea(object[1],"shseedlings","single")}
+          if(all(lapply(X=object,FUN=getArea,"shseedlings","single")==getArea(object[1],"shseedlings","single")) &
+             !anyNA(lapply(X=object,FUN=getArea,"shseedlings","single"))
+             ) {ShSdSize[2]=getArea(object[1],"shseedlings","single")}
           
           VSize=c(NaN,NaN)
-          if(all(lapply(X=object,FUN=getArea,"vines","count")==getArea(object[1],"vines","count"))) 
-          {VSize[1]=getArea(object[1],"vines","count")}
+          if(all(lapply(X=object,FUN=getArea,"vines","count")==getArea(object[1],"vines","count")) &
+             !anyNA(lapply(X=object,FUN=getArea,"vines","count"))
+             ){VSize[1]=getArea(object[1],"vines","count")}
           
-          if(all(lapply(X=object,FUN=getArea,"vines","single")==getArea(object[1],"vines","single"))) 
-          {VSize[2]=getArea(object[1],"vines","single")}
-          
+          if(all(lapply(X=object,FUN=getArea,"vines","single")==getArea(object[1],"vines","single")) &
+             !anyNA(lapply(X=object,FUN=getArea,"vines","single"))
+             ){VSize[2]=getArea(object[1],"vines","single")}
           
           HSize=c(NaN,NaN)
-          if(all(lapply(X=object,FUN=getArea,"herbs","count")==getArea(object[1],"herbs","count"))) 
-          {HSize[1]=getArea(object[1],"herbs","count")}
+          if(all(lapply(X=object,FUN=getArea,"herbs","count")==getArea(object[1],"herbs","count")) &
+             !anyNA(lapply(X=object,FUN=getArea,"herbs","count"))
+             ){HSize[1]=getArea(object[1],"herbs","count")}
           
-          if(all(lapply(X=object,FUN=getArea,"herbs","single")==getArea(object[1],"herbs","single"))) 
-          {HSize[2]=getArea(object[1],"herbs","single")}
+          if(all(lapply(X=object,FUN=getArea,"herbs","single")==getArea(object[1],"herbs","single")) &
+             !anyNA(lapply(X=object,FUN=getArea,"herbs","single"))
+             ) {HSize[2]=getArea(object[1],"herbs","single")}
           
           new("NPSForVeg",
               ParkCode=ParkCode,

@@ -1,0 +1,10 @@
+2016-02-19 NPSForVeg 0.2.0
+
++ added: NEWS file 
+
++ added: importERMN() importMIDN() and importNETN() functions so that data from those networks can be used.
+
++ fixed: make() will now work when a plot size is NA. This occurs when a type of vegetation (such as vines) is
+         not monitored in a park. Note that when you have a list of parks with different sized plots, dens() will not be 
+         able to make per area density estimates. 
+

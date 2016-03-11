@@ -21,14 +21,14 @@ getPlots(object, type = "active", visits = NA, years = NA, plots = NA,
 
 \item{years}{A numeric vector. Returns only plot data from plots where the yeare the plot was visited  matches one of the values in \code{years} The year a visit takes place is determined by the \code{Event_Year} column in the \code{Events} slot.}
 
-\item{subparks}{A character vector. Returns only data from plots where the subpark the plot is in matches one of the values in \code{subparks} The subpark a plot is locaed in is determined by the \code{SubUnit_Code} column in the \code{Plots} slot. 
- @param output Either "dataframe" (the default) or "list". Note that this must be in quotes. Determines the type of output from the function.
+\item{subparks}{A character vector. Returns only data from plots where the subpark the plot is in matches one of the values in \code{subparks} The subpark a plot is locaed in is determined by the \code{SubUnit_Code} column in the \code{Plots} slot.}
 
- @details This function returns plot data either from a single NPSForVeg object or a list of such objects. The default output is a data.frame. However, if \code{object} is a list and \code{output} is "list" then a list of data.frames will be returned. The name of each element in this list will correspond to the \code{ParkCode} in each NPSForVeg object. 
- 
- @export}
+\item{output}{Either "dataframe" (the default) or "list". Note that this must be in quotes. Determines the type of output from the function.}
 }
 \description{
 Returns the contents of the \code{Plots} slot of an NPSForVeg object. The retunred data can be filtered to meet various criteria.
+}
+\details{
+This function returns plot data either from a single NPSForVeg object or a list of such objects. The default output is a data.frame. However, if \code{object} is a list and \code{output} is "list" then a list of data.frames will be returned. The name of each element in this list will correspond to the \code{ParkCode} in each NPSForVeg object.
 }
 

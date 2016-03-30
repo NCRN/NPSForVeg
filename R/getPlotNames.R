@@ -12,11 +12,11 @@
 #' @param visits A numeric vector. Returns only plot names where the number of plot visits matches one of the values in \code{visits} The number of visits to a plot is determined by the \code{Event_Count} column in the \code{Events} slot. 
 #' @param years A numeric vector. Returns only plot names where the yeare the plot was visited  matches one of the values in \code{years} The year a visit takes place is determined by the \code{Event_Year} column in the \code{Events} slot. 
 #' @param subparks A character vector. Returns only plot names where the subpark the plot is in matches one of the values in \code{subparks} The subpark a plot is locaed in is determined by the \code{SubUnit_Code} column in the \code{Plots} slot. 
-#'  @param output Either "vector" (the default) or "list". Note that this must be in qutoes. Determines the type of output from the function
+#' @param output Either "vector" (the default) or "list". Note that this must be in qutoes. Determines the type of output from the function
 #'  
-#'  @details This function returns plot names either from a single NPSForVeg object or a list of such objects. One use for this function is to assemble a vector of plot names that meet some criteria (location, when they were monitored, etc) that can then be passed on to the \code{plots} arguement of a second fucntion such as \code{getPlants}, \code{IV}, \code{dens} etc.  The default output is a charcacter vector. However, if \code{object} is a list and \code{output} is "list" then a list of character vectors will be returned. The name of each element in this list will correspond to the \code{ParkCode} in each NPSForVeg object. 
+#' @details This function returns plot names either from a single NPSForVeg object or a list of such objects. One use for this function is to assemble a vector of plot names that meet some criteria (location, when they were monitored, etc) that can then be passed on to the \code{plots} arguement of a second fucntion such as \code{getPlants}, \code{IV}, \code{dens} etc.  The default output is a charcacter vector. However, if \code{object} is a list and \code{output} is "list" then a list of character vectors will be returned. The name of each element in this list will correspond to the \code{ParkCode} in each NPSForVeg object. 
 #'  
-#'  @export
+#' @export
 
 setGeneric(name="getPlotNames",function(object,...,type = "active",visits=NA, years=NA, subparks=NA, output="vector"){standardGeneric("getPlotNames")},signature="object")
 

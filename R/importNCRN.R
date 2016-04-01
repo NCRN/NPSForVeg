@@ -1,6 +1,6 @@
 #' @title importNCRN
 #' 
-#' @description  This function imports data from the standard NCRN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, Shrubs, Shrub_Seedlings, Vines, Herbs and CommonNames.
+#' @description  This function imports data from the standard NCRN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, Shrubs, Shrub_Seedlings, Vines, Herbs, NCRNSoil, SoilChemistryVariables, and CommonNames.
 #' 
 #' @param Dir  The directory where the data is found
 #' 
@@ -8,7 +8,6 @@
 #' 
 #' @export
 #' 
-
 
 importNCRN<-function(Dir){
   OldDir<-getwd()
@@ -21,6 +20,9 @@ importNCRN<-function(Dir){
   InEvents<-read.csv("Events.csv",as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
+  InSoils<-read.csv("NCRNSoil.csv",as.is=T,header=T)
+  InSoils$Sample_Date<-as.Date(as.character(InSoils$Date),format="%Y%m%d") #Add new slot for Soils
+  InChemVars<-read.csv("SoilChemistryVariables.csv",as.is=T,header=T)
   
   InTrees<-read.csv("Trees.csv",as.is=T, header=T)
   InSaps<-read.csv("Saplings.csv",as.is=T, header=T)
@@ -59,6 +61,8 @@ importNCRN<-function(Dir){
            ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="ANTI",],
            Vines=InVines[InVines$Unit_Code=="ANTI",], 
            Herbs=InHerbs[InHerbs$Unit_Code=="ANTI",],
+           Soils=InSoils[InSoils$Unit_Code=="ANTI",],
+           ChemVars=InChemVars,
            Commons=InCommons)
  
  
@@ -86,6 +90,8 @@ importNCRN<-function(Dir){
            ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="CATO",],
            Vines=InVines[InVines$Unit_Code=="CATO",], 
            Herbs=InHerbs[InHerbs$Unit_Code=="CATO",],
+           Soils=InSoils[InSoils$Unit_Code=="CATO",],
+           ChemVars=InChemVars,
            Commons=InCommons)
 
 CHOH<-new("NPSForVeg", 
@@ -112,6 +118,8 @@ CHOH<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="CHOH",],
           Vines=InVines[InVines$Unit_Code=="CHOH",], 
           Herbs=InHerbs[InHerbs$Unit_Code=="CHOH",],
+          Soils=InSoils[InSoils$Unit_Code=="CHOH",],
+          ChemVars=InChemVars,
           Commons=InCommons)
 
 GWMP<-new("NPSForVeg", 
@@ -138,6 +146,8 @@ GWMP<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="GWMP",],
           Vines=InVines[InVines$Unit_Code=="GWMP",], 
           Herbs=InHerbs[InHerbs$Unit_Code=="GWMP",],
+          Soils=InSoils[InSoils$Unit_Code=="GWMP",],
+          ChemVars=InChemVars,
           Commons=InCommons)
 
 HAFE<-new("NPSForVeg", 
@@ -164,6 +174,8 @@ HAFE<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="HAFE",],
           Vines=InVines[InVines$Unit_Code=="HAFE",], 
           Herbs=InHerbs[InHerbs$Unit_Code=="HAFE",],
+          Soils=InSoils[InSoils$Unit_Code=="HAFE",],
+          ChemVars=InChemVars,
           Commons=InCommons)
 
 MANA<-new("NPSForVeg",
@@ -190,6 +202,8 @@ MANA<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="MANA",],
           Vines=InVines[InVines$Unit_Code=="MANA",],
           Herbs=InHerbs[InHerbs$Unit_Code=="MANA",],
+          Soils=InSoils[InSoils$Unit_Code=="MANA",],
+          ChemVars=InChemVars,
           Commons=InCommons) 
 
 MONO<-new("NPSForVeg",
@@ -216,6 +230,8 @@ MONO<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="MONO",],
           Vines=InVines[InVines$Unit_Code=="MONO",],
           Herbs=InHerbs[InHerbs$Unit_Code=="MONO",],
+          Soils=InSoils[InSoils$Unit_Code=="MONO",],
+          ChemVars=InChemVars,
           Commons=InCommons) 
 
 NACE<-new("NPSForVeg",
@@ -242,6 +258,8 @@ NACE<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="NACE",],
           Vines=InVines[InVines$Unit_Code=="NACE",],
           Herbs=InHerbs[InHerbs$Unit_Code=="NACE",],
+          Soils=InSoils[InSoils$Unit_Code=="NACE",],
+          ChemVars=InChemVars,
           Commons=InCommons) 
 
 PRWI<-new("NPSForVeg",
@@ -268,6 +286,8 @@ PRWI<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="PRWI",],
           Vines=InVines[InVines$Unit_Code=="PRWI",],
           Herbs=InHerbs[InHerbs$Unit_Code=="PRWI",],
+          Soils=InSoils[InSoils$Unit_Code=="PRWI",],
+          ChemVars=InChemVars,
           Commons=InCommons) 
 
 ROCR<-new("NPSForVeg",
@@ -294,6 +314,8 @@ ROCR<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="ROCR",],
           Vines=InVines[InVines$Unit_Code=="ROCR",],
           Herbs=InHerbs[InHerbs$Unit_Code=="ROCR",],
+          Soils=InSoils[InSoils$Unit_Code=="ROCR",],
+          ChemVars=InChemVars,
           Commons=InCommons) 
 
 WOTR<-new("NPSForVeg",
@@ -320,6 +342,8 @@ WOTR<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="WOTR",],
           Vines=InVines[InVines$Unit_Code=="WOTR",],
           Herbs=InHerbs[InHerbs$Unit_Code=="WOTR",],
+          Soils=InSoils[InSoils$Unit_Code=="WOTR",],
+          ChemVars=InChemVars,
           Commons=InCommons)
 
   

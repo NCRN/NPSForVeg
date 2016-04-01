@@ -1,6 +1,6 @@
 #' @title importMIDN
 #' 
-#' @description  This function imports data from the standard MIDN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, Vines and CommonNames.
+#' @description  This function imports data from the standard MIDN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, Vines, MIDNSoil, SoilChemistryVariables, and CommonNames.
 #' 
 #' @param Dir  The directory where the data is found
 #' 
@@ -21,6 +21,9 @@ importMIDN<-function(Dir){
   InEvents<-read.csv("Events.csv",as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
+  InSoils<-read.csv("MIDNSoil.csv",as.is=T,header=T)
+  InSoils$Sample_Date<-as.Date(as.character(InSoils$Date),format="%Y%m%d") #Add new slot for Soils
+  InChemVars<-read.csv("SoilChemistryVariables.csv",as.is=T,header=T)
   
   InTrees<-read.csv("Trees.csv",as.is=T, header=T)
   InSaps<-read.csv("Saplings.csv",as.is=T, header=T)
@@ -58,6 +61,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="APCO",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="APCO",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="APCO",],
+            Soils=InSoils[InSoils$Unit_Code=="APCO",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   
@@ -87,6 +92,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="BOWA",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="BOWA",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="BOWA",],
+            Soils=InSoils[InSoils$Unit_Code=="BOWA",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   COLO<-new("NPSForVeg", 
@@ -115,6 +122,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="COLO",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="COLO",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="COLO",],
+            Soils=InSoils[InSoils$Unit_Code=="COLO",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   
@@ -145,6 +154,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="FRSP",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="FRSP",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="FRSP",],
+            Soils=InSoils[InSoils$Unit_Code=="FRSP",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   GETT<-new("NPSForVeg", 
@@ -173,6 +184,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="GETT",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="GETT",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="GETT",],
+            Soils=InSoils[InSoils$Unit_Code=="GETT",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   
@@ -202,6 +215,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="ANTI",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="GEWA",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="GEWA",],
+            Soils=InSoils[InSoils$Unit_Code=="GEWA",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   HOFU<-new("NPSForVeg", 
@@ -230,6 +245,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="HOFU",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="HOFU",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="HOFU",],
+            Soils=InSoils[InSoils$Unit_Code=="HOFU",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   PETE<-new("NPSForVeg", 
@@ -258,6 +275,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="PETE",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="PETE",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="PETE",],
+            Soils=InSoils[InSoils$Unit_Code=="PETE",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   
@@ -287,6 +306,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="RICH",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="RICH",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="RICH",],
+            Soils=InSoils[InSoils$Unit_Code=="RICH",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   
@@ -316,6 +337,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="SAHI",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="SAHI",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="SAHI",],
+            Soils=InSoils[InSoils$Unit_Code=="SAHI",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   THST<-new("NPSForVeg", 
@@ -344,6 +367,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="THST",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="THST",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="THST",],
+            Soils=InSoils[InSoils$Unit_Code=="THST",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   VAFO<-new("NPSForVeg", 
@@ -372,6 +397,8 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="VAFO",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="VAFO",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="VAFO",],
+            Soils=InSoils[InSoils$Unit_Code=="VAFO",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   return(c(APCO,BOWA,COLO,FRSP,GETT,GEWA,HOFU,PETE,RICH,SAHI,THST,VAFO))

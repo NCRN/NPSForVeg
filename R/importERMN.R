@@ -1,7 +1,7 @@
 
 #' @title importERMN
 #' 
-#' @description  This function imports data from the standard ERMN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings and CommonNames.
+#' @description  This function imports data from the standard ERMN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, ERMNSoil,SoilChemistryVariables,and CommonNames.
 #' 
 #' @param Dir  The directory where the data is found
 #' 
@@ -22,6 +22,9 @@ importERMN<-function(Dir){
   InEvents<-read.csv("Events.csv",as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
+  InSoils<-read.csv("ERMNSoil.csv",as.is=T,header=T)
+  InSoils$Sample_Date<-as.Date(as.character(InSoils$Date),format="%Y%m%d") #Add new slot for Soils
+  InChemVars<-read.csv("SoilChemistryVariables.csv",as.is=T,header=T)
   
   InTrees<-read.csv("Trees.csv",as.is=T, header=T)
   InSaps<-read.csv("Saplings.csv",as.is=T, header=T)
@@ -48,6 +51,8 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="ALPO",], 
             Saplings=InSaps[InSaps$Unit_Code=="ALPO",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="ALPO",], 
+            Soils=InSoils[InSoils$Unit_Code=="ALPO",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   BLUE<-new("NPSForVeg", 
@@ -67,6 +72,8 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="BLUE",], 
             Saplings=InSaps[InSaps$Unit_Code=="BLUE",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="BLUE",], 
+            Soils=InSoils[InSoils$Unit_Code=="BLUE",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   DEWA<-new("NPSForVeg", 
@@ -86,6 +93,8 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="DEWA",], 
             Saplings=InSaps[InSaps$Unit_Code=="DEWA",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="DEWA",], 
+            Soils=InSoils[InSoils$Unit_Code=="DEWA",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   FONE<-new("NPSForVeg", 
@@ -105,6 +114,8 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="FONE",], 
             Saplings=InSaps[InSaps$Unit_Code=="FONE",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="FONE",], 
+            Soils=InSoils[InSoils$Unit_Code=="FONE",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   FRHI<-new("NPSForVeg", 
@@ -124,6 +135,8 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="FRHI",], 
             Saplings=InSaps[InSaps$Unit_Code=="FRHI",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="FRHI",], 
+            Soils=InSoils[InSoils$Unit_Code=="FRHI",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   GARI<-new("NPSForVeg",
@@ -143,6 +156,8 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="GARI",], 
             Saplings=InSaps[InSaps$Unit_Code=="GARI",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="GARI",], 
+            Soils=InSoils[InSoils$Unit_Code=="GARI",],
+            ChemVars=InChemVars,
             Commons=InCommons) 
   
   JOFL<-new("NPSForVeg",
@@ -162,6 +177,8 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="JOFL",],  
             Saplings=InSaps[InSaps$Unit_Code=="JOFL",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="JOFL",], 
+            Soils=InSoils[InSoils$Unit_Code=="JOFL",],
+            ChemVars=InChemVars,
             Commons=InCommons) 
   
   NERI<-new("NPSForVeg",
@@ -181,6 +198,8 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="NERI",], 
             Saplings=InSaps[InSaps$Unit_Code=="NERI",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="NERI",], 
+            Soils=InSoils[InSoils$Unit_Code=="NERI",],
+            ChemVars=InChemVars,
             Commons=InCommons) 
   
   

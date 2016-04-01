@@ -1,6 +1,6 @@
 #' @title importNETN
 #' 
-#' @description  This function imports data from the standard NCRN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: NETNPlots, NETNEvents, NETNTrees, NETNSaplings, NETNSeedlings, and NETNCommonNames.
+#' @description  This function imports data from the standard NCRN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: NETNPlots, NETNEvents, NETNTrees,  NETNSaplings, NETNSeedlings, NETNSoil, SoilChemistryVariables, and NETNCommonNames.
 #' 
 #' @param Dir  Path to the directory where the data is found, in quotes.
 #' 
@@ -21,6 +21,9 @@ importNETN<-function(Dir){
   InEvents<-read.csv("NETNEvents.csv",as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
+  InSoils<-read.csv("NETNSoil.csv",as.is=T,header=T)
+  InSoils$Sample_Date<-as.Date(as.character(InSoils$Date),format="%Y%m%d") #Add new slot for Soils
+  InChemVars<-read.csv("SoilChemistryVariables.csv",as.is=T,header=T)
   
   InTrees<-read.csv("NETNTrees.csv",as.is=T, header=T)
   InSaps<-read.csv("NETNSaplings.csv",as.is=T, header=T)
@@ -48,7 +51,7 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2), 
             #VPlotSize=c(1,15*15),#not active for NETN
             HPlotSize=c(8,1),
-            
+        
             Plots=InPlots[InPlots$Unit_Code=="ACAD",], 
             Events=InEvents[InEvents$Unit_Code=="ACAD",],
             
@@ -59,6 +62,8 @@ importNETN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="ACAD",],
             #Vines=InVines[InVines$Unit_Code=="ACAD",], 
             #Herbs=InHerbs[InHerbs$Unit_Code=="ACAD",],
+            Soils=InSoils[InSoils$Unit_Code=="ACAD",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   MABI<-new("NPSForVeg", 
@@ -85,6 +90,8 @@ importNETN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="MABI",],
             #Vines=InVines[InVines$Unit_Code=="MABI",], 
             #Herbs=InHerbs[InHerbs$Unit_Code=="MABI",],
+            Soils=InSoils[InSoils$Unit_Code=="MABI",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   MIMA<-new("NPSForVeg", 
@@ -111,6 +118,8 @@ importNETN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="MIMA",],
             #Vines=InVines[InVines$Unit_Code=="MIMA",], 
             #Herbs=InHerbs[InHerbs$Unit_Code=="MIMA",],
+            Soils=InSoils[InSoils$Unit_Code=="MIMA",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   MORR<-new("NPSForVeg", 
@@ -137,6 +146,7 @@ importNETN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="MORR",],
             #Vines=InVines[InVines$Unit_Code=="MORR",], 
             #Herbs=InHerbs[InHerbs$Unit_Code=="MORR",],
+            Soils=InSoils[InSoils$Unit_Code=="MORR",],
             Commons=InCommons)
   
   ROVA<-new("NPSForVeg", 
@@ -163,6 +173,8 @@ importNETN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="ROVA",],
             #Vines=InVines[InVines$Unit_Code=="ROVA",], 
             #Herbs=InHerbs[InHerbs$Unit_Code=="ROVA",],
+            Soils=InSoils[InSoils$Unit_Code=="ROVA",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   SAGA<-new("NPSForVeg", 
@@ -189,6 +201,8 @@ importNETN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="SAGA",],
             #Vines=InVines[InVines$Unit_Code=="SAGA",], 
             #Herbs=InHerbs[InHerbs$Unit_Code=="SAGA",],
+            Soils=InSoils[InSoils$Unit_Code=="SAGA",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   SARA<-new("NPSForVeg", 
@@ -215,6 +229,8 @@ importNETN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="SARA",],
             #Vines=InVines[InVines$Unit_Code=="SARA",], 
             #Herbs=InHerbs[InHerbs$Unit_Code=="SARA",],
+            Soils=InSoils[InSoils$Unit_Code=="SARA",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   
   WEFA<-new("NPSForVeg", 
@@ -241,6 +257,8 @@ importNETN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="WEFA",],
             #Vines=InVines[InVines$Unit_Code=="WEFA",], 
             #Herbs=InHerbs[InHerbs$Unit_Code=="WEFA",],
+            Soils=InSoils[InSoils$Unit_Code=="WEFA",],
+            ChemVars=InChemVars,
             Commons=InCommons)
   return(c(ACAD,MABI,MIMA,MORR,ROVA,SAGA,SARA,WEFA))
 }

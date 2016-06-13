@@ -45,7 +45,7 @@ setMethod(f='make', signature=c(object="list"),
              ) {SdSize[1]=getArea(object[1],"seedlings","count")}
           
           if(all(lapply(X=object,FUN=getArea,"seedlings","single")==getArea(object[1],"seedlings","single")) &
-             any(is.na(lapply(X=object,FUN=getArea,"seedlings","single")))
+             !anyNA(lapply(X=object,FUN=getArea,"seedlings","single"))
              ) {SdSize[2]=getArea(object[1],"seedlings","single")}
           
           ShSize<-c(NaN,NaN)

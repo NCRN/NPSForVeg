@@ -1,5 +1,11 @@
-2016-3-11 NPSForVeg 0.2.1
- + Fixed - fixed error with getPlots that prevented the command from being exported and introduced typos into the help file.
+2016-06-13 NPSForVeg 0.2.3
++ Fixed - error in make() that resulted in a missing tree seedling plot size. 
+
+2016-03-30 NPSForVeg 0.2.2
++ Fixed documentation error in getPlotNames()
+
+2016-03-11 NPSForVeg 0.2.1
++ Fixed - fixed error with getPlots() that prevented the command from being exported and introduced typos into the help file.
 
 2016-02-19 NPSForVeg 0.2.0
 

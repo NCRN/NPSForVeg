@@ -1,3 +1,6 @@
+2016-06-14 NFSForveg 0.2.4
++Fixed - made sure importMIDN imported plots names in the event slot as character, rather than integer.
+
 2016-06-13 NPSForVeg 0.2.3
 + Fixed - error in make() that resulted in a missing tree seedling plot size. 
 

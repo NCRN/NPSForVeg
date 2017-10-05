@@ -82,24 +82,24 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
             if(!sum(is.na(crown))>0 & group=="trees") XPlants<-XPlants[XPlants$Crown_Description %in% crown,]
             
             if(!is.na(size.min)) switch(group,
-                                      trees=,saplings= XPlants<-XPlants[XPlants$Equiv_Live_DBH_cm>=size.min,],
-                                      seedlings=,shseedlings= XPlants<-XPlants[XPlants$Height>=size.min,],
-                                      herbs=XPlants<-XPlants[XPlants$Percent_Cover>=size.min,])
+                                      trees=,saplings= XPlants<-XPlants[XPlants$Equiv_Live_DBH_cm>=size.min & !is.na(XPlants$Equiv_Live_DBH_cm),],
+                                      seedlings=,shseedlings= XPlants<-XPlants[XPlants$Height>=size.min & !is.na(XPlants$Height),],
+                                      herbs=XPlants<-XPlants[XPlants$Percent_Cover>=size.min & !is.na(XPlants$Percent_Cover),])
             
             if(!is.na(size.max)) switch(group,
-                                        trees=,saplings= XPlants<-XPlants[XPlants$Equiv_Live_DBH_cm<=size.max,],
-                                        seedlings=,shseedlings= XPlants<-XPlants[XPlants$Height<=size.max,],
-                                        herbs=XPlants<-XPlants[XPlants$Percent_Cover<=size.max,])
+                                        trees=,saplings= XPlants<-XPlants[XPlants$Equiv_Live_DBH_cm<=size.max  & !is.na(XPlants$Equiv_Live_DBH_cm),],
+                                        seedlings=,shseedlings= XPlants<-XPlants[XPlants$Height<=size.max & !is.na(XPlants$Height),],
+                                        herbs=XPlants<-XPlants[XPlants$Percent_Cover<=size.max & !is.na(XPlants$Percent_Cover),])
             
             if(!is.na(BA.min)) switch(group,
-                                        trees=,saplings= XPlants<-XPlants[XPlants$SumLiveBasalArea_cm2>=BA.min,],
-                                        seedlings=,shseedlings= stop("Seedlings don't have a basal area"),
-                                        herbs=stop("Herbs don't have a basal area"))
+                                    trees=,saplings= XPlants<-XPlants[XPlants$SumLiveBasalArea_cm2>=BA.min & !is.na(XPlants$SumLiveBasalArea_cm2),],
+                                    seedlings=,shseedlings= stop("Seedlings don't have a basal area"),
+                                    herbs=stop("Herbs don't have a basal area"))
             
             if(!is.na(BA.max)) switch(group,
-                                        trees=,saplings= XPlants<-XPlants[XPlants$SumLiveBasalArea_cm2<=BA.max,],
-                                        seedlings=,shseedlings= stop("Seedlings don't have a basal area"),
-                                        herbs=stop("Herbs don't have a basal area"))
+                                    trees=,saplings= XPlants<-XPlants[XPlants$SumLiveBasalArea_cm2<=BA.max & !is.na(XPlants$SumLiveBasalArea_cm2),],
+                                    seedlings=,shseedlings= stop("Seedlings don't have a basal area"),
+                                    herbs=stop("Herbs don't have a basal area"))
             
             if(!sum(is.na(host.tree))>0 & group=="vines") XPlants<-XPlants[XPlants$Host_Latin_Name %in% host.tree,]
             

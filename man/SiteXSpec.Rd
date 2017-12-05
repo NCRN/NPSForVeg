@@ -41,4 +41,3 @@ This function will first call \code{\link{getPlants}} to retrieve the plant data
 
 Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in the function call.
 }
-

@@ -1,3 +1,6 @@
+2017-12-05
++ Added importSHEN for Sheandoah data.
+
 2016-06-14 NFSForveg 0.2.4
 +Fixed - made sure importMIDN imported plots names in the event slot as character, rather than integer.
 

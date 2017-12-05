@@ -27,4 +27,3 @@ Translates Latin names to common names using TSN numbers
 \details{
 This function will covert the names in \code{names} to the style specified in \code{out.style}, using the data in the \code{Commons} slot of an object of class \code{NPSForVeg}. Note that TSN numbers are used to covert from one style of name to the other.
 }
-

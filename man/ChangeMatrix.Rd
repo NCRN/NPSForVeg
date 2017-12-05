@@ -47,4 +47,3 @@ This function will first call \code{\link{SiteXSpec}} to create  site by species
 Additional arguments accepted by \code{\link{SiteXSpec}} or \code{\link{getPlants}} can be used as well. Currently using the \code{cycles} argument will result in errors. 
 Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in the function call.
 }
-

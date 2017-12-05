@@ -22,4 +22,3 @@ A character vector with one or more park names.
 \description{
 Retreives park names from an NPSForVeg object of a list of such objects.
 }
-

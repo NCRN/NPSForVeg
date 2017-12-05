@@ -15,4 +15,3 @@ Returns a list containing 8 \code{NPSForVeg} objects, one for each park, named u
 \description{
 This function imports data from the standard ERMN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings and CommonNames.
 }
-

@@ -34,4 +34,3 @@ This fucntion uses the \code{xyplot} function in the \pkg{lattice} package to cr
 If two or more datasets are used, then  each species is plotted in its own panel, with mean and CI for each dataset. In this case  and the legend uses the contents of \code{labels} to identify each dataset. 
 If \code{top=0} and \code{Total=TRUE} then only the totals are displayed. If \code{top=NA} then all species are displayed. One or more particular species can be selected by including a \code{species=} argument to \code{densargs} and / or \code{compare}.
 }
-

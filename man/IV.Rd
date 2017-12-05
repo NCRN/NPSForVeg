@@ -28,4 +28,3 @@ This function is used to calculate forestry importance values in conjcution with
    \code{SiteXSpec} is then used to create three site X spcies matrices - one which measures abundance per plot, one which is a measure of size per plot and one which is a presence/absence matrix. For trees, saplings and seedlings abundance is mearsured as the number of stems per plot, whereas for herb abundace is the number of quadrats a speices is found in. Size is measured as basal area for trees and saplings, height for seedlings and percent cover for herbs. 
    Once the matrices are created they are passed to \code{\link{calcIV}} which calcuates the IV values.
 }
-

@@ -20,4 +20,3 @@ gets the common names \code{data.frame} from one or more \code{NPSForVeg} object
 \details{
 When the "object" is a single \code{NPSForVeg} object this function will return the \code{data.frame} in the "Commons" slot  which should have the Latin and common names of the plants as well as the TSN Numbers. When "object" is a \code{list} and "output" is "dataframe" a combied \code{data.frame} with the "Commons" slot from all NPSForVeg elements is returned. If the "object" is a \code{list} and "output" is "list" then a \code{list} is returned. Each element of the \code{list} will be the "Commons" slot from one the input \code{NPForVeg} objects, and the name of each element corresponds to the name of the \code{NPSForVeg} object it comes from.
 }
-

@@ -58,4 +58,3 @@ The \code{colors} agrument indicates which colors will be chosen for the plots. 
 
 Currently there is no legend displayed with the map. However, if you click on a circle it will give you the Plot Name and the value associated with the plot.
 }
-

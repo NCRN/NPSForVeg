@@ -31,4 +31,3 @@ Returns the contents of the \code{Plots} slot of an NPSForVeg object. The retunr
 \details{
 This function returns plot data either from a single NPSForVeg object or a list of such objects. The default output is a data.frame. However, if \code{object} is a list and \code{output} is "list" then a list of data.frames will be returned. The name of each element in this list will correspond to the \code{ParkCode} in each NPSForVeg object.
 }
-

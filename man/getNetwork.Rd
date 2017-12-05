@@ -15,4 +15,3 @@ A characeter vector of network codes. For a single \code{NPSForVeg} object a sin
 \description{
 Returns the network code for a object of class \code{NPSForVeg}
 }
-

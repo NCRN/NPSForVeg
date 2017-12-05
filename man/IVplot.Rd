@@ -38,4 +38,3 @@ If two or more datasets are used, and \code{parts=FALSE} then all results are gr
 \seealso{
 \code{\link{IV}}
 }
-

@@ -54,4 +54,3 @@ Retrieves plant data from an \code{NPSForVeg} object.
 \details{
 This function extracts data on plants from an \code{NPSForVeg} object. This function is called by other analysis and graphing functions. \code{getPlants} has a variety of arguements that narrow the response down to plants that match critera such as Latin name, size, crown class etc.
 }
-

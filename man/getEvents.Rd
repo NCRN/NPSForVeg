@@ -32,4 +32,3 @@ This function gets the contents of the "Events" slot of an NPSForVeg object.
 \details{
 This function returns the \code{Events} slot of an NPSForVeg object or a list of such objects. This can be filtered by specifying \code{plots}, \code{years}, or \code{plot.type}. Currently, however, you cannot specify both \code{years} and \code{plots}. If \code{object} is a single NPSForVeg object than a data.frame is returned. If \code{object} is a list and \code{output} is "dataframe" then a single data.frame with data from all NPSForVeg objects in the list is returned. If \code{object} is a list and \code{ouput} is "list" then a list will be returned. Each element of the list will be a data.frame with the "Events" slot of one of the NPSForVeg objects.
 }
-

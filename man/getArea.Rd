@@ -24,4 +24,3 @@ For a single NPSForVeg object getArea returns a vector of lenght one. For a list
 \description{
 Retrieves the number and area of varios plot sizes from an object of class NPSForVeg.
 }
-

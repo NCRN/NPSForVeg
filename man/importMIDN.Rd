@@ -15,4 +15,3 @@ Returns a list with 12 \code{NPSForVeg} objects, one for each park.
 \description{
 This function imports data from the standard MIDN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, Vines and CommonNames.
 }
-

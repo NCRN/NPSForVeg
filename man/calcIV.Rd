@@ -20,4 +20,3 @@ Returns a \code{data.frame} with the Importance Values for each species, the col
 | Calculates the Importance Value from three Site X Species data frames 
 | One for abundance, one for basal area, one for presence-absence
 }
-

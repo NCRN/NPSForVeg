@@ -1,8 +1,8 @@
 Package: NPSForVeg
 Type: Package
 Title: Data anaylsis and graphing for NPS forest vegetation monitoring.
-Version: 0.2.6
-Date: 2017-12-05
+Version: 0.2.7
+Date: 2017-12-07
 Author: John Paul Schmit
 Maintainer: John Paul Schmit <John_Schmit@nps.gov>
 Description: This package is designed to analyze and display forest monitoring
@@ -44,6 +44,4 @@ Collate:
     'importSHEN.R'
     'make.R'
     'mapPlants.R'
-    'stocking.R'
-    'stockplot.R'
 RoxygenNote: 6.0.1

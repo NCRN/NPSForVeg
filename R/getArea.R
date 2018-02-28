@@ -1,17 +1,17 @@
 #' @title getArea
 #' 
-#' @description Retrieves the number and area of varios plot sizes from an object of class NPSForVeg.
+#' @description Retrieves the number and area of various plot sizes from an object of class NPSForVeg.
 #' 
 #' @param object Either an object of class NPSForVeg, or a list of objects of class NPSForVeg
-#' @param group Indicates which plant groups the area should correspond to, as different groups are monitoired on different size plots. The name of the group should be enclosed in quotes. Acceptable values are" "trees", "saplings", "seedlings","shrubs", "shseedlings","vines", "herbs".
-#' @param type Indicated the type of area to be returned, and should be enclosed in quotes. Acceptable values are" 
+#' @param group Indicates which plant groups the area should correspond to, as different groups are monitored on different size plots. The name of the group should be enclosed in quotes. Acceptable values are" "trees", "saplings", "seedlings","shrubs", "shseedlings","vines", "herbs".
+#' @param type Indicates the type of area to be returned, and should be enclosed in quotes. Acceptable values are 
 #'\describe{
-#'  \item{"all"}{(the default) return the total area sampled per plot for that group.}
-#'  \item{"single"}{return the area of one of the subsamples (eg. microplot or quadrat).If there is only one sample of that group, such as trees sample over an entire plot, than "single" and "all" will produce identical results}
+#'  \item{"all"}{(the default) Returns the total area sampled per plot for that group.}
+#'  \item{"single"}{Returns the area of one of the subsamples (eg. microplot or quadrat).If there is only one sample of that group, such as trees sample over an entire plot, than "single" and "all" will produce identical results}
 #'  \item{"count"}{A count of the number of the number of subplots/microplots/quadrats that the group is monitored in.}
 #'}
 #' 
-#' @return For a single NPSForVeg object getArea returns a vector of lenght one. For a list of such object it returns a vector as long as the list. 
+#' @return For a single NPSForVeg object getArea returns a vector of length one. For a list of such object it returns a vector as long as the list. 
 #' 
 #' @export
 

@@ -1,8 +1,8 @@
 #' @title importNETN
 #' 
-#' @description  This function imports data from the standard NCRN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: NETNPlots, NETNEvents, NETNTrees, NETNSaplings, NETNSeedlings, and NETNCommonNames.
+#' @description  This function imports data from the standard NETN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, and CommonNames.
 #' 
-#' @param Dir  Path to the directory where the data is found, in quotes.
+#' @param Dir  Path to the directory where the data is found, in quotes. Path should not have a trailing slash
 #' 
 #' @return Returns a list with 8 \code{NPSForVeg} objects, one for each park.
 #' 
@@ -11,28 +11,25 @@
 
 
 importNETN<-function(Dir){
-  OldDir<-getwd()
-  setwd(Dir)  
-  
-  InPlots<-read.csv("NETNPlots.csv",as.is=T, header=T)
+
+  InPlots<-read.csv(paste(Dir,"Plots.csv",sep="/"),as.is=T, header=T)
   InPlots$Event_Earliest<-as.Date(as.character(InPlots$Event_Earliest), format="%Y%m%d")
   InPlots$Event_Latest<-as.Date(as.character(InPlots$Event_Latest),format="%Y%m%d")
   
-  InEvents<-read.csv("NETNEvents.csv",as.is=T, header=T)
+  InEvents<-read.csv(paste(Dir,"Events.csv", sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
   
-  InTrees<-read.csv("NETNTrees.csv",as.is=T, header=T)
-  InSaps<-read.csv("NETNSaplings.csv",as.is=T, header=T)
-  InSeeds<-read.csv("NETNSeedlings.csv",as.is=T, header=T)
+  InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
+  InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
+  InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)
   #InShrubs<-read.csv("Shrubs.csv",as.is=T, header=T)
   #InShSeeds<-read.csv("Shrub_Seedlings.csv",as.is=T, header=T)
   #InVines<-read.csv("Vines.csv",as.is=T, header=T)
   #InHerbs<-read.csv("Herbs.csv",as.is=T, header=T)
-  InCommons<-read.csv("NETNCommonNames.csv", as.is=T, header=T)
+  InCommons<-read.csv(paste(Dir, "CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
   InCommons$TSN<-as.character(InCommons$TSN)
-  setwd(OldDir)
   
   
   ACAD<-new("NPSForVeg", 

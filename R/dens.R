@@ -5,13 +5,13 @@
 #' @param object Either an object of class \code{NPSForVeg} or a \code{list} of such objects.
 #' @param group A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings", "shrubs" "shseedlings"(indicated shrub seedlings), "vines", or "herbs'. 
 #' @param years Defaults to \code{NA}. A required numeric vector indicating which years should be included.
-#' @param values Defaults to "count". Passed on to \code{\link{SiteXSpec}} Indicates the type of measurement which should be calculated. Options are:
+#' @param values Defaults to "count". Passed on to \code{\link{SiteXSpec}} Indicates the type of measurement which is calculated by the SiteXSpec function. Options are:
 #' \describe{
 #' \item{"count"}{The default. The number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants, for vines, it the number of trees a vine species grows on, and for herbs it will be the number of quadrats the plant occurs in.}
 #' \item{"size"}{For trees and saplings this is the total basal area per plot. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the total percent cover across all quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
-#' \item{"presab"}{The occupancy of the species measured as the proportion of plots it occurs in.}
+#' \item{"presab"}{A presence-absence matrix. When a plant species is present in a given plot, the corresponding cell value will be 1. Otherwise it will be 0.}
 #' }
-#'@param density Logical Value, defaults to \code{TRUE}, indicates if the resutlts shoud be present on a per plot basis or a per hectare basis. For \code{group="herbs"} and for \code{values="presab"} this is always treated as \code{FALSE} and results are always on a per plot basis.
+#'@param density Logical Value, defaults to \code{TRUE}, presents results on per hectare basis. \code{FALSE} presents results on a per plot basis. For \code{values="presab"} this is always treated as \code{FALSE} and results are always a proportion of plots.
 #'@param species Character vector, defaults to \code{NA}. Passed on to \code{\link{SiteXSpec}} and from there to \code{\link{getPlants}} to limit hte output to one or more designated species.
 #' @param  output Either "dataframe" or "list". Determines the output type When \code{object} is a list. "Dataframe",the default, indicates the \code{NSPForVeg} objects should combined and treated as a single dataset and return a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} with resutls from a  single \code{NSPForVeg} obeject, and each element is named based on that object's \code{ParkCode} slot. 
 #' @param ... Any additional arguments which are valid for either \code{SiteXSpec} or \code{getPlants}.

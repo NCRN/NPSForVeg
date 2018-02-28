@@ -7,11 +7,11 @@
 importNETN(Dir)
 }
 \arguments{
-\item{Dir}{Path to the directory where the data is found, in quotes.}
+\item{Dir}{Path to the directory where the data is found, in quotes. Path should not have a trailing slash}
 }
 \value{
 Returns a list with 8 \code{NPSForVeg} objects, one for each park.
 }
 \description{
-This function imports data from the standard NCRN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: NETNPlots, NETNEvents, NETNTrees, NETNSaplings, NETNSeedlings, and NETNCommonNames.
+This function imports data from the standard NETN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, and CommonNames.
 }

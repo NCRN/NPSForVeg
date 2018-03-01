@@ -10,25 +10,23 @@
 #' 
 
 importMIDN<-function(Dir){
-  OldDir<-getwd()
-  setwd(Dir)  
-  
-  InPlots<-read.csv("Plots.csv",as.is=T, header=T)
+
+  InPlots<-read.csv(paste(Dir,"Plots.csv",sep="/"),as.is=T, header=T)
   InPlots$Event_Earliest<-as.Date(as.character(InPlots$Event_Earliest), format="%Y%m%d")
   InPlots$Event_Latest<-as.Date(as.character(InPlots$Event_Latest),format="%Y%m%d")
   InPlots$Plot_Name<-as.character(InPlots$Plot_Name)
   
-  InEvents<-read.csv("Events.csv",as.is=T, header=T)
+  InEvents<-read.csv(paste(Dir,"Events.csv", sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   InEvents$Plot_Name<-as.character(InEvents$Plot_Name)
   
-  InTrees<-read.csv("Trees.csv",as.is=T, header=T)
-  InSaps<-read.csv("Saplings.csv",as.is=T, header=T)
+  InTrees<-read.csv(paste(Dir,"Trees.csv", sep="/"),as.is=T, header=T)
+  InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
   #InGrowthRates<-read.csv("treecalc.csv",as.is=T, header=T)
-  InSeeds<-read.csv("Seedlings.csv",as.is=T, header=T)#  each row is individual seedling with height and browse
+  InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)#  each row is individual seedling with height and browse
   #InSeedsQuad<-read.csv("Seedlings_Quad.csv",as.is=T, header=T)# quadrat level summary of tree seedlings
-  InVines<-read.csv("Vines.csv",as.is=T, header=T)
-  InCommons<-read.csv("CommonNames.csv", as.is=T, header=T)
+#  InVines<-read.csv("Vines.csv",as.is=T, header=T)
+  InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$TSN<-as.character(InCommons$TSN)
   setwd(OldDir)
   

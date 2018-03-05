@@ -3,7 +3,7 @@
 #' 
 #' @description  This function imports data from the standard ERMN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings and CommonNames.
 #' 
-#' @param Dir  The directory where the data is found
+#' @param Dir  The directory where the data is found. Path should not have a trailing slash.
 #' 
 #' @return Returns a list containing 8 \code{NPSForVeg} objects, one for each park, named using the standard 4 letter park code (e.g. ALPO, BLUE etc.) as part of a list.
 #' 

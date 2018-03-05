@@ -3,7 +3,7 @@
 #' 
 #' @description  This function imports data from Shenandoah's .csv files and saves it as an \code{NPSForVeg} object. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, Shrubs, Shrub_Seedlings, Herbs and CommonNames.
 #' 
-#' @param Dir  The directory where the data is found
+#' @param Dir  The directory where the data is found. Path should not have a trailing slash.
 #' 
 #' @return Returns 1 \code{NPSForVeg} object for the park.
 #' 

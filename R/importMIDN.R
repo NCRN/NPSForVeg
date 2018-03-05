@@ -2,7 +2,7 @@
 #' 
 #' @description  This function imports data from the standard MIDN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, Vines and CommonNames.
 #' 
-#' @param Dir  The directory where the data is found
+#' @param Dir  The directory where the data is found. Path should not have a trailing slash.
 #' 
 #' @return Returns a list with 12 \code{NPSForVeg} objects, one for each park.
 #' 
@@ -25,7 +25,7 @@ importMIDN<-function(Dir){
   #InGrowthRates<-read.csv("treecalc.csv",as.is=T, header=T)
   InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)#  each row is individual seedling with height and browse
   #InSeedsQuad<-read.csv("Seedlings_Quad.csv",as.is=T, header=T)# quadrat level summary of tree seedlings
-#  InVines<-read.csv("Vines.csv",as.is=T, header=T)
+  InVines<-read.csv(paste(Dir,"Vines.csv",sep="/"),as.is=T, header=T)
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$TSN<-as.character(InCommons$TSN)
 

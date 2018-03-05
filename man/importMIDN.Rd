@@ -7,7 +7,7 @@
 importMIDN(Dir)
 }
 \arguments{
-\item{Dir}{The directory where the data is found}
+\item{Dir}{The directory where the data is found. Path should not have a trailing slash.}
 }
 \value{
 Returns a list with 12 \code{NPSForVeg} objects, one for each park.

@@ -7,7 +7,7 @@
 importERMN(Dir)
 }
 \arguments{
-\item{Dir}{The directory where the data is found}
+\item{Dir}{The directory where the data is found. Path should not have a trailing slash.}
 }
 \value{
 Returns a list containing 8 \code{NPSForVeg} objects, one for each park, named using the standard 4 letter park code (e.g. ALPO, BLUE etc.) as part of a list.

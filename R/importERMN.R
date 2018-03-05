@@ -27,8 +27,7 @@ importERMN<-function(Dir){
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""] ##maybe change this to ERMN?
   InCommons$TSN<-as.character(InCommons$TSN)
-  setwd(OldDir)
-  
+
   
   ALPO<-new("NPSForVeg", 
             ParkCode="ALPO", 

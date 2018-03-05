@@ -30,8 +30,7 @@ importNCRN<-function(Dir){
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
   InCommons$TSN<-as.character(InCommons$TSN)
-  setwd(OldDir)
-  
+
   
  ANTI<-new("NPSForVeg", 
            ParkCode="ANTI", 

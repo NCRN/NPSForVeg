@@ -28,8 +28,7 @@ importMIDN<-function(Dir){
 #  InVines<-read.csv("Vines.csv",as.is=T, header=T)
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$TSN<-as.character(InCommons$TSN)
-  setwd(OldDir)
-  
+
   APCO<-new("NPSForVeg", 
             ParkCode="APCO", 
             ShortName="Appomattox", 

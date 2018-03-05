@@ -2,7 +2,7 @@
 #' 
 #' @description  This function imports data from the standard NETN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, and CommonNames.
 #' 
-#' @param Dir  Path to the directory where the data is found, in quotes. Path should not have a trailing slash
+#' @param Dir  Path to the directory where the data is found, in quotes. Path should not have a trailing slash.
 #' 
 #' @return Returns a list with 8 \code{NPSForVeg} objects, one for each park.
 #' 

@@ -7,7 +7,7 @@
 importSHEN(Dir)
 }
 \arguments{
-\item{Dir}{The directory where the data is found}
+\item{Dir}{The directory where the data is found. Path should not have a trailing slash.}
 }
 \value{
 Returns 1 \code{NPSForVeg} object for the park.

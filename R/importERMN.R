@@ -3,7 +3,7 @@
 #' 
 #' @description  This function imports data from the standard ERMN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings and CommonNames.
 #' 
-#' @param Dir  The directory where the data is found
+#' @param Dir  The directory where the data is found. Path should not have a trailing slash.
 #' 
 #' @return Returns a list containing 8 \code{NPSForVeg} objects, one for each park, named using the standard 4 letter park code (e.g. ALPO, BLUE etc.) as part of a list.
 #' 
@@ -12,25 +12,22 @@
 
 
 importERMN<-function(Dir){
-  OldDir<-getwd()
-  setwd(Dir)  
-  
-  InPlots<-read.csv("Plots.csv",as.is=T, header=T)
+
+  InPlots<-read.csv(paste(Dir,"Plots.csv",sep="/"),as.is=T, header=T)
   InPlots$Event_Earliest<-as.Date(as.character(InPlots$Event_Earliest), format="%Y%m%d")
   InPlots$Event_Latest<-as.Date(as.character(InPlots$Event_Latest),format="%Y%m%d")
   
-  InEvents<-read.csv("Events.csv",as.is=T, header=T)
+  InEvents<-read.csv(paste(Dir,"Events.csv",sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
   
-  InTrees<-read.csv("Trees.csv",as.is=T, header=T)
-  InSaps<-read.csv("Saplings.csv",as.is=T, header=T)
-  InSeeds<-read.csv("Seedlings.csv",as.is=T, header=T)
-  InCommons<-read.csv("CommonNames.csv", as.is=T, header=T)
+  InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
+  InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
+  InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)
+  InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""] ##maybe change this to ERMN?
   InCommons$TSN<-as.character(InCommons$TSN)
-  setwd(OldDir)
-  
+
   
   ALPO<-new("NPSForVeg", 
             ParkCode="ALPO", 

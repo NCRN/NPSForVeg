@@ -7,7 +7,7 @@
 importNCRN(Dir)
 }
 \arguments{
-\item{Dir}{The directory where the data is found}
+\item{Dir}{The directory where the data is found. Path should not have a trailing slash.}
 }
 \value{
 Returns 11 \code{NPSForVeg} objects, one for each park, named using the standard 4 letter park code (e.g. ANTI, CATO etc.) and a list, named NCRN, which contians all 11 objects.

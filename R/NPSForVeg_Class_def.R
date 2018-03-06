@@ -42,8 +42,7 @@ setClass(Class="NPSForVeg",           ### Name of the Class
           ShSeedPlotSize="numeric",   ### Number and area of the plots where shub seedings are sampled in m^2
           VPlotSize="numeric",        ### Number and area of the plots where vines are sampled in m^2
           HPlotSize="numeric",        ### Number and area of the plots where herbs are sampled in m^2
-          CWDPlotSize="numeric",      ### Number, slope, and length of transects where CWD is sampled
-          
+          CWDTransectSize="data.frame", ### Data.frame with CWD transect information 
           
           Plots="data.frame",         ### Data.frame with plot information
           Events="data.frame",        ### Data.farme with event information

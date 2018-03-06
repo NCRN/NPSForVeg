@@ -1,6 +1,6 @@
 #' @title getPlantNames
 #' 
-#' @importFrom data.table data.table
+#' @import data.table
 #' 
 #' @description Translates Latin names to common names using TSN numbers
 #' 

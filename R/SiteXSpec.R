@@ -1,8 +1,7 @@
 #' @title SiteXSpec
 #' 
-#' @import plyr
-#' @import data.table
-#' @import reshape2
+#' @importFrom  plyr llply
+#' @importFrom  data.table := .N .SD CJ data.table dcast.data.table set setkey setnames
 #' 
 #' @description Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence
 #' 

@@ -1,5 +1,8 @@
 #' @title densplot
 #' 
+#' @importFrom  lattice panel.arrows panel.xyplot xyplot
+#' @importFrom  plyr ldply
+#' 
 #' @description Plots the mean and 95\% confidence intervals of abundance, size and distribution of species in an object of class \code{NPSForVeg}.
 #' 
 #' @param object Either a \code{data.frame} which is the output of the \code{dens} funciton, an object of class \code{NPSForVeg} or a \code{list} of such objects.
@@ -11,17 +14,14 @@
 #' @param ... Other arguments passed to \code{xyplot} in the \pkg{lattice} package.
 #' 
 #' 
-#' @details This fucntion uses the \code{xyplot} function in the \pkg{lattice} package to create plots that display means and 95\% confidence inervals for a variety of measures of plants: - abundance, basal area, cover, and occupancy. The format of the display varies depending on the type of data to be displayed. If only a single dataset is considered (\code{compare=NA}), then each species will be displayed. 
+#' @details This function uses the \code{xyplot} function in the \pkg{lattice} package to create plots that display means and 95\% confidence intervals for a variety of measures of plants: - abundance, basal area, cover, and occupancy. The format of the display varies depending on the type of data to be displayed. If only a single dataset is considered (\code{compare=NA}), then each species will be displayed. 
 #' 
-#' If two or more datasets are used, then  each species is plotted in its own panel, with mean and CI for each dataset. In this case  and the legend uses the contents of \code{labels} to identify each dataset. 
+#' If two or more datasets are used, then  each species is plotted in its own panel, with mean and CI for each dataset. In this case the legend uses the contents of \code{labels} to identify each dataset. 
 #' If \code{top=0} and \code{Total=TRUE} then only the totals are displayed. If \code{top=NA} then all species are displayed. One or more particular species can be selected by including a \code{species=} argument to \code{densargs} and / or \code{compare}. 
 #' 
 #' @return A plot of means and 95\% confidence intervals.
 #' 
 #' @export
-#' @import lattice
-#' @import plyr
-#' 
 
 
 setGeneric(name="densplot",function(object,Total=TRUE,top=NA,densargs=NA,compare=NA,labels=NA,...){standardGeneric("densplot")}, signature="object")

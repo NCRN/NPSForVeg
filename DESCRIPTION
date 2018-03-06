@@ -11,14 +11,13 @@ License: Public Domain
 LazyData: true
 Depends:
     R(>= 3.1.0),
-    methods,
-    data.table(>= 1.9.4),
     lattice(>= 0.20.24),
     plyr(>= 1.8),
     boot(>= 1.3-9),
     MASS(>= 7.3-29),
-    reshape2(>= 1.2.2),
     leaflet(>= 0.0.8)
+Imports:
+    data.table(>= 1.9.4)
 Collate: 
     'NPSForVeg_Class_def.R'
     'ChangeMatrix.R'

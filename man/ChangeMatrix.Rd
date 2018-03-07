@@ -36,10 +36,10 @@ ChangeMatrix(object, group, years1, years2, plots = NA, type = "active",
 
 \item{...}{Other arguments passed on to \code{\link{SiteXSpec}}}
 
-\item{groups}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings","shrubs", "shseedlings" (indicated shrub seedlings), "vines" or "herbs'.}
+\item{groups}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings","shrubs", "shseedlings" (indicates shrub seedlings), "vines" or "herbs'.}
 }
 \description{
-Produces a matrix which indcates the change in some measure of plant abundance between two time periods
+Produces a matrix which indicates the change in some measure of plant abundance between two time periods
 }
 \details{
 This function will first call \code{\link{SiteXSpec}} to create  site by species matrices for each of the two time periods. The output matrix will then be created by subtracting the values from time 1 from the values from time 2. While it is generally assumed that the two time periods do not overlap and that \code{years2} are later than \code{years1}, this is not enforced and the user can enter any sets of years they like.

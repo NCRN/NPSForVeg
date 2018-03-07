@@ -1,11 +1,11 @@
 #' @title ChangeMatrix
 #' 
-#' @import plyr
+#' @importFrom  plyr llply
 #' 
-#' @description Produces a matrix which indcates the change in some measure of plant abundance between two time periods
+#' @description Produces a matrix which indicates the change in some measure of plant abundance between two time periods
 #' 
 #' @param object either an object of class \code{NPSForVeg} or a list of such objects
-#' @param groups  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings","shrubs", "shseedlings" (indicated shrub seedlings), "vines" or "herbs'.
+#' @param groups  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings","shrubs", "shseedlings" (indicates shrub seedlings), "vines" or "herbs'.
 #' @param years1 A numeric vector indicating the first set of years to be included. 
 #' @param years2 A numeric vector indicating the second set of years to be included. 
 #' @param output Either "dataframe" or "list". Determines the output type When \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be a single large \code{data.frame}, containing all sites and species from all \code{NPSForVeg} objects. "list" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that object's \code{ParkCode} slot. 
@@ -101,6 +101,4 @@ setMethod(f="ChangeMatrix", signature=c(object="NPSForVeg"),
            
            return(Matrix3)                
            
-   ## need to use the arguement to get plants and get plotnames to figure out what the two SxS should be like
-   ## then make the two sxs and then subtract
         })

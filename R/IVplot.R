@@ -1,5 +1,8 @@
 #' @title IVplot
 #' 
+#' @importFrom lattice barchart make.groups strip.custom
+#' @importFrom  plyr ldply
+#' 
 #' @description Makes a barchart of IV values
 #' 
 #' @param object Either a \code{data.frame} which is the output of \code{\link{IV}}, or an object of class \code{NPSForVeg}, or a \code{list} of objects of class \code{NPSForVeg}.
@@ -19,13 +22,8 @@
 #' 
 #' @seealso \code{\link{IV}}
 #' 
-#' 
-#' @import lattice
-#' @import plyr
 #' @include NPSForVeg_Class_def.R
 #' @export
-#' 
-#' 
 
 
 setGeneric(name="IVplot",function(object,top=NA,IVargs=NA,parts=FALSE,compare=NA,labels=NA, colors=c("darkgreen","green","yellow"),...){standardGeneric("IVplot")}, signature="object")

@@ -1,9 +1,8 @@
 #' @title SiteXSpec
 #' 
-#' @import plyr
-#' @import data.table
-#' @import reshape2
-#' 
+#' @importFrom  plyr llply
+#' @import  data.table 
+#'  
 #' @description Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence
 #' 
 #' @param object either an object of class \code{NPSForVeg} or a list of such objects

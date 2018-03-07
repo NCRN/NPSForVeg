@@ -1,5 +1,9 @@
 #' @title dens
 #' 
+#' @include NPSForVeg_Class_def.R
+#' @importFrom MASS glm.nb 
+#' @importFrom boot boot
+#' 
 #' @description calculates  mean "density" in abundance, size and occupancy and 95\% confidence intervals.
 #' 
 #' @param object Either an object of class \code{NPSForVeg} or a \code{list} of such objects.
@@ -24,9 +28,7 @@
 #' 
 #' 
 #' @export
-#' @include NPSForVeg_Class_def.R
-#' @import MASS
-#' @import boot
+
 
 
 

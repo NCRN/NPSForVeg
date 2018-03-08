@@ -1,7 +1,7 @@
 #' @title IVplot
 #' 
 #' @importFrom lattice barchart strip.custom
-#' @importFrom  plyr ldply
+#' @importFrom  data.table rbindlist
 #' 
 #' @description Makes a barchart of IV values
 #' 
@@ -88,7 +88,7 @@ setMethod(f="IVplot",signature=c("NPSForVeg"),
                   names(IV2)[i+1]<-names(compare[i])
                   IV2[[i+1]]$which=i+1
                 }
-              TempIV<-ldply(.data=IV2, .fun=rbind)
+              TempIV<-rbindlist(IV2)
               TempIV$which<-factor(TempIV$which)
             }
             

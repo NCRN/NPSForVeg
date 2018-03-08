@@ -1,6 +1,6 @@
 #' @title IVplot
 #' 
-#' @importFrom lattice barchart make.groups strip.custom
+#' @importFrom lattice barchart strip.custom
 #' @importFrom  plyr ldply
 #' 
 #' @description Makes a barchart of IV values
@@ -82,11 +82,14 @@ setMethod(f="IVplot",signature=c("NPSForVeg"),
             
             if(all(!is.na(compare))){
               IV2[[1]]<-TempIV
+              IV2[[1]]$which=1
                 for(i in seq_along(compare) ){
                   IV2[[i+1]]<-do.call(IV,compare[[i]]) 
                   names(IV2)[i+1]<-names(compare[i])
+                  IV2[[i+1]]$which=i+1
                 }
-              TempIV<-ldply(.data=IV2, .fun=make.groups)
+              TempIV<-ldply(.data=IV2, .fun=rbind)
+              TempIV$which<-factor(TempIV$which)
             }
             
             IVplot(object=TempIV,top=top,parts=parts,labels=labels,compare=compare,colors=colors,...)

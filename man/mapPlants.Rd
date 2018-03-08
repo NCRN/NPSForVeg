@@ -28,7 +28,7 @@ mapPlants(object, plots, values, maptype = "basic", colorgroups = 8,
 
 \item{opacity}{Opacity of the circles on the map. A single number from 0 (completely transparent) to 1 (completely opaque). Defaults to 1.}
 
-\item{colortype}{Indicates the method of assiging colors to each plot. Makes use of the leaflet package's color funcitons:
+\item{colortype}{Indicates the method of assigning colors to each plot. Makes use of the leaflet package's color functions:
 \describe{
   \item{"quantile"}{Divides the data into the number of groups indicated in \code{colorgroups} based on quantiles of the data. An approximately equal number of plots will be in each group.  Each group will be given a different color.}
   \item{"bin"}{Divides the data into groups based on the \code{cut} function. Like the "quantile" option it divides the plots into groups, but in this case each group should cover an approximately equal range in values of the data. Alternatively if \code{colorgroups} is a vector rather than a single number, the elements of the vector will be the cut points separating the groups to be mapped.}

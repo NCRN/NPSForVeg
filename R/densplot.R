@@ -1,7 +1,7 @@
 #' @title densplot
 #' 
 #' @importFrom  lattice panel.arrows panel.xyplot xyplot
-#' @importFrom  plyr ldply
+#' @importFrom  data.table rbindlist
 #' 
 #' @description Plots the mean and 95\% confidence intervals of abundance, size and distribution of species in an object of class \code{NPSForVeg}.
 #' 
@@ -103,11 +103,10 @@ setMethod(f="densplot",signature=c("NPSForVeg"),
                 names(dens2)[i+1]<-names(compare[i])
                 dens2[[i+1]]$which=i+1
               }
-              Tempdens<-ldply(.data=dens2, .fun=rbind)
+              Tempdens<-rbindlist(dens2)
               Tempdens$which<-factor(Tempdens$which)
               
             }
-          #  return(Tempdens)
             densplot(object=Tempdens,Total=Total,top=top, labels=labels,...)
           })
 

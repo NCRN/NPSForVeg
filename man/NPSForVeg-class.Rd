@@ -30,7 +30,9 @@
 
 \item{\code{VPlotSize}}{A length 2 numeric vector. The first element is the number of subplots where vines on trees are monitored at each plot. The second element is the size of each of the subplots in meters squared.}
 
-\item{\code{HPlotSize}}{A length 2 numeric vector. The first element is the number of quadrats where herbacoius plants are monitored at each plot. The second element is the size of each of the quadrats in meters squared. Note - these need not be actually herbacious plants, but it is assumed that cover of each species is measured rather than the dbh or height.}
+\item{\code{HPlotSize}}{A length 2 numeric vector. The first element is the number of quadrats where herbaceous plants are monitored at each plot. The second element is the size of each of the quadrats in meters squared. Note - these need not be actually herbaceous plants, but it is assumed that cover of each species is measured rather than the dbh or height.}
+
+\item{\code{CWDTransectSize}}{a data.frame with information (including percent slope and slope-length) on the CWD transects}
 
 \item{\code{Plots}}{a data.frame with information on the plots}
 
@@ -48,7 +50,9 @@
 
 \item{\code{Vines}}{a data.frame with vine data}
 
-\item{\code{Herbs}}{a data.frame with herbacious plant data}
+\item{\code{Herbs}}{a data.frame with herbaceous plant data}
+
+\item{\code{CWD}}{a data.frame with coarse woody debris data}
 
 \item{\code{Commons}}{a data.frame which links common names to Latin names}
 }}

@@ -1,6 +1,5 @@
 #' @title SiteXSpec
 #' 
-#' @importFrom  plyr llply
 #' @import  data.table 
 #'  
 #' @description Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence
@@ -41,7 +40,7 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
               },
             
               list={
-                OutList<-llply(.dat=object, .fun=SiteXSpec, group=group,years=years,cycles=cycles, species=species,plots=plots,...)
+                OutList<-lapply(X=object, FUN=SiteXSpec, group=group,years=years,cycles=cycles, species=species,plots=plots,...)
                 names(OutList)<-getNames(object,name.class="code")
                 return(OutList)
                 }

@@ -1,7 +1,5 @@
 #' @title ChangeMatrix
 #' 
-#' @importFrom  plyr llply
-#' 
 #' @description Produces a matrix which indicates the change in some measure of plant abundance between two time periods
 #' 
 #' @param object either an object of class \code{NPSForVeg} or a list of such objects
@@ -52,7 +50,7 @@ setMethod(f="ChangeMatrix", signature=c(object="list"),
         },
 
         list={
-            OutList<-llply(.dat=object, .fun=ChangeMatrix, group=group, years1=years1, years2=years2, plots=plots, type=type, species=species, values=values,...)
+            OutList<-lapply(X=object, FUN=ChangeMatrix, group=group, years1=years1, years2=years2, plots=plots, type=type, species=species, values=values,...)
             names(OutList)<-getNames(object,name.class="code")
             return(OutList)
         }

@@ -14,11 +14,11 @@ getPlants(object, group, status = "alive", species = NA, cycles = NA,
 
 \item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", or "herbs".}
 
-\item{status}{A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this agrument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
+\item{status}{A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 \describe{
-\item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF", "AL","AM","AS","RB","RF","RL", "RS" or "TR"}
-\item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead Leaning", Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
-\item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XP" or"XS" }
+\item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
+\item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+\item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XO", "XP" or"XS" }
 \item{"all"}{Includes all plants}
 }}
 
@@ -38,7 +38,7 @@ getPlants(object, group, status = "alive", species = NA, cycles = NA,
 
 \item{BA.min}{Defaults to \code{NA}. A single numeric value that indicates the minimum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field.}
 
-\item{BA.max}{Defaults to \code{NA}. A single numeric value that indicates the maximum basal area a plant may have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field.}
+\item{BA.max}{Defaults to \code{NA}. A single numeric value that indicates the maximum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field.}
 
 \item{host.tree}{Defaults to \code{NA}. Only meaningful when \code{group} is "vines". A character vector containing Latin names of host trees. Only vines occuring in those hosts will be returned. Determined by matching the \code{Host_Latin_Name} in the \code{Vines} slot.}
 
@@ -52,5 +52,5 @@ getPlants(object, group, status = "alive", species = NA, cycles = NA,
 Retrieves plant data from an \code{NPSForVeg} object.
 }
 \details{
-This function extracts data on plants from an \code{NPSForVeg} object. This function is called by other analysis and graphing functions. \code{getPlants} has a variety of arguements that narrow the response down to plants that match critera such as Latin name, size, crown class etc.
+This function extracts data on plants from an \code{NPSForVeg} object. This function is called by other analysis and graphing functions. \code{getPlants} has a variety of arguments that narrow the response down to plants that match critera such as Latin name, size, crown class etc.
 }

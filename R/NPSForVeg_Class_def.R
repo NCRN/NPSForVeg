@@ -55,5 +55,33 @@ setClass(Class="NPSForVeg",           ### Name of the Class
           Herbs="data.frame",         ### Data.frame with herbaceous/ground cover data
           CWD="data.frame",           ### Data.frame with coarse woody debris data    
           Commons="data.frame"        ### Data.frame with Latin and common names
-  )
-)
+  ), 
+  ### The prototype makes sure the correct sort of missing data is used when one of the slots is empyty
+  prototype = list(ParkCode=character(),                     
+            ShortName=character(),
+            LongName=character(),       
+            
+            Network=character(),
+            
+            TPlotSize=numeric(),
+            SapPlotSize=numeric(),
+            SeedPlotSize=numeric(),
+            ShrubPlotSize=numeric(),
+            ShSeedPlotSize=numeric(),
+            VPlotSize=numeric(),
+            HPlotSize=numeric(),
+            CWDTransectSize=data.frame(),
+            
+            Plots=data.frame(),
+            Events=data.frame(),
+            Trees=data.frame(),
+            Saplings=data.frame(),
+            Seedlings=data.frame(),
+            Shrubs=data.frame(),
+            ShSeedlings=data.frame(),
+            Vines=data.frame(),
+            Herbs=data.frame(),
+            CWD=data.frame(),            
+            Commons=data.frame()
+        )
+    )

@@ -63,9 +63,9 @@ setMethod(f="dens", signature=c(object="NPSForVeg"),
           
           switch(values,
                  count={
-                    NBS<-lapply(X=names(TempData[-1]), FUN=function(Y,Z){glm.nb(Z[[Y]]~1 )}, Z=TempData[-1] )
+                    NBS<-lapply(X=names(TempData[-1]), FUN=function(Y,Z){glm.nb(Z[[Y]]~1)}, Z=TempData[-1] )
                     OutData$Mean<-sapply(X=NBS,coef)
-                    OutData[3:4]<-matrix(sapply(X=NBS, confint),ncol=2,byrow=TRUE)
+                    OutData[3:4]<-matrix(sapply(X=NBS, FUN=function(x){suppressMessages(confint(x))}),ncol=2,byrow=TRUE)
                     OutData[2:4]<-exp(OutData[2:4])
                   },
                   size={
@@ -85,7 +85,7 @@ setMethod(f="dens", signature=c(object="NPSForVeg"),
                    OutData<-OutData[OutData$Latin_Name!="Total",]
                    BIN<-lapply(X=names(TempData[-1]), FUN=function(Y,Z) {glm(Z[[Y]]~1, family=binomial)}, Z=TempData[-1])
                    OutData$Mean<-sapply(X=BIN,coef)
-                   OutData[3:4]<-matrix(sapply(X=BIN, FUN=confint),ncol=2,byrow=TRUE )
+                   OutData[3:4]<-matrix(sapply(X=BIN, FUN=function(Z){suppressMessages(confint(Z))}),ncol=2,byrow=TRUE )
                    OutData[2:4]<-plogis(as.matrix(OutData[2:4]))
                  },
                  stop("value type not recognized")

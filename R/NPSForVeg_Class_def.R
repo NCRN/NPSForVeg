@@ -56,7 +56,7 @@ setClass(Class="NPSForVeg",           ### Name of the Class
           CWD="data.frame",           ### Data.frame with coarse woody debris data    
           Commons="data.frame"        ### Data.frame with Latin and common names
   ), 
-  ### The prototype makes sure the correct sort of missing data is uses when one of the slots is empyty
+  ### The prototype makes sure the correct sort of missing data is used when one of the slots is empyty
   prototype = list(ParkCode=character(),                     
             ShortName=character(),
             LongName=character(),       

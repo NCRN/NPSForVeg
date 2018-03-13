@@ -24,7 +24,7 @@ importNETN<-function(Dir){
   InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)
   #InShrubs<-read.csv("Shrubs.csv",as.is=T, header=T)
   #InShSeeds<-read.csv("Shrub_Seedlings.csv",as.is=T, header=T)
-  InVines<-read.csv("Vines.csv",as.is=T, header=T)
+  InVines<-read.csv(paste(Dir, "Vines.csv",sep="/"),as.is=T, header=T)
   InHerbs<-read.csv(paste(Dir,"Herbs.csv",sep="/"),as.is=T, header=T)
   InCommons<-read.csv(paste(Dir, "CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]

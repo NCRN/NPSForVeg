@@ -19,13 +19,12 @@ importNETN<-function(Dir){
   InEvents<-read.csv(paste(Dir,"Events.csv", sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
-  
   InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
   InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)
   #InShrubs<-read.csv("Shrubs.csv",as.is=T, header=T)
   #InShSeeds<-read.csv("Shrub_Seedlings.csv",as.is=T, header=T)
-  #InVines<-read.csv("Vines.csv",as.is=T, header=T)
+  InVines<-read.csv("Vines.csv",as.is=T, header=T)
   InHerbs<-read.csv(paste(Dir,"Herbs.csv",sep="/"),as.is=T, header=T)
   InCommons<-read.csv(paste(Dir, "CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
@@ -43,7 +42,7 @@ importNETN<-function(Dir){
             SeedPlotSize=c(3, pi*2*2), 
             ShrubPlotSize=c(3, pi*2*2), 
             ShSeedPlotSize=c(3, pi*2*2), 
-            #VPlotSize=c(1,15*15),#not active for NETN
+            VPlotSize=c(1,15*15),
             HPlotSize=c(8,1),
             
             Plots=InPlots[InPlots$Unit_Code=="ACAD",], 
@@ -54,7 +53,7 @@ importNETN<-function(Dir){
             Seedlings=InSeeds[InSeeds$Unit_Code=="ACAD",], 
             #Shrubs=InShrubs[InShrubs$Unit_Code=="ACAD",], 
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="ACAD",],
-            #Vines=InVines[InVines$Unit_Code=="ACAD",], 
+            Vines=InVines[InVines$Unit_Code=="ACAD",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="ACAD",],
             Commons=InCommons)
   
@@ -69,7 +68,7 @@ importNETN<-function(Dir){
             SeedPlotSize=c(3, pi*2*2), 
             ShrubPlotSize=c(3, pi*2*2), 
             ShSeedPlotSize=c(3, pi*2*2), 
-            #VPlotSize=c(1,20*20),#not active for NETN
+            VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
             
             Plots=InPlots[InPlots$Unit_Code=="MABI",], 
@@ -80,7 +79,7 @@ importNETN<-function(Dir){
             Seedlings=InSeeds[InSeeds$Unit_Code=="MABI",], 
             #Shrubs=InShrubs[InShrubs$Unit_Code=="MABI",], 
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="MABI",],
-            #Vines=InVines[InVines$Unit_Code=="MABI",], 
+            Vines=InVines[InVines$Unit_Code=="MABI",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="MABI",],
             Commons=InCommons)
   
@@ -95,7 +94,7 @@ importNETN<-function(Dir){
             SeedPlotSize=c(3, pi*2*2), 
             ShrubPlotSize=c(3, pi*2*2), 
             ShSeedPlotSize=c(3, pi*2*2), 
-            #VPlotSize=c(1,20*20),#not active for NETN
+            VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
             
             Plots=InPlots[InPlots$Unit_Code=="MIMA",], 
@@ -106,7 +105,7 @@ importNETN<-function(Dir){
             Seedlings=InSeeds[InSeeds$Unit_Code=="MIMA",], 
             #Shrubs=InShrubs[InShrubs$Unit_Code=="MIMA",], 
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="MIMA",],
-            #Vines=InVines[InVines$Unit_Code=="MIMA",], 
+            Vines=InVines[InVines$Unit_Code=="MIMA",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="MIMA",],
             Commons=InCommons)
   
@@ -121,7 +120,7 @@ importNETN<-function(Dir){
             SeedPlotSize=c(3, pi*2*2), 
             ShrubPlotSize=c(3, pi*2*2), 
             ShSeedPlotSize=c(3, pi*2*2), 
-            #VPlotSize=c(1,20*20),#not active for NETN
+            VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
             
             Plots=InPlots[InPlots$Unit_Code=="MORR",], 
@@ -132,7 +131,7 @@ importNETN<-function(Dir){
             Seedlings=InSeeds[InSeeds$Unit_Code=="MORR",], 
             #Shrubs=InShrubs[InShrubs$Unit_Code=="MORR",], 
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="MORR",],
-            #Vines=InVines[InVines$Unit_Code=="MORR",], 
+            Vines=InVines[InVines$Unit_Code=="MORR",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="MORR",],
             Commons=InCommons)
   
@@ -147,7 +146,7 @@ importNETN<-function(Dir){
             SeedPlotSize=c(3, pi*2*2), 
             ShrubPlotSize=c(3, pi*2*2), 
             ShSeedPlotSize=c(3, pi*2*2), 
-            #VPlotSize=c(1,20*20),#not active for NETN
+            VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
             
             Plots=InPlots[InPlots$Unit_Code=="ROVA",], 
@@ -158,7 +157,7 @@ importNETN<-function(Dir){
             Seedlings=InSeeds[InSeeds$Unit_Code=="ROVA",], 
             #Shrubs=InShrubs[InShrubs$Unit_Code=="ROVA",], 
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="ROVA",],
-            #Vines=InVines[InVines$Unit_Code=="ROVA",], 
+            Vines=InVines[InVines$Unit_Code=="ROVA",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="ROVA",],
             Commons=InCommons)
   
@@ -173,7 +172,7 @@ importNETN<-function(Dir){
             SeedPlotSize=c(3, pi*2*2), 
             ShrubPlotSize=c(3, pi*2*2), 
             ShSeedPlotSize=c(3, pi*2*2), 
-            #VPlotSize=c(1,20*20),#not active for NETN
+            VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
             
             Plots=InPlots[InPlots$Unit_Code=="SAGA",], 
@@ -184,7 +183,7 @@ importNETN<-function(Dir){
             Seedlings=InSeeds[InSeeds$Unit_Code=="SAGA",], 
             #Shrubs=InShrubs[InShrubs$Unit_Code=="SAGA",], 
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="SAGA",],
-            #Vines=InVines[InVines$Unit_Code=="SAGA",], 
+            Vines=InVines[InVines$Unit_Code=="SAGA",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="SAGA",],
             Commons=InCommons)
   
@@ -199,7 +198,7 @@ importNETN<-function(Dir){
             SeedPlotSize=c(3, pi*2*2), 
             ShrubPlotSize=c(3, pi*2*2), 
             ShSeedPlotSize=c(3, pi*2*2), 
-            #VPlotSize=c(1,20*20),#not active for NETN
+            VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
             
             Plots=InPlots[InPlots$Unit_Code=="SARA",], 
@@ -210,7 +209,7 @@ importNETN<-function(Dir){
             Seedlings=InSeeds[InSeeds$Unit_Code=="SARA",], 
             #Shrubs=InShrubs[InShrubs$Unit_Code=="SARA",], 
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="SARA",],
-            #Vines=InVines[InVines$Unit_Code=="SARA",], 
+            Vines=InVines[InVines$Unit_Code=="SARA",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="SARA",],
             Commons=InCommons)
   
@@ -225,7 +224,7 @@ importNETN<-function(Dir){
             SeedPlotSize=c(3, pi*2*2), 
             ShrubPlotSize=c(3, pi*2*2), 
             ShSeedPlotSize=c(3, pi*2*2), 
-            #VPlotSize=c(1,20*20),#not active for NETN
+            VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
             
             Plots=InPlots[InPlots$Unit_Code=="WEFA",], 
@@ -236,7 +235,7 @@ importNETN<-function(Dir){
             Seedlings=InSeeds[InSeeds$Unit_Code=="WEFA",], 
             #Shrubs=InShrubs[InShrubs$Unit_Code=="WEFA",], 
             #ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="WEFA",],
-            #Vines=InVines[InVines$Unit_Code=="WEFA",], 
+            Vines=InVines[InVines$Unit_Code=="WEFA",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="WEFA",],
             Commons=InCommons)
   return(c(ACAD,MABI,MIMA,MORR,ROVA,SAGA,SARA,WEFA))

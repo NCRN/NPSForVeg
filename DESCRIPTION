@@ -14,9 +14,11 @@ Depends:
 Imports:
     boot(>= 1.3-9),
     data.table(>= 1.9.4),
+    dplyr(>= 0.4),
     lattice(>= 0.20.24),
     leaflet(>= 0.0.8),
-    MASS(>= 7.3-29)
+    MASS(>= 7.3-29),
+    purrr(>= 0.2.4)
 Collate: 
     'NPSForVeg_Class_def.R'
     'ChangeMatrix.R'

@@ -10,24 +10,32 @@ getPlantNames(object, names, out.style = "common", in.style = "Latin",
 \arguments{
 \item{object}{An \code{NPSForVeg} object}
 
-\item{names}{a character vector of Latin names, common names or TSN numbers (as a character vector) to be translated}
+\item{names}{a character vector of Latin names, common names or TSN numbers (as a character vector) to be translated, or when list of 
+\code{NPSForVeg} objects is passed to \code{object}, a list of plant names can be passes to \code{names}. See details below.}
 
 \item{out.style}{Either "common", "Latin", or "TSN". Indicates the type of name that should be returned. Defaults to "common"}
 
 \item{in.style}{Either "common", "Latin", or "TSN". Indicates the type of name found in the "names" argument.}
 
-\item{output}{Currently does nothtin Will accepts "vector" or "list". Determines the output type When \code{object} is a list 
+\item{output}{Accepts "vector" or "list". Determines the output type When \code{object} is a list. 
 When implemented "list" will return a \code{list} where each element of the list is a \code{data.frame} from a
  single \code{NPSForVeg} object, and each element is named based on that object's \code{ParkCode} slot.}
 }
 \value{
-A character vector of names in the format specified by \code{out.style}.
+A character vector or list of names in the format specified by \code{out.style}.
 }
 \description{
-Translates between Latin names, common names and TSN numbers
+Translates between Latin names, common names and TSN numbers.
 }
 \details{
 This function will convert the names in \code{names} to the style specified in \code{out.style},
  using the data in the \code{Commons} slot of an object of class \code{NPSForVeg}. Note that if the data in the \code{Commons} slot
- has more than one entry for one or more of the input names, the fucniton will fail with an error.
+ has more than one entry for one or more of the input names, or is not present, the funciton will fail with an error.
+ 
+If the \code{object} is a list, then the \code{names} can be a list as well. If so then then each element in the list of objects will
+be matched with the corresponding element in the list of names, and \code{getPlantNames} will be run. When \code{output} is "vector" the 
+resuting character vectors will be concatenated using \code{unlist}. When \code{output} is "list" the the output will be a list with each
+element being a character vector of names. 
+
+The function will not accept a list of names when the \code{object} is a data.frame or an \code{NPSForVeg} object.
 }

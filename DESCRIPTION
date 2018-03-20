@@ -18,7 +18,8 @@ Imports:
     lattice(>= 0.20.24),
     leaflet(>= 0.0.8),
     MASS(>= 7.3-29),
-    purrr(>= 0.2.4)
+    purrr(>= 0.2.4),
+    rlang(>= 0.2.0)
 Collate: 
     'NPSForVeg_Class_def.R'
     'ChangeMatrix.R'

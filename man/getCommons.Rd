@@ -4,7 +4,7 @@
 \alias{getCommons}
 \title{getCommons}
 \usage{
-getCommons(object, output = "dataframe")
+getCommons(object, species = NA, output = "dataframe")
 }
 \arguments{
 \item{object}{Either a \code{NPSForVeg} object or a list of such objects.}

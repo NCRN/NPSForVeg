@@ -1,5 +1,8 @@
 #' @title getCommons
 #' 
+#' @importFrom dplyr filter
+#' @importFrom rlang quo
+#' 
 #' @description gets the common names \code{data.frame} from one or more \code{NPSForVeg} objects. 
 #' 
 #' @param object Either a \code{NPSForVeg} object or a list of such objects.
@@ -12,7 +15,7 @@
 #' @export
 
 ############### getCommons command for NPSForVeg class ###############
-setGeneric(name="getCommons",function(object,output="dataframe"){standardGeneric("getCommons")},signature=c("object") )
+setGeneric(name="getCommons",function(object,species=NA,output="dataframe"){standardGeneric("getCommons")},signature=c("object") )
 
 
 setMethod(f="getCommons", signature=c(object="list"),
@@ -31,6 +34,14 @@ setMethod(f="getCommons", signature=c(object="list"),
 
 
 setMethod(f="getCommons", signature=c(object="NPSForVeg"),
-          function(object){
-                  return(object@Commons)
+          function(object,species){
+                  return( getCommons(object@Commons, species) )
+          })
+
+setMethod(f="getCommons", signature=c(object="data.frame"),
+          function(object, species=NA){
+            x<-list(quo(Latin_Name %in% species))
+            x<-x[all(!is.na(species))]
+            y<-if(length(x)>0) filter(object,!!!x) else object
+            return(y)
           })

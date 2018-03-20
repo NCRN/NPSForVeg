@@ -140,7 +140,7 @@ GWMP<-new("NPSForVeg",
 HAFE<-new("NPSForVeg", 
           ParkCode="HAFE", 
           ShortName="Harpers Ferry", 
-          LongName="Harpers Ferry National Histroical Park", 
+          LongName="Harpers Ferry National Historical Park", 
           Network="NCRN", 
           
           TPlotSize=c(1,pi*15*15),

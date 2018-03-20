@@ -4,10 +4,19 @@
 \alias{getCommons}
 \title{getCommons}
 \usage{
-getCommons(object, species = NA, output = "dataframe")
+getCommons(object, species = NA, nativity = "all", output = "dataframe")
 }
 \arguments{
-\item{object}{Either a \code{NPSForVeg} object or a list of such objects.}
+\item{object}{Either a data.frame like that stored in the \code{Commons} slot, an \code{NPSForVeg} object or a list of such objects.}
+
+\item{species}{A character vector of species Latin names. Will only return data from those species.}
+
+\item{nativity}{Indicates the nativity of the desired species. Three options are available:
+\describe{
+\item{"native"}{Only native species are returned.}
+\item{"exotic"}{Only exotic species are returned.}
+\item{"all"}{The default. Species are returned regardless of nativity.}
+}}
 
 \item{output}{Used when "object" is a list, to determine if the output is a \code{data.frame} or a \code{list}. Can be either "dataframe" (the default), or "list". Needs to be in quotes.}
 }
@@ -18,5 +27,10 @@ Either a \code{data.frame} or a \code{list} containing the contents of the "Comm
 gets the common names \code{data.frame} from one or more \code{NPSForVeg} objects.
 }
 \details{
-When the "object" is a single \code{NPSForVeg} object this function will return the \code{data.frame} in the "Commons" slot  which should have the Latin and common names of the plants as well as the TSN Numbers. When "object" is a \code{list} and "output" is "dataframe" a combied \code{data.frame} with the "Commons" slot from all NPSForVeg elements is returned. If the "object" is a \code{list} and "output" is "list" then a \code{list} is returned. Each element of the \code{list} will be the "Commons" slot from one the input \code{NPForVeg} objects, and the name of each element corresponds to the name of the \code{NPSForVeg} object it comes from.
+When the "object" is a single \code{NPSForVeg} object this function will return the \code{data.frame} in the "Commons" slot.  
+When "object" is a \code{list} and "output" is "dataframe" a combined \code{data.frame} with the "Commons" slot from all NPSForVeg 
+elements is returned. This \code{data.frame} is filtered so that identical rows are not returned. If a species is present in more than
+one of the \code{data.frame}s, and the metadata for the speices (e.g. native vs exotic) differs between them, then the species will 
+be returned twice, once with each set of metadata.  If the "object" is a \code{list} and "output" is "list" then a \code{list} is
+returned. Each element of the  \code{list} will be the "Commons" slot from one the input \code{NPForVeg} objects.
 }

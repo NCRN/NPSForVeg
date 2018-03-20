@@ -69,5 +69,5 @@ setMethod(f="getCommons", signature=c(object="data.frame"),
             filt<-filt[c(all(!is.na(species)),!nativity=="all") ]
      
             # filter data or just return the data.frame if there are no filters
-            return( if(length(x)>0) filter(object, !!!filt) else object)
+            return( if(length(filt)>0) filter(object, !!!filt) else object)
   })

@@ -38,7 +38,7 @@ setMethod(f="getArea", signature="NPSForVeg",
                      single=return(object@SapPlotSize[2]),
                      count=return(object@SapPlotSize[1]) 
       ), 
-      seedlings =, herbs = switch (type,
+      seedlings = switch (type,
                         all=return(object@SeedPlotSize[1]*object@SeedPlotSize[2]),
                         single=return(object@SeedPlotSize[2]),
                         count=return(object@SeedPlotSize[1]) 
@@ -46,7 +46,7 @@ setMethod(f="getArea", signature="NPSForVeg",
       shrubs = switch (type,
                          all=return(object@ShrubPlotSize[1]*object@ShrubPlotSize[2]),
                          single=return(object@ShrubPlotSize[2]),
-                         count=return(object@ShrubPlotSize[1]), 
+                         count=return(object@ShrubPlotSize[1]) 
       ),          
       shseedlings = switch (type,
                      all=return(object@ShSeedPlotSize[1]*object@ShSeedPlotSize[2]),

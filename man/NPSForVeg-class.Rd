@@ -5,7 +5,7 @@
 \alias{NPSForVeg-class}
 \title{S4 Class Definition for NPSForveg}
 \description{
-|An S4 class that contains the data from forest monitoring from a set of forest montoirng plots. This will typcially be a single park, but it could be any group of plots, including part of a park or a group of parks.
+An S4 class that contains the data from forest monitoring from a set of forest montoirng plots. This will typcially be a single park, but it could be any group of plots, including part of a park or a group of parks.
 }
 \section{Slots}{
 
@@ -32,7 +32,9 @@
 
 \item{\code{HPlotSize}}{A length 2 numeric vector. The first element is the number of quadrats where herbaceous plants are monitored at each plot. The second element is the size of each of the quadrats in meters squared. Note - these need not be actually herbaceous plants, but it is assumed that cover of each species is measured rather than the dbh or height.}
 
-\item{\code{CWDTransectSize}}{a data.frame with information (including percent slope and slope-length) on the CWD transects}
+\item{\code{CWDTransectSize}}{a data.frame with information (including percent slope and slope-length) on the CWD transects.}
+
+\item{\code{Cycles}}{A data.frame which indicates the year when each sampling cycle starts and ends, and gives each cycle a name suitable for display in graphs etc.}
 
 \item{\code{Plots}}{a data.frame with information on the plots}
 

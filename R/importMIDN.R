@@ -1,6 +1,8 @@
+#' @include NPSForVeg_Class_def.R
 #' @title importMIDN
 #' 
-#' @description  This function imports data from the standard MIDN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, Vines and CommonNames.
+#' @description  This function imports data from the standard MIDN .csv files and saves it as \code{NPSForVeg} objects. The required 
+#' .csv files are: Plots, Events, Cycles, Cylces2, Trees, Saplings, Seedlings, Vines, Herbs and CommonNames.
 #' 
 #' @param Dir  The directory where the data is found. Path should not have a trailing slash.
 #' 
@@ -17,6 +19,9 @@ importMIDN<-function(Dir){
 
   InEvents<-read.csv(paste(Dir,"Events.csv", sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
+  
+  InCycles<-read.csv(paste(Dir,"Cycles.csv",sep="/"), as.is=T, header=T)
+  InCycles2<-read.csv(paste(Dir,"Cycles2.csv",sep="/"), as.is=T, header=T)
 
   InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
@@ -42,6 +47,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), 
             VPlotSize=c(1,20*20), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="APCO",], 
             Events=InEvents[InEvents$Unit_Code=="APCO",],
@@ -68,6 +74,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(12,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="BOWA",], 
             Events=InEvents[InEvents$Unit_Code=="BOWA",],
@@ -94,6 +101,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(12,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="COLO",], 
             Events=InEvents[InEvents$Unit_Code=="COLO",],
@@ -121,6 +129,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(12,1),
+            Cycles=InCycles,
 
             Plots=InPlots[InPlots$Unit_Code=="FRSP",], 
             Events=InEvents[InEvents$Unit_Code=="FRSP",],
@@ -147,6 +156,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1),
             VPlotSize=c(1,20*20),
             HPlotSize=c(12,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="GETT",], 
             Events=InEvents[InEvents$Unit_Code=="GETT",],
@@ -173,6 +183,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1),
             VPlotSize=c(1,20*20),
             HPlotSize=c(12,1),
+            Cycles=InCycles2,
             
             Plots=InPlots[InPlots$Unit_Code=="GEWA",], 
             Events=InEvents[InEvents$Unit_Code=="GEWA",],
@@ -199,6 +210,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), 
             VPlotSize=c(1,20*20), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="HOFU",], 
             Events=InEvents[InEvents$Unit_Code=="HOFU",],
@@ -225,6 +237,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), 
             VPlotSize=c(1,20*20), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="PETE",], 
             Events=InEvents[InEvents$Unit_Code=="PETE",],
@@ -251,6 +264,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1),
             VPlotSize=c(1,20*20),
             HPlotSize=c(12,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="RICH",], 
             Events=InEvents[InEvents$Unit_Code=="RICH",],
@@ -277,6 +291,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(12,1),
+            Cycles=InCycles2,
             
             Plots=InPlots[InPlots$Unit_Code=="SAHI",], 
             Events=InEvents[InEvents$Unit_Code=="SAHI",],
@@ -303,6 +318,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(12,1),
+            Cycles=InCycles2,
             
             Plots=InPlots[InPlots$Unit_Code=="THST",], 
             Events=InEvents[InEvents$Unit_Code=="THST",],
@@ -329,6 +345,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(12,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="VAFO",], 
             Events=InEvents[InEvents$Unit_Code=="VAFO",],

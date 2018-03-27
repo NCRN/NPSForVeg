@@ -1,3 +1,4 @@
+#' @include NPSForVeg_Class_def.R
 #' @title importNCRN
 #' 
 #' @description  This function imports data from the standard NCRN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, Shrubs, Shrub_Seedlings, Vines, Herbs and CommonNames.

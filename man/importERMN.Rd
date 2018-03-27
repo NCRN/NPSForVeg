@@ -13,5 +13,6 @@ importERMN(Dir)
 Returns a list containing 8 \code{NPSForVeg} objects, one for each park, named using the standard 4 letter park code (e.g. ALPO, BLUE etc.) as part of a list.
 }
 \description{
-This function imports data from the standard ERMN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings and CommonNames.
+This function imports data from the standard ERMN .csv files and saves it as \code{NPSForVeg} objects.
+ The required .csv files are: Plots, Events, Cycles_ERMN, Trees, Saplings, Seedlings and CommonNames.
 }

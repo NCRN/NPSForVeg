@@ -1,7 +1,9 @@
-
+#' @include NPSForVeg_Class_def.R
+#'
 #' @title importERMN
 #' 
-#' @description  This function imports data from the standard ERMN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings and CommonNames.
+#' @description  This function imports data from the standard ERMN .csv files and saves it as \code{NPSForVeg} objects.
+#'  The required .csv files are: Plots, Events, Cycles_ERMN, Trees, Saplings, Seedlings and CommonNames.
 #' 
 #' @param Dir  The directory where the data is found. Path should not have a trailing slash.
 #' 
@@ -20,6 +22,7 @@ importERMN<-function(Dir){
   InEvents<-read.csv(paste(Dir,"Events.csv",sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
+  InCycles<-read.csv(paste(Dir,"Cycles_ERMN.csv",sep="/"), as.is=T, header=T)
   
   InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
@@ -39,6 +42,8 @@ importERMN<-function(Dir){
             SapPlotSize=c(4, pi*2*2), 
             SeedPlotSize=c(4, pi*2*2), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
+            
             
             Plots=InPlots[InPlots$Unit_Code=="ALPO",], 
             Events=InEvents[InEvents$Unit_Code=="ALPO",],
@@ -57,6 +62,8 @@ importERMN<-function(Dir){
             SapPlotSize=c(4, pi*2*2), 
             SeedPlotSize=c(4, pi*2*2), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
+            
             
             Plots=InPlots[InPlots$Unit_Code=="BLUE",], 
             Events=InEvents[InEvents$Unit_Code=="BLUE",],
@@ -76,6 +83,8 @@ importERMN<-function(Dir){
             SapPlotSize=c(4, pi*2*2), 
             SeedPlotSize=c(4, pi*2*2), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
+            
             
             Plots=InPlots[InPlots$Unit_Code=="DEWA",], 
             Events=InEvents[InEvents$Unit_Code=="DEWA",],
@@ -95,6 +104,8 @@ importERMN<-function(Dir){
             SapPlotSize=c(4, pi*2*2), 
             SeedPlotSize=c(4, pi*2*2), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
+            
             
             Plots=InPlots[InPlots$Unit_Code=="FONE",], 
             Events=InEvents[InEvents$Unit_Code=="FONE",],
@@ -114,6 +125,8 @@ importERMN<-function(Dir){
             SapPlotSize=c(4, pi*2*2), 
             SeedPlotSize=c(4, pi*2*2), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
+            
             
             Plots=InPlots[InPlots$Unit_Code=="FRHI",], 
             Events=InEvents[InEvents$Unit_Code=="FRHI",],
@@ -133,6 +146,8 @@ importERMN<-function(Dir){
             SapPlotSize=c(4, pi*2*2), 
             SeedPlotSize=c(4, pi*2*2), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
+            
             
             Plots=InPlots[InPlots$Unit_Code=="GARI",],
             Events=InEvents[InEvents$Unit_Code=="GARI",], 
@@ -152,6 +167,8 @@ importERMN<-function(Dir){
             SapPlotSize=c(4, pi*2*2), 
             SeedPlotSize=c(4, pi*2*2), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
+            
             
             Plots=InPlots[InPlots$Unit_Code=="JOFL",],
             Events=InEvents[InEvents$Unit_Code=="JOFL",], 
@@ -171,6 +188,8 @@ importERMN<-function(Dir){
             SapPlotSize=c(4, pi*2*2), 
             SeedPlotSize=c(4, pi*2*2), 
             HPlotSize=c(12,1),
+            Cycles=InCycles,
+            
             
             Plots=InPlots[InPlots$Unit_Code=="NERI",],
             Events=InEvents[InEvents$Unit_Code=="NERI",], 

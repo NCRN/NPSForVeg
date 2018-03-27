@@ -1,6 +1,8 @@
+#' @include NPSForVeg_Class_def.R
 #' @title importNETN
 #' 
-#' @description  This function imports data from the standard NETN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, and CommonNames.
+#' @description  This function imports data from the standard NETN .csv files and saves it as \code{NPSForVeg} objects. The required .csv
+#'  files are: Plots, Events, Cycles, Trees, Saplings, Seedlings, and CommonNames.
 #' 
 #' @param Dir  Path to the directory where the data is found, in quotes. Path should not have a trailing slash.
 #' 
@@ -18,6 +20,8 @@ importNETN<-function(Dir){
   
   InEvents<-read.csv(paste(Dir,"Events.csv", sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
+  
+  InCycles<-read.csv(paste(Dir,"Cycles.csv",sep="/"), as.is=T, header=T)
   
   InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
@@ -44,6 +48,7 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2), 
             VPlotSize=c(1,15*15),
             HPlotSize=c(8,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="ACAD",], 
             Events=InEvents[InEvents$Unit_Code=="ACAD",],
@@ -70,6 +75,7 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="MABI",], 
             Events=InEvents[InEvents$Unit_Code=="MABI",],
@@ -96,6 +102,7 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="MIMA",], 
             Events=InEvents[InEvents$Unit_Code=="MIMA",],
@@ -122,6 +129,7 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="MORR",], 
             Events=InEvents[InEvents$Unit_Code=="MORR",],
@@ -148,6 +156,7 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="ROVA",], 
             Events=InEvents[InEvents$Unit_Code=="ROVA",],
@@ -174,6 +183,7 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="SAGA",], 
             Events=InEvents[InEvents$Unit_Code=="SAGA",],
@@ -200,6 +210,7 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="SARA",], 
             Events=InEvents[InEvents$Unit_Code=="SARA",],
@@ -226,6 +237,7 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2), 
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
+            Cycles=InCycles,
             
             Plots=InPlots[InPlots$Unit_Code=="WEFA",], 
             Events=InEvents[InEvents$Unit_Code=="WEFA",],
@@ -238,6 +250,7 @@ importNETN<-function(Dir){
             Vines=InVines[InVines$Unit_Code=="WEFA",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="WEFA",],
             Commons=InCommons)
+  
   return(c(ACAD,MABI,MIMA,MORR,ROVA,SAGA,SARA,WEFA))
 }
 

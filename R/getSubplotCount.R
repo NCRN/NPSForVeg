@@ -9,9 +9,9 @@
 #' @param group Indicates which plant groups the area should correspond to. Acceptable values are "herbs", and "seedlings"
 #' @param subtype Indicates the type of area to be returned, and should be enclosed in quotes. Acceptable values are 
 #'\describe{
-#'  \item{"all"}{(the default) Returns the total area sampled per plot event for that group.}
-#'  \item{"single"}{Returns the area of one of the subsamples (eg. microplot or quadrat).}
-#'  \item{"count"}{A count of the number of the number of subplots/microplots/quadrats that the group is monitored in for each plot event.}
+#'  \item{"all"}{(the default) Returns the total area and number of subplots sampled per plot event for that group.}
+#'  \item{"area"}{(the default) Returns the total area sampled per plot event for that group.}
+#'  \item{"count"}{A count of the number of subplots/microplots/quadrats that the group is monitored in for each plot event.}
 #'}
 #' 
 #' @return For a single NPSForVeg object getSubplotCount returns a data.frame. 
@@ -20,7 +20,7 @@
 
 ### This calculates the areas for various kinds of plots in m^2
 
-setGeneric(name="getSubplotCount",function(object,group,years=NA,plots=NA,subtype=NA,...){standardGeneric("getSubplotCount")},signature=c("object") )
+setGeneric(name="getSubplotCount",function(object,group,years=NA,plots=NA,subtype='all',...){standardGeneric("getSubplotCount")},signature=c("object") )
 
 setMethod(f="getSubplotCount", signature="list",
   function(object,group,years,plots,subtype,...) 
@@ -40,28 +40,48 @@ setMethod(f="getSubplotCount", signature="NPSForVeg",
 
     switch(group,
       saplings = switch (subtype,
-        all= XSubplots<-ifelse("numSapPlots" %in% names(XSubplots), return(XSubplots%>% select(Event_ID,Plot_Name,Event_Year,numSapPlots) %>%     
-                        mutate(SapPlotAll=numSapPlots*object@SapPlotSize[2]) %>% select(-numSapPlots)), 
-                        return(XSubplots%>% select(Event_ID,Plot_Name,Event_Year) %>% mutate(SapPlotAll=object@SapPlotSize[1]*object@SapPlotSize[2]))),
-        single= return(object@SapPlotSize[2]),
-        count= XSubplots<-ifelse("numSapPlots" %in% names(XSubplots), return(XSubplots%>% select(Event_ID,Plot_Name,Event_Year,numSapPlots)),
-                        return(XSubplots%>% select(Event_ID,Plot_Name,Event_Year) %>% mutate(numSapPlots=object@SapPlotSize[1])))),
+        area= XSubplots<-ifelse("numSapPlots" %in% names(XSubplots), return(XSubplots%>% select(Plot_Name,Event_Year,numSapPlots) %>%     
+                        mutate(SubPlotArea=numSapPlots*object@SapPlotSize[2]) %>% select(-numSapPlots)), 
+                        return(XSubplots%>% select(Plot_Name,Event_Year) %>% mutate(SubPlotArea=object@SapPlotSize[1]*object@SapPlotSize[2]))),
+
+        count= XSubplots<-ifelse("numSapPlots" %in% names(XSubplots), return(XSubplots%>% select(Plot_Name,Event_Year,numSapPlots) %>% 
+                        mutate(numSubPlots=numSapPlots) %>% select(-numSapPlots)),
+                        return(XSubplots%>% select(Plot_Name,Event_Year) %>% mutate(numSubPlots=object@SapPlotSize[1]))),
+
+        all= XSubplots<-ifelse("numSapPlots" %in% names(XSubplots), return(XSubplots%>% select(Plot_Name,Event_Year,numSapPlots) %>%     
+                        mutate(numSubPlots=numSapPlots,SubPlotArea=numSapPlots*object@SapPlotSize[2]) %>% select(-numSapPlots)), 
+                        return(XSubplots%>% select(Plot_Name,Event_Year) %>% mutate(numSubPlots=object@SapPlotSize[2],
+                        SubPlotArea=object@SapPlotSize[1]*object@SapPlotSize[2])))
+        ),
       
       seedlings = switch (subtype,
-        all= XSubplots<-ifelse("numSeedPlots" %in% names(XSubplots), return(XSubplots%>% select(Event_ID,Plot_Name,Event_Year,numSeedPlots) %>%     
-                        mutate(SeedPlotAll=numSeedPlots*object@SeedPlotSize[2]) %>% select(-numSeedPlots)), 
-                        return(XSubplots %>% select(Event_ID,Plot_Name,Event_Year) %>% mutate(SeedPlotAll=object@SeedPlotSize[1]*object@SeedPlotSize[2]))),
-        single= return(object@SeedPlotSize[2]),
-        count= XSubplots<-ifelse("numSeedPlots" %in% names(XSubplots), return(XSubplots%>% select(Event_ID,Plot_Name,Event_Year,numSeedPlots)),
-          return(XSubplots%>% select(Event_ID,Plot_Name,Event_Year) %>% mutate(numSeedPlots=object@SeedPlotSize[1])))),
+        area= XSubplots<-ifelse("numSeedPlots" %in% names(XSubplots), return(XSubplots%>% select(Plot_Name,Event_Year,numSeedPlots) %>%     
+                        mutate(SubPlotArea=numSeedPlots*object@SeedPlotSize[2]) %>% select(-numSeedPlots)), 
+                        return(XSubplots %>% select(Plot_Name,Event_Year) %>% mutate(SubPlotArea=object@SeedPlotSize[1]*object@SeedPlotSize[2]))),
+        
+        count= XSubplots<-ifelse("numSeedPlots" %in% names(XSubplots), return(XSubplots%>% select(Plot_Name,Event_Year,numSeedPlots) %>% 
+                        mutate(numSubPlots=numSeedPlots) %>% select(-numSeedPlots)),
+                        return(XSubplots%>% select(Plot_Name,Event_Year) %>% mutate(numSubPlots=object@SeedPlotSize[1]))),
+      
+        all= XSubplots<-ifelse("numSeedPlots" %in% names(XSubplots), return(XSubplots%>% select(Plot_Name,Event_Year,numSeedPlots) %>%     
+                        mutate(numSubPlots=numSeedPlots,SubPlotArea=numSeedPlots*object@SeedPlotSize[2]) %>% select(-numSeedPlots)), 
+                        return(XSubplots%>% select(Plot_Name,Event_Year) %>% mutate(numSubPlots=object@SeedPlotSize[2],
+                        SubPlotArea=object@SeedPlotSize[1]*object@SeedPlotSize[2])))),
       
       herbs = switch (subtype,
-        all= XSubplots<-ifelse("numHerbPlots" %in% names(XSubplots), return(XSubplots%>% select(Event_ID,Plot_Name,Event_Year,numHerbPlots) %>%     
-                        mutate(HerbPlotAll=numHerbPlots*object@HPlotSize[2]) %>%  select(-numHerbPlots)), 
-                        return(XSubplots %>% select(Event_ID,Plot_Name,Event_Year) %>% mutate(HerbPlotAll=object@HPlotSize[1]*object@HPlotSize[2]))),
-        single= return(object@HerbPlotSize[2]),
-        count= XSubplots<-ifelse("numHerbPlots" %in% names(XSubplots), return(object@Events%>% select(Event_ID,Plot_Name,Event_Year,numHerbPlots)),
-                        return(XSubplots %>% select(Event_ID,Plot_Name,Event_Year) %>% mutate(numHerbPlots=object@HPlotSize[1])))))
+        area= XSubplots<-ifelse("numHerbPlots" %in% names(XSubplots), return(XSubplots%>% select(Plot_Name,Event_Year,numHerbPlots) %>%     
+                        mutate(SubPlotArea=numHerbPlots*object@HPlotSize[2]) %>%  select(-numHerbPlots)), 
+                        return(XSubplots %>% select(Plot_Name,Event_Year) %>% mutate(SubPlotArea=object@HPlotSize[1]*object@HPlotSize[2]))),
+        
+        count= XSubplots<-ifelse("numHerbPlots" %in% names(XSubplots), return(XSubplots%>% select(Plot_Name,Event_Year,numHerbPlots) %>% 
+                        mutate(numSubPlots=numHerbPlots) %>% select(-numHerbPlots)),
+                        return(XSubplots %>% select(Plot_Name,Event_Year) %>% mutate(numSubPlots=object@HPlotSize[1]))),
+      
+        all= XSubplots<-ifelse("numHerbPlots" %in% names(XSubplots), return(XSubplots%>% select(Plot_Name,Event_Year,numHerbPlots) %>%     
+                        mutate(numSubPlots=numHerbPlots, SubPlotArea=numHerbPlots*object@HPlotSize[2]) %>% select(-numHerbPlots)), 
+                        return(XSubplots%>% select(Plot_Name,Event_Year) %>% mutate(numSubPlots=object@HPlotSize[2],
+                        SubPlotArea=object@HPlotSize[1]*object@HPlotSize[2]))))
+      )
         
     return(XSubplots)
      })

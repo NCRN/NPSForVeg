@@ -12,7 +12,7 @@
 #' @param values Defaults to "count". Passed on to \code{\link{SiteXSpec}} Indicates the type of measurement which is calculated by the SiteXSpec function. Options are:
 #' \describe{
 #' \item{"count"}{The default. The number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants, for vines, it the number of trees a vine species grows on, and for herbs it will be the number of quadrats the plant occurs in.}
-#' \item{"size"}{For trees and saplings this is the total basal area per plot. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the total percent cover across all quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
+#' \item{"size"}{For trees and saplings this is the total basal area per plot. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all quadrats that were sampled. For shrubs and vines there is no defined size and the function will terminate with an error.}
 #' \item{"presab"}{A presence-absence matrix. When a plant species is present in a given plot, the corresponding cell value will be 1. Otherwise it will be 0.}
 #' }
 #'@param density Logical Value, defaults to \code{TRUE}, presents results on per hectare basis. \code{FALSE} presents results on a per plot basis. For \code{values="presab"} this is always treated as \code{FALSE} and results are always a proportion of plots.
@@ -69,7 +69,7 @@ setMethod(f="dens", signature=c(object="NPSForVeg"),
                     OutData[2:4]<-exp(OutData[2:4])
                   },
                   size={
-                    if(group=="herbs") {TempData[-1]<-TempData[-1]/getArea(object=object,group=group, type="count")}
+                    if(group=="herbs") 
                     OutData$Mean<-sapply(X=names(TempData[-1]), FUN=function(X,Z){mean(Z[[X]])}, Z=TempData[-1])
                     SzBoot<-list()
                     SzBoot<-lapply(

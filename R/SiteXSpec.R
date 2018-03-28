@@ -11,7 +11,7 @@
 #' @param values Determines the data contained in the Site X Species matrix. Possible values are:
 #' \describe{
 #' \item{"count"}{The default. Each cell will include a count of the number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants. For vines, it is the number of trees a vine species grows on. For herbs it will be the number of quadrats the plant occurs in.}
-#' \item{"size"}{For trees and saplings this is the total basal area. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the total percent cover across all quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
+#' \item{"size"}{For trees and saplings this is the total basal area. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all quadrats that were sampled. For shrubs and vines there is no defined size and the function will terminate with an error.}
 #' \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
 #' }
 #' @param output Either "dataframe" or "list". Determines the output type When \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be a single large \code{data.frame}, containing all sites and species from all \code{NPSForVeg} objects. "list" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that object's \code{ParkCode} slot. 
@@ -50,9 +50,11 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
 setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"), 
           function(object, group, years, cycles, values, species, plots,...){
             
-            XPlants<-data.table( getPlants(object=object,group=group,years=years,cycles=cycles,species=species,plots=plots,...))
+            XPlants<-data.table(getPlants(object=object,group=group,years=years,cycles=cycles,species=species,plots=plots,...))
             XPlots<-if (anyNA(plots)) {getPlotNames(object=object,years=years,type="all")} else {
               plots[plots %in% getPlotNames(object=object,years=years,type="all")] }
+            XSubplots<-getSubplotCount(object=object,group=group, years=years, plots=plots, subtype='all',...)
+            XPlants<-merge(XPlants,XSubplots, by.x=c('Plot_Name','Sample_Year'), by.y=c('Plot_Name','Event_Year'))
             XPlants[,fPlot:=factor(Plot_Name, levels=XPlots)]
             
             
@@ -69,7 +71,8 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
                                       unique(Latin_Name)), sum(Height), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
                          herbs=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
-                                      sum(Percent_Cover), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
+                                      sum(Percent_Cover)/(unique(numSubPlots)*length(unique(Sample_Year))), by=.EACHI],
+                                      formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
                          shrubs=,vines=stop("Cannot do a size based site x species matrix - no size measurement avaialable")
               )},

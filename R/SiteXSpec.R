@@ -53,8 +53,8 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
             XPlants<-data.table(getPlants(object=object,group=group,years=years,cycles=cycles,species=species,plots=plots,...))
             XPlots<-if (anyNA(plots)) {getPlotNames(object=object,years=years,type="all")} else {
               plots[plots %in% getPlotNames(object=object,years=years,type="all")] }
-            XSubplotCounts<-data.table(getSubplotCount(object=object,group=group, years=years, plots=plots,...))
-            XPlants<-merge(XPlants,XSubplotCounts, by.x=c('Plot_Name','Sample_Year'), by.y=c('Plot_Name','Event_Year'))
+            XSubplots<-getSubplotCount(object=object,group=group, years=years, plots=plots, subtype='all',...)
+            XPlants<-merge(XPlants,XSubplots, by.x=c('Plot_Name','Sample_Year'), by.y=c('Plot_Name','Event_Year'))
             XPlants[,fPlot:=factor(Plot_Name, levels=XPlots)]
             
             

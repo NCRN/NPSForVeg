@@ -26,6 +26,8 @@ importMIDN<-function(Dir){
   InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)#  each row is individual seedling with height and browse
   #InSeedsQuad<-read.csv("Seedlings_Quad.csv",as.is=T, header=T)# quadrat level summary of tree seedlings
   InVines<-read.csv(paste(Dir,"Vines.csv",sep="/"),as.is=T, header=T)
+  #InCWD<-<-read.csv(paste(Dir,"CWD.csv",sep="/"),as.is=T, header=T)
+  #InCWDTransects<-read.csv(paste(Dir,"CWDTransects.csv",sep="/"),as.is=T, header=T)
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$TSN<-as.character(InCommons$TSN)
 
@@ -42,7 +44,8 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
-            
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="APCO",],
+                     
             Plots=InPlots[InPlots$Unit_Code=="APCO",], 
             Events=InEvents[InEvents$Unit_Code=="APCO",],
             
@@ -55,6 +58,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="APCO",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="APCO",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="APCO",],
+            #CWD=InCWD[InCWD$Unit_Code=="APCO",],
             Commons=InCommons)
   
   
@@ -71,6 +75,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="BOWA",],
             
             Plots=InPlots[InPlots$Unit_Code=="BOWA",], 
             Events=InEvents[InEvents$Unit_Code=="BOWA",],
@@ -84,6 +89,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="BOWA",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="BOWA",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="BOWA",],
+            #CWD=InCWD[InCWD$Unit_Code=="BOWA",],
             Commons=InCommons)
   
   COLO<-new("NPSForVeg", 
@@ -99,6 +105,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="COLO",],
             
             Plots=InPlots[InPlots$Unit_Code=="COLO",], 
             Events=InEvents[InEvents$Unit_Code=="COLO",],
@@ -112,6 +119,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="COLO",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="COLO",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="COLO",],
+            #CWD=InCWD[InCWD$Unit_Code=="COLO",],
             Commons=InCommons)
   
   
@@ -129,6 +137,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="FRSP",],
             
             Plots=InPlots[InPlots$Unit_Code=="FRSP",], 
             Events=InEvents[InEvents$Unit_Code=="FRSP",],
@@ -142,6 +151,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="FRSP",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="FRSP",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="FRSP",],
+            #CWD=InCWD[InCWD$Unit_Code=="FRSP",],
             Commons=InCommons)
   
   GETT<-new("NPSForVeg", 
@@ -157,7 +167,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
-            
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="GETT",],
             Plots=InPlots[InPlots$Unit_Code=="GETT",], 
             Events=InEvents[InEvents$Unit_Code=="GETT",],
             
@@ -170,6 +180,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="GETT",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="GETT",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="GETT",],
+            #CWD=InCWD[InCWD$Unit_Code=="GETT",],
             Commons=InCommons)
   
   
@@ -186,7 +197,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
-            
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="GEWA",],
             Plots=InPlots[InPlots$Unit_Code=="GEWA",], 
             Events=InEvents[InEvents$Unit_Code=="GEWA",],
             
@@ -199,6 +210,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="ANTI",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="GEWA",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="GEWA",],
+            #CWD=InCWD[InCWD$Unit_Code=="GEWA",],
             Commons=InCommons)
   
   HOFU<-new("NPSForVeg", 
@@ -214,6 +226,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="HOFU",],
             
             Plots=InPlots[InPlots$Unit_Code=="HOFU",], 
             Events=InEvents[InEvents$Unit_Code=="HOFU",],
@@ -227,6 +240,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="HOFU",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="HOFU",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="HOFU",],
+            #CWD=InCWD[InCWD$Unit_Code=="HOFU",],
             Commons=InCommons)
   
   PETE<-new("NPSForVeg", 
@@ -242,6 +256,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="PETE",],
             
             Plots=InPlots[InPlots$Unit_Code=="PETE",], 
             Events=InEvents[InEvents$Unit_Code=="PETE",],
@@ -255,6 +270,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="PETE",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="PETE",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="PETE",],
+            #CWD=InCWD[InCWD$Unit_Code=="PETE",],
             Commons=InCommons)
   
   
@@ -271,6 +287,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="RICH",],
             
             Plots=InPlots[InPlots$Unit_Code=="RICH",], 
             Events=InEvents[InEvents$Unit_Code=="RICH",],
@@ -284,6 +301,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="RICH",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="RICH",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="RICH",],
+            #CWD=InCWD[InCWD$Unit_Code=="RICH",],
             Commons=InCommons)
   
   
@@ -300,6 +318,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="SAHI",],
             
             Plots=InPlots[InPlots$Unit_Code=="SAHI",], 
             Events=InEvents[InEvents$Unit_Code=="SAHI",],
@@ -313,6 +332,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="SAHI",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="SAHI",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="SAHI",],
+            #CWD=InCWD[InCWD$Unit_Code=="SAHI",],
             Commons=InCommons)
   
   THST<-new("NPSForVeg", 
@@ -328,6 +348,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="THST",],
             
             Plots=InPlots[InPlots$Unit_Code=="THST",], 
             Events=InEvents[InEvents$Unit_Code=="THST",],
@@ -341,6 +362,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="THST",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="THST",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="THST",],
+            #CWD=InCWD[InCWD$Unit_Code=="THST",],
             Commons=InCommons)
   
   VAFO<-new("NPSForVeg", 
@@ -356,6 +378,7 @@ importMIDN<-function(Dir){
             ShSeedPlotSize=c(12,1), #quadrats
             VPlotSize=c(1,20*20),# Not sure right now 
             HPlotSize=c(12,1),#quadrats
+            #CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="VAFO",],
             
             Plots=InPlots[InPlots$Unit_Code=="VAFO",], 
             Events=InEvents[InEvents$Unit_Code=="VAFO",],
@@ -369,6 +392,7 @@ importMIDN<-function(Dir){
             #Shrubs=InShrubs[InShrubs$Unit_Code=="VAFO",], 
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="VAFO",],
             #Herbs=InHerbs[InHerbs$Unit_Code=="VAFO",],
+            #CWD=InCWD[InCWD$Unit_Code=="VAFO",],
             Commons=InCommons)
   
   return(c(APCO,BOWA,COLO,FRSP,GETT,GEWA,HOFU,PETE,RICH,SAHI,THST,VAFO))

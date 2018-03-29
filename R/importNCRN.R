@@ -27,6 +27,8 @@ importNCRN<-function(Dir){
   InShSeeds<-read.csv(paste(Dir,"Shrub_Seedlings.csv",sep="/"),as.is=T, header=T)
   InVines<-read.csv(paste(Dir,"Vines.csv",sep="/"),as.is=T, header=T)
   InHerbs<-read.csv(paste(Dir,"Herbs.csv",sep="/"),as.is=T, header=T)
+  InCWD<-read.csv(paste(Dir,"CWD.csv",sep="/"),as.is=T, header=T)
+  InCWDTransects<-read.csv(paste(Dir,"CWDTransects.csv",sep="/"),as.is=T, header=T)
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
   InCommons$TSN<-as.character(InCommons$TSN)
@@ -45,6 +47,7 @@ importNCRN<-function(Dir){
            ShSeedPlotSize=c(12,1), 
            VPlotSize=c(1,pi*15*15),
            HPlotSize=c(12,1),
+           CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="ANTI",],
            
            Plots=InPlots[InPlots$Unit_Code=="ANTI",], 
            Events=InEvents[InEvents$Unit_Code=="ANTI",],
@@ -56,6 +59,7 @@ importNCRN<-function(Dir){
            ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="ANTI",],
            Vines=InVines[InVines$Unit_Code=="ANTI",], 
            Herbs=InHerbs[InHerbs$Unit_Code=="ANTI",],
+           CWD=InCWD[InCWD$Unit_Code=="ANTI",],
            Commons=InCommons)
  
  
@@ -72,6 +76,7 @@ importNCRN<-function(Dir){
            ShSeedPlotSize=c(12,1), 
            VPlotSize=c(1,pi*15*15),
            HPlotSize=c(12,1),
+           CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="CATO",],
            
            Plots=InPlots[InPlots$Unit_Code=="CATO",], 
            Events=InEvents[InEvents$Unit_Code=="CATO",],
@@ -83,6 +88,7 @@ importNCRN<-function(Dir){
            ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="CATO",],
            Vines=InVines[InVines$Unit_Code=="CATO",], 
            Herbs=InHerbs[InHerbs$Unit_Code=="CATO",],
+           CWD=InCWD[InCWD$Unit_Code=="CATO",],
            Commons=InCommons)
 
 CHOH<-new("NPSForVeg", 
@@ -98,6 +104,7 @@ CHOH<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="CHOH",],
           
           Plots=InPlots[InPlots$Unit_Code=="CHOH",], 
           Events=InEvents[InEvents$Unit_Code=="CHOH",],
@@ -109,6 +116,7 @@ CHOH<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="CHOH",],
           Vines=InVines[InVines$Unit_Code=="CHOH",], 
           Herbs=InHerbs[InHerbs$Unit_Code=="CHOH",],
+          CWD=InCWD[InCWD$Unit_Code=="CHOH",],
           Commons=InCommons)
 
 GWMP<-new("NPSForVeg", 
@@ -124,6 +132,7 @@ GWMP<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code==GWMP,],
           
           Plots=InPlots[InPlots$Unit_Code=="GWMP",], 
           Events=InEvents[InEvents$Unit_Code=="GWMP",],
@@ -135,6 +144,7 @@ GWMP<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="GWMP",],
           Vines=InVines[InVines$Unit_Code=="GWMP",], 
           Herbs=InHerbs[InHerbs$Unit_Code=="GWMP",],
+          CWD=InCWD[InCWD$Unit_Code=="GWMP",],
           Commons=InCommons)
 
 HAFE<-new("NPSForVeg", 
@@ -150,6 +160,7 @@ HAFE<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="HAFE",],
           
           Plots=InPlots[InPlots$Unit_Code=="HAFE",], 
           Events=InEvents[InEvents$Unit_Code=="HAFE",],
@@ -161,6 +172,7 @@ HAFE<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="HAFE",],
           Vines=InVines[InVines$Unit_Code=="HAFE",], 
           Herbs=InHerbs[InHerbs$Unit_Code=="HAFE",],
+          CWD=InCWD[InCWD$Unit_Code=="HAFE",],
           Commons=InCommons)
 
 MANA<-new("NPSForVeg",
@@ -176,6 +188,7 @@ MANA<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="MANA",],
           
           Plots=InPlots[InPlots$Unit_Code=="MANA",],
           Events=InEvents[InEvents$Unit_Code=="MANA",], 
@@ -187,6 +200,7 @@ MANA<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="MANA",],
           Vines=InVines[InVines$Unit_Code=="MANA",],
           Herbs=InHerbs[InHerbs$Unit_Code=="MANA",],
+          CWD=InCWD[InCWD$Unit_Code=="MANA",],
           Commons=InCommons) 
 
 MONO<-new("NPSForVeg",
@@ -202,6 +216,7 @@ MONO<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="MONO",],
           
           Plots=InPlots[InPlots$Unit_Code=="MONO",],
           Events=InEvents[InEvents$Unit_Code=="MONO",], 
@@ -213,6 +228,7 @@ MONO<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="MONO",],
           Vines=InVines[InVines$Unit_Code=="MONO",],
           Herbs=InHerbs[InHerbs$Unit_Code=="MONO",],
+          CWD=InCWD[InCWD$Unit_Code=="MONO",],
           Commons=InCommons) 
 
 NACE<-new("NPSForVeg",
@@ -228,6 +244,7 @@ NACE<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="NACE",],
           
           Plots=InPlots[InPlots$Unit_Code=="NACE",],
           Events=InEvents[InEvents$Unit_Code=="NACE",], 
@@ -239,6 +256,7 @@ NACE<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="NACE",],
           Vines=InVines[InVines$Unit_Code=="NACE",],
           Herbs=InHerbs[InHerbs$Unit_Code=="NACE",],
+          CWD=InCWD[InCWD$Unit_Code=="NACE",],
           Commons=InCommons) 
 
 PRWI<-new("NPSForVeg",
@@ -254,6 +272,7 @@ PRWI<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="PRWI",],
           
           Plots=InPlots[InPlots$Unit_Code=="PRWI",],
           Events=InEvents[InEvents$Unit_Code=="PRWI",],
@@ -265,6 +284,7 @@ PRWI<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="PRWI",],
           Vines=InVines[InVines$Unit_Code=="PRWI",],
           Herbs=InHerbs[InHerbs$Unit_Code=="PRWI",],
+          CWD=InCWD[InCWD$Unit_Code=="PRWI",],
           Commons=InCommons) 
 
 ROCR<-new("NPSForVeg",
@@ -280,6 +300,7 @@ ROCR<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="ROCR",],
           
           Plots=InPlots[InPlots$Unit_Code=="ROCR",],
           Events=InEvents[InEvents$Unit_Code=="ROCR",], 
@@ -291,6 +312,7 @@ ROCR<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="ROCR",],
           Vines=InVines[InVines$Unit_Code=="ROCR",],
           Herbs=InHerbs[InHerbs$Unit_Code=="ROCR",],
+          CWD=InCWD[InCWD$Unit_Code=="ROCR",],
           Commons=InCommons) 
 
 WOTR<-new("NPSForVeg",
@@ -306,6 +328,7 @@ WOTR<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          CWDTransectSize=InCWDTransects[InCWDTransects$Unit_Code=="WOTR",],
           
           Plots=InPlots[InPlots$Unit_Code=="WOTR",],
           Events=InEvents[InEvents$Unit_Code=="WOTR",], 
@@ -317,6 +340,7 @@ WOTR<-new("NPSForVeg",
           ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="WOTR",],
           Vines=InVines[InVines$Unit_Code=="WOTR",],
           Herbs=InHerbs[InHerbs$Unit_Code=="WOTR",],
+          CWD=InCWD[InCWD$Unit_Code=="WOTR",],
           Commons=InCommons)
 
   

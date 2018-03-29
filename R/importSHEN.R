@@ -20,6 +20,8 @@ importSHEN<-function(Dir){
   InEvents<-read.csv(paste(Dir,"Events.csv",sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
+  InCycles<-read.csv(paste(Dir,"Cycles.csv",sep="/"), as.is=T, header=T)
+  
   
   InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
@@ -44,6 +46,7 @@ importSHEN<-function(Dir){
            ShrubPlotSize=c(2, 48), 
            ShSeedPlotSize=c(2, 6), 
            HPlotSize=c(1,576),
+           Cycles=InCycles,
            
            Plots=InPlots[InPlots$Unit_Code=="SHEN",], 
            Events=InEvents[InEvents$Unit_Code=="SHEN",],

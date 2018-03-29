@@ -1,3 +1,4 @@
+#' @include NPSForVeg_Class_def.R
 #' @title importNCRN
 #' 
 #' @description  This function imports data from the standard NCRN .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: Plots, Events, Trees, Saplings, Seedlings, Shrubs, Shrub_Seedlings, Vines, Herbs and CommonNames.
@@ -19,6 +20,7 @@ importNCRN<-function(Dir){
   InEvents<-read.csv(paste(Dir,"Events.csv",sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
+  InCycles<-read.csv(paste(Dir,"Cycles.csv",sep="/"), as.is=T, header=T)
   
   InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
@@ -45,6 +47,7 @@ importNCRN<-function(Dir){
            ShSeedPlotSize=c(12,1), 
            VPlotSize=c(1,pi*15*15),
            HPlotSize=c(12,1),
+           Cycles=InCycles,
            
            Plots=InPlots[InPlots$Unit_Code=="ANTI",], 
            Events=InEvents[InEvents$Unit_Code=="ANTI",],
@@ -72,6 +75,7 @@ importNCRN<-function(Dir){
            ShSeedPlotSize=c(12,1), 
            VPlotSize=c(1,pi*15*15),
            HPlotSize=c(12,1),
+           Cycles=InCycles,
            
            Plots=InPlots[InPlots$Unit_Code=="CATO",], 
            Events=InEvents[InEvents$Unit_Code=="CATO",],
@@ -98,6 +102,7 @@ CHOH<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          Cycles=InCycles,
           
           Plots=InPlots[InPlots$Unit_Code=="CHOH",], 
           Events=InEvents[InEvents$Unit_Code=="CHOH",],
@@ -124,6 +129,7 @@ GWMP<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          Cycles=InCycles,
           
           Plots=InPlots[InPlots$Unit_Code=="GWMP",], 
           Events=InEvents[InEvents$Unit_Code=="GWMP",],
@@ -150,6 +156,7 @@ HAFE<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          Cycles=InCycles,
           
           Plots=InPlots[InPlots$Unit_Code=="HAFE",], 
           Events=InEvents[InEvents$Unit_Code=="HAFE",],
@@ -176,6 +183,7 @@ MANA<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          Cycles=InCycles,
           
           Plots=InPlots[InPlots$Unit_Code=="MANA",],
           Events=InEvents[InEvents$Unit_Code=="MANA",], 
@@ -202,6 +210,7 @@ MONO<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          Cycles=InCycles,
           
           Plots=InPlots[InPlots$Unit_Code=="MONO",],
           Events=InEvents[InEvents$Unit_Code=="MONO",], 
@@ -228,6 +237,7 @@ NACE<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          Cycles=InCycles,
           
           Plots=InPlots[InPlots$Unit_Code=="NACE",],
           Events=InEvents[InEvents$Unit_Code=="NACE",], 
@@ -254,6 +264,7 @@ PRWI<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          Cycles=InCycles,
           
           Plots=InPlots[InPlots$Unit_Code=="PRWI",],
           Events=InEvents[InEvents$Unit_Code=="PRWI",],
@@ -280,6 +291,7 @@ ROCR<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          Cycles=InCycles,
           
           Plots=InPlots[InPlots$Unit_Code=="ROCR",],
           Events=InEvents[InEvents$Unit_Code=="ROCR",], 
@@ -306,6 +318,7 @@ WOTR<-new("NPSForVeg",
           ShSeedPlotSize=c(12,1), 
           VPlotSize=c(1,pi*15*15),
           HPlotSize=c(12,1),
+          Cycles=InCycles,
           
           Plots=InPlots[InPlots$Unit_Code=="WOTR",],
           Events=InEvents[InEvents$Unit_Code=="WOTR",], 

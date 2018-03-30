@@ -17,7 +17,7 @@ dens(object, group, years, values = "count", density = TRUE, species = NA,
 \item{values}{Defaults to "count". Passed on to \code{\link{SiteXSpec}} Indicates the type of measurement which is calculated by the SiteXSpec function. Options are:
 \describe{
 \item{"count"}{The default. The number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants, for vines, it the number of trees a vine species grows on, and for herbs it will be the number of quadrats the plant occurs in.}
-\item{"size"}{For trees and saplings this is the total basal area per plot. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the total percent cover across all quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
+\item{"size"}{For trees and saplings this is the total basal area per plot per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
 \item{"presab"}{A presence-absence matrix. When a plant species is present in a given plot, the corresponding cell value will be 1. Otherwise it will be 0.}
 }}
 
@@ -25,18 +25,18 @@ dens(object, group, years, values = "count", density = TRUE, species = NA,
 
 \item{species}{Character vector, defaults to \code{NA}. Passed on to \code{\link{SiteXSpec}} and from there to \code{\link{getPlants}} to limit hte output to one or more designated species.}
 
-\item{output}{Either "dataframe" or "list". Determines the output type When \code{object} is a list. "Dataframe",the default, indicates the \code{NSPForVeg} objects should combined and treated as a single dataset and return a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} with resutls from a  single \code{NSPForVeg} obeject, and each element is named based on that object's \code{ParkCode} slot.}
+\item{output}{Either "dataframe" or "list". Determines the output type When \code{object} is a list. "Dataframe",the default, indicates the \code{NSPForVeg} objects should combined and treated as a single dataset and return a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} with resutls from a  single \code{NSPForVeg} object, and each element is named based on that object's \code{ParkCode} slot.}
 
 \item{...}{Any additional arguments which are valid for either \code{SiteXSpec} or \code{getPlants}.}
 }
 \value{
-Returns a \code{data.frame},or a \code{list} or them, which indicate the mean and 95\% condfidence intervals of the requested measurement.
+Returns a \code{data.frame},or a \code{list} or them, which indicate the mean and 95\% confidence intervals of the requested measurement.
 }
 \description{
 calculates  mean "density" in abundance, size and occupancy and 95\% confidence intervals.
 }
 \details{
-This function calculates the mean and 95\% confidence values for a given meauserment for one or more object of class \code{NPSForVeg}. The raw data for this calculation is acquried by calling \code{SiteXSpec} which will in turn call \code{getPlants}. The method of calculating the results depends on the \code{values} argument. If \code{values="count"} the data is assuemd to follow a negative binomial distriburtion. The mean and the intervals are calculated using the \code{glm.nb} function in the \pkg{MASS} package. Note that when a species if found in few of the plots, this function will often return a \code{warning}. 
-If \code{values="size"} no distirbution is assuemd for the underlying data. Instead, confidence intervals and detemrined using 1000 bootstrap replicates. Note that if a species is realtively rare this can lead to the 95% bootstrap confidence interval including 0.
+This function calculates the mean and 95\% confidence values for a given measurement for one or more object of class \code{NPSForVeg}. The raw data for this calculation is acquired by calling \code{SiteXSpec} which will in turn call \code{getPlants}. The method of calculating the results depends on the \code{values} argument. If \code{values="count"} the data is assuemd to follow a negative binomial distribution. The mean and the intervals are calculated using the \code{glm.nb} function in the \pkg{MASS} package. Note that when a species if found in few of the plots, this function will often return a \code{warning}. 
+If \code{values="size"} no distribution is assumed for the underlying data. Instead, confidence intervals and determined using 1000 bootstrap replicates. Note that if a species is relatively rare this can lead to the 95% bootstrap confidence interval including 0.
 If \code{values="presab"} data is treat as being binomial and confidence intervals are detemined using \code{glm}.
 }

@@ -17,7 +17,7 @@ SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
 \item{values}{Determines the data contained in the Site X Species matrix. Possible values are:
 \describe{
 \item{"count"}{The default. Each cell will include a count of the number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants. For vines, it is the number of trees a vine species grows on. For herbs it will be the number of quadrats the plant occurs in.}
-\item{"size"}{For trees and saplings this is the total basal area. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the total percent cover across all quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
+\item{"size"}{For trees and saplings this is the total basal area per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
 \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
 }}
 

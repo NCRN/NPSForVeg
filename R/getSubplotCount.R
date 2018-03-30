@@ -6,7 +6,7 @@
 #' @description This function gets the the counts of quadrats or microplots sampled in the "Events" slot of an NPSForVeg object.
 #' 
 #' @param object  Either an NPSForVeg object of a list of such objects.
-#' @param group Indicates which plant groups the area should correspond to. Acceptable values are "saplings","seedlings", and "herbs"
+#' @param group Indicates which plant groups the area should correspond to. Acceptable values are "trees","saplings","seedlings", and "herbs"
 #' @param subtype Indicates the type of area to be returned, and should be enclosed in quotes. Acceptable values are 
 #'\describe{
 #'  \item{"all"}{(the default) Returns the total area and number of subplots sampled per plot event for that group.}

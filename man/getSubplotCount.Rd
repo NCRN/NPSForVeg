@@ -10,7 +10,7 @@ getSubplotCount(object, group, years = NA, plots = NA, subtype = "all",
 \arguments{
 \item{object}{Either an NPSForVeg object of a list of such objects.}
 
-\item{group}{Indicates which plant groups the area should correspond to. Acceptable values are "saplings","seedlings", and "herbs"}
+\item{group}{Indicates which plant groups the area should correspond to. Acceptable values are "trees","saplings","seedlings", and "herbs"}
 
 \item{subtype}{Indicates the type of area to be returned, and should be enclosed in quotes. Acceptable values are 
 \describe{

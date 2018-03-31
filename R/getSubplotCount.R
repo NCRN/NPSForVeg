@@ -42,7 +42,7 @@ setMethod(f="getSubplotCount", signature="NPSForVeg",
       trees = switch (subtype,
         area=XSubplots<-return(XSubplots%>% dplyr::select(Plot_Name,Event_Year) %>% mutate(SubPlotArea=object@TPlotSize[1]*object@TPlotSize[2])),
         count=XSubplots<-return(XSubplots %>% dplyr::select(Plot_Name,Event_Year) %>% mutate(numSubPlots=object@TPlotSize[1])),
-        all=XSubplots<- return(XSubplots%>% dplyr::select(Plot_Name,Event_Year) %>% mutate(numSubPlots=object@TPlotSize[2],
+        all=XSubplots<- return(XSubplots%>% dplyr::select(Plot_Name,Event_Year) %>% mutate(numSubPlots=object@TPlotSize[1],
           SubPlotArea=object@TPlotSize[1]*object@TPlotSize[2]))),
       
       saplings = switch (subtype,

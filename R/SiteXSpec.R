@@ -64,12 +64,12 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
                 switch(group,
                   
                   trees=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
-                                      10000*sum(SumLiveBasalArea_cm2)/getArea(object,group,type='all'), by=.EACHI],
-                                      formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
+                                      sum(SumLiveBasalArea_cm2)/getArea(object,group,type='all'), by=.EACHI],
+                                      formula=fPlot~Latin_Name,value.var="V1", drop=FALSE), #units are m2/ha
                   
                   saplings=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
-                                      10000*sum(SumLiveBasalArea_cm2)/(unique(SubPlotArea)*length(unique(Sample_Year))), by=.EACHI],
-                                      formula=fPlot~Latin_Name, value.var="V1", drop=FALSE),
+                                      sum(SumLiveBasalArea_cm2)/(unique(SubPlotArea)*length(unique(Sample_Year))), by=.EACHI],
+                                      formula=fPlot~Latin_Name, value.var="V1", drop=FALSE), #units are m2/ha
                          
                          seedlings=,shseedlings=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), 
                                       unique(Latin_Name)), sum(Height), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),

@@ -41,7 +41,12 @@ importNETN<-function(Dir){
             LongName="Acadia National Park", 
             Network="NETN", 
             
-            TPlotSize=c(1,15*15),
+            TPlotSize=c(1,20*20), # Should be 15*15, 
+            # This is a band-aid until make can handle multiple plot areas, 
+            # or the SiteXSpec matrix no doesn't use the make function when all parks are called              
+            # (like in visualizer). With the addition of getSubplotCount, the plot size slot is
+            # no longer used for the size or count calculations for trees, seedlings and saplings
+            # so this TPlotSize isn't important for now.
             SapPlotSize=c(3, pi*2*2), 
             SeedPlotSize=c(3, pi*2*2), 
             ShrubPlotSize=c(3, pi*2*2), 

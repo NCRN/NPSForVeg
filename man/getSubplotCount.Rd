@@ -15,7 +15,7 @@ getSubplotCount(object, group, years = NA, plots = NA, subtype = "all",
 \item{subtype}{Indicates the type of area to be returned, and should be enclosed in quotes. Acceptable values are 
 \describe{
  \item{"all"}{(the default) Returns the total area and number of subplots sampled per plot event for that group.}
- \item{"area"}{(the default) Returns the total area sampled per plot event for that group.}
+ \item{"area"}{ Returns the total area sampled per plot event for that group.}
  \item{"count"}{A count of the number of subplots/microplots/quadrats that the group is monitored in for each plot event.}
 }}
 }

@@ -22,13 +22,14 @@ importERMN<-function(Dir){
   InEvents<-read.csv(paste(Dir,"Events.csv",sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
-  InCycles<-read.csv(paste(Dir,"Cycles_ERMN.csv",sep="/"), as.is=T, header=T)
+  InCycles<-read.csv(paste(Dir,"Cycles.csv",sep="/"), as.is=T, header=T)
   
   InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
   InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)
+  InHerbs<-read.csv(paste(Dir,"Herbs.csv",sep="/"),as.is=T, header=T)
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
-  InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""] ##maybe change this to ERMN?
+  InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
   InCommons$TSN<-as.character(InCommons$TSN)
 
   
@@ -50,6 +51,7 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="ALPO",], 
             Saplings=InSaps[InSaps$Unit_Code=="ALPO",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="ALPO",], 
+            Herbs=InHerbs[InHerbs$Unit_Code=="ALPO",],
             Commons=InCommons)
   
   BLUE<-new("NPSForVeg", 
@@ -71,6 +73,7 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="BLUE",], 
             Saplings=InSaps[InSaps$Unit_Code=="BLUE",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="BLUE",], 
+            Herbs=InHerbs[InHerbs$Unit_Code=="BLUE",],
             Commons=InCommons)
   
   DEWA<-new("NPSForVeg", 
@@ -92,6 +95,7 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="DEWA",], 
             Saplings=InSaps[InSaps$Unit_Code=="DEWA",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="DEWA",], 
+            Herbs=InHerbs[InHerbs$Unit_Code=="DEWA",],
             Commons=InCommons)
   
   FONE<-new("NPSForVeg", 
@@ -113,6 +117,7 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="FONE",], 
             Saplings=InSaps[InSaps$Unit_Code=="FONE",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="FONE",], 
+            Herbs=InHerbs[InHerbs$Unit_Code=="FONE",],
             Commons=InCommons)
   
   FRHI<-new("NPSForVeg", 
@@ -134,6 +139,7 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="FRHI",], 
             Saplings=InSaps[InSaps$Unit_Code=="FRHI",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="FRHI",], 
+            Herbs=InHerbs[InHerbs$Unit_Code=="FRHI",],
             Commons=InCommons)
   
   GARI<-new("NPSForVeg",
@@ -155,6 +161,7 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="GARI",], 
             Saplings=InSaps[InSaps$Unit_Code=="GARI",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="GARI",], 
+            Herbs=InHerbs[InHerbs$Unit_Code=="GARI",],
             Commons=InCommons) 
   
   JOFL<-new("NPSForVeg",
@@ -176,6 +183,7 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="JOFL",],  
             Saplings=InSaps[InSaps$Unit_Code=="JOFL",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="JOFL",], 
+            Herbs=InHerbs[InHerbs$Unit_Code=="JOFL",],
             Commons=InCommons) 
   
   NERI<-new("NPSForVeg",
@@ -197,6 +205,7 @@ importERMN<-function(Dir){
             Trees=InTrees[InTrees$Unit_Code=="NERI",], 
             Saplings=InSaps[InSaps$Unit_Code=="NERI",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="NERI",], 
+            Herbs=InHerbs[InHerbs$Unit_Code=="NERI",],
             Commons=InCommons) 
   
   

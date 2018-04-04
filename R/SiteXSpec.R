@@ -11,8 +11,15 @@
 #' @param values Determines the data contained in the Site X Species matrix. Possible values are:
 #' \describe{
 #' \item{"count"}{The default. Each cell will include a count of the number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants. For vines, it is the number of trees a vine species grows on. For herbs it will be the number of quadrats the plant occurs in.}
-#' \item{"size"}{For trees and saplings this is the total basal area per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
+#' \item{"size"}{For trees and saplings this is the total basal area in m2 per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
 #' \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
+#' }
+#' @param area A character vector. Determine if the values in the output are on a per plot or per area basis. This only works with counts, 
+#' basal areas, and lenght of seedlings.
+#' \describe{
+#' \item{"plot"}{The default. Each cell will be ona per plot basis. The only option for \code{values="presab"}.}
+#' \item{"ha"}{Values will be on a per hectare basis}
+#' \item{"ac"}{values will be in a per acre basis}
 #' }
 #' @param output Either "dataframe" or "list". Determines the output type When \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be a single large \code{data.frame}, containing all sites and species from all \code{NPSForVeg} objects. "list" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that object's \code{ParkCode} slot. 
 #' @param species A character vector of names. Defaults to \code{NA}. When not \code{NA} only species included in \code{species} will be included in the matrix. If a name is in \code{species}, but is not present in the data, it will not appear in the output. 
@@ -20,16 +27,20 @@
 #' @param Total Logical value. Determine if a "Total" column will be included in the output. Defaults to TRUE.
 #' @param ... Other arguments passed on to \code{\link{getPlants}}
 #' 
-#' @details This function will first call \code{\link{getPlants}} to retrieve the plant data. Then a SiteXSpecies matrix will be created. Values in the cells are determined by the option selected with \code{values}. Each row corresponds to a different plot and each column to a different species. 
+#' @details This function will first call \code{\link{getPlants}} to retrieve the plant data. Then a SiteXSpecies matrix will be created. 
+#' Values in the cells are determined by the option selected with \code{values}. Each row corresponds to a different plot and each column 
+#' to a different species. 
 #' 
-#' Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in the function call. 
+#' Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in 
+#' the function call. 
 #' 
 #' @export
 #' 
 
 
 
-setGeneric(name="SiteXSpec",function(object,group,years=NA, cycles=NA,values="count",output="dataframe",species=NA,plots=NA,Total=TRUE,...){standardGeneric("SiteXSpec")}, signature="object")
+setGeneric(name="SiteXSpec",function(object,group,years=NA, cycles=NA,values="count",area="plot", output="dataframe",
+              species=NA,plots=NA,Total=TRUE,...){standardGeneric("SiteXSpec")}, signature="object")
 
 setMethod(f="SiteXSpec", signature=c(object="list"),
          function(object,...){
@@ -43,7 +54,7 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
                 OutList<-lapply(X=object, FUN=SiteXSpec, group=group,years=years,cycles=cycles, species=species,plots=plots,...)
                 names(OutList)<-getNames(object,name.class="code")
                 return(OutList)
-                }
+              }
          )
 })
 
@@ -58,24 +69,24 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
             XPlants[,fPlot:=factor(Plot_Name, levels=XPlots)]
             
             switch(values, 
-              count= OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)), .N, by=.EACHI], 
-                                                formula=fPlot~Latin_Name, value.var="N"),
+              count= OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)), .N, 
+                                        by=.EACHI], formula=fPlot~Latin_Name, value.var="N"),
               size={
                 switch(group,
                   
                   trees=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
-                                      sum(SumLiveBasalArea_cm2)/(unique(SubPlotArea)*length(unique(Sample_Year))), by=.EACHI],
+                                      sum(SumLiveBasalArea_cm2)/10000, by=.EACHI],
                                       formula=fPlot~Latin_Name,value.var="V1", drop=FALSE), #units are m2/ha
                   
                   saplings=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
-                                      sum(SumLiveBasalArea_cm2)/(unique(SubPlotArea)*length(unique(Sample_Year))), by=.EACHI],
+                                      sum(SumLiveBasalArea_cm2)/10000, by=.EACHI],
                                       formula=fPlot~Latin_Name, value.var="V1", drop=FALSE), #units are m2/ha
                          
                          seedlings=,shseedlings=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), 
                                       unique(Latin_Name)), sum(Height), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
                          herbs=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
-                                        sum(Percent_Cover)/(unique(numSubPlots)*length(unique(Sample_Year))), by=.EACHI],
+                                        sum(Percent_Cover)/(unique(numSubPlots)), by=.EACHI],
                                         formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
                          shrubs=,vines=stop("Cannot do a size based site x species matrix - no size measurement avaialable")
@@ -95,8 +106,29 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
             
             if(Total){OutData[,Total:=rowSums(.SD), .SDcol=-1]}
             
-            return(as.data.frame(OutData))
-  })
+
+            OutData<-(as.data.frame(OutData))
+            PlotSize<-XSubplots[order(XSubplots$Plot_Name),]$SubPlotArea
+            
+            if ((group %in% c("trees","saplings","seedlings","shrubs","shseedlings","vines")) & values=="count" ){
+              switch(area,
+                      ha = OutData[-1]<- OutData[-1]*(10000/PlotSize),
+                      ac = OutData[-1]<- OutData[-1]*(4046.86/PlotSize)  # conversion from square meters to acres 
+              )
+            }
+            
+            if((group %in% c("trees", "saplings","seedlings","shseeldlings")) & values=="size"){
+              switch(area,
+                     ha = OutData[-1]<- OutData[-1]*(10000/PlotSize),
+                     ac = OutData[-1]<- OutData[-1]*(4046.86/PlotSize)  # conversion from square meters to acres 
+              )
+              
+              
+            } 
+            
+            return(OutData)
+            
+            })
 
 
 

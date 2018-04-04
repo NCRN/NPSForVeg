@@ -4,8 +4,7 @@
 \alias{getSubplotCount}
 \title{getSubplotCount}
 \usage{
-getSubplotCount(object, group, years = NA, plots = NA, subtype = "all",
-  ...)
+getSubplotCount(object, group, subtype = "all", ...)
 }
 \arguments{
 \item{object}{Either an NPSForVeg object of a list of such objects.}
@@ -18,10 +17,13 @@ getSubplotCount(object, group, years = NA, plots = NA, subtype = "all",
  \item{"area"}{ Returns the total area sampled per plot event for that group.}
  \item{"count"}{A count of the number of subplots/microplots/quadrats that the group is monitored in for each plot event.}
 }}
+
+\item{...}{Additional arguments passed on to \code{getEvents}.}
 }
 \value{
-For a single NPSForVeg object getSubplotCount returns a data.frame.
+A \code{data.frame} with the columns corresponding to the plot name, event year,number of subplots sampled, and area of the 
+sampled subplots.
 }
 \description{
-This function gets the the counts of quadrats or microplots sampled in the "Events" slot of an NPSForVeg object.
+This function gets the the counts and/or areas of quadrats or microplots sampled in the "Events" slot of an NPSForVeg object.
 }

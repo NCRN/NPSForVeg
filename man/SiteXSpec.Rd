@@ -5,7 +5,8 @@
 \title{SiteXSpec}
 \usage{
 SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
-  output = "dataframe", species = NA, plots = NA, Total = TRUE, ...)
+  area = "plot", output = "dataframe", species = NA, plots = NA,
+  Total = TRUE, ...)
 }
 \arguments{
 \item{object}{either an object of class \code{NPSForVeg} or a list of such objects}
@@ -17,8 +18,16 @@ SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
 \item{values}{Determines the data contained in the Site X Species matrix. Possible values are:
 \describe{
 \item{"count"}{The default. Each cell will include a count of the number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants. For vines, it is the number of trees a vine species grows on. For herbs it will be the number of quadrats the plant occurs in.}
-\item{"size"}{For trees and saplings this is the total basal area per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
+\item{"size"}{For trees and saplings this is the total basal area in m2 per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
 \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
+}}
+
+\item{area}{A character vector. Determine if the values in the output are on a per plot or per area basis. This only works with counts, 
+basal areas, and lenght of seedlings.
+\describe{
+\item{"plot"}{The default. Each cell will be ona per plot basis. The only option for \code{values="presab"}.}
+\item{"ha"}{Values will be on a per hectare basis}
+\item{"ac"}{values will be in a per acre basis}
 }}
 
 \item{output}{Either "dataframe" or "list". Determines the output type When \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be a single large \code{data.frame}, containing all sites and species from all \code{NPSForVeg} objects. "list" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that object's \code{ParkCode} slot.}
@@ -37,7 +46,10 @@ SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
 Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence
 }
 \details{
-This function will first call \code{\link{getPlants}} to retrieve the plant data. Then a SiteXSpecies matrix will be created. Values in the cells are determined by the option selected with \code{values}. Each row corresponds to a different plot and each column to a different species. 
+This function will first call \code{\link{getPlants}} to retrieve the plant data. Then a SiteXSpecies matrix will be created. 
+Values in the cells are determined by the option selected with \code{values}. Each row corresponds to a different plot and each column 
+to a different species. 
 
-Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in the function call.
+Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in 
+the function call.
 }

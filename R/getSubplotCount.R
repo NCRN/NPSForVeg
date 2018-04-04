@@ -25,17 +25,17 @@
 setGeneric(name="getSubplotCount",function(object,group,subtype='all',...){standardGeneric("getSubplotCount")},signature=c("object") )
 
 setMethod(f="getSubplotCount", signature="list",
-  function(object,group,years,plots,subtype,...) 
+  function(object,group,subtype,...) 
   {OutSubplots<-lapply(X=object, FUN=getSubplotCount,group=group,subtype=subtype, ...)
   return(rbindlist(OutSubplots)) 
   
   })
 
 setMethod(f="getSubplotCount", signature="NPSForVeg",
-  function(object,group,years,plots,subtype,...){
+  function(object,group,subtype,...){
     
     
-    XSubplots<-getEvents(object=object, plots=plots, years=years, ...)
+    XSubplots<-getEvents(object=object,...)
 
 
     XSubplots<-switch(group,

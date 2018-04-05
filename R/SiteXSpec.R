@@ -43,15 +43,19 @@ setGeneric(name="SiteXSpec",function(object,group,years=NA, cycles=NA,values="co
               species=NA,plots=NA,Total=TRUE,...){standardGeneric("SiteXSpec")}, signature="object")
 
 setMethod(f="SiteXSpec", signature=c(object="list"),
-         function(object,...){
-            switch(output,
-              dataframe={
-                TempPark<-make(object,ParkCode="TEMPOBJ", ShortName="TempObj",LongName="Temp park for SiteXSpec", Network="SiteSpec")
-                return(SiteXSpec(object=TempPark, group=group, years=years, cycles=cycles, species=species, Total=Total,values=values,plots=plots,...))
+  function(object,...){
+    
+    OutList<-lapply(X=object, FUN=SiteXSpec, group=group,years=years,cycles=cycles, values=values, area=area, species=species,
+                    plots=plots,Total=Total,...) 
+           
+    switch(output,
+          dataframe={
+               OutDF<-rbindlist(OutList, use.names = TRUE, fill = TRUE)
+               OutDF[is.na(OutDF)]<-0
+               return(OutDF)
               },
             
               list={
-                OutList<-lapply(X=object, FUN=SiteXSpec, group=group,years=years,cycles=cycles, species=species,plots=plots,...)
                 names(OutList)<-getNames(object,name.class="code")
                 return(OutList)
               }

@@ -15,7 +15,7 @@
 #' \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
 #' }
 #' @param area A character vector. Determine if the values in the output are on a per plot or per area basis. This only works with counts, 
-#' basal areas, and lenght of seedlings.
+#' basal areas, and length of seedlings.
 #' \describe{
 #' \item{"plot"}{The default. Each cell will be ona per plot basis. The only option for \code{values="presab"}.}
 #' \item{"ha"}{Values will be on a per hectare basis}
@@ -44,7 +44,8 @@ setGeneric(name="SiteXSpec",function(object,group,years=NA, cycles=NA,values="co
 
 setMethod(f="SiteXSpec", signature=c(object="list"),
   function(object,...){
-    
+    species<-if(is.na(species)) unique(getPlants(object=object, group=group, years=years, cycles=cycles, species=species, 
+                                                     plots=plots, output="dataframe",...)$Latin_Name) else species
     OutList<-lapply(X=object, FUN=SiteXSpec, group=group,years=years,cycles=cycles, values=values, area=area, species=species,
                     plots=plots,Total=Total,...) 
            
@@ -52,7 +53,9 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
           dataframe={
                OutDF<-rbindlist(OutList, use.names = TRUE, fill = TRUE)
                OutDF[is.na(OutDF)]<-0
-               return(OutDF)
+               OutDF<-as.data.frame(OutDF)
+               Colnames<-c("Plot_Name", sort(names(OutDF)[!names(OutDF) %in% c("Plot_Name","Total")]), "Total")
+               return(OutDF[Colnames])
               },
             
               list={
@@ -71,31 +74,31 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
             XSubplots<-getSubplotCount(object=object,group=group, years=years, plots=plots, subtype='all',...)
             XPlants<-merge(XPlants,XSubplots, by.x=c('Plot_Name','Sample_Year'), by.y=c('Plot_Name','Event_Year'))
             XPlants[,fPlot:=factor(Plot_Name, levels=XPlots)]
-            
+            XSpecies<-if(anyNA(species)) unique(XPlants$Latin_Name) else species
             switch(values, 
-              count= OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)), .N, 
+              count= OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies), .N, 
                                         by=.EACHI], formula=fPlot~Latin_Name, value.var="N"),
               size={
                 switch(group,
                   
-                  trees=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
+                  trees=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),
                                       sum(SumLiveBasalArea_cm2)/10000, by=.EACHI],
                                       formula=fPlot~Latin_Name,value.var="V1", drop=FALSE), #units are m2/ha
                   
-                  saplings=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
+                  saplings=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),
                                       sum(SumLiveBasalArea_cm2)/10000, by=.EACHI],
                                       formula=fPlot~Latin_Name, value.var="V1", drop=FALSE), #units are m2/ha
                          
-                         seedlings=,shseedlings=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), 
-                                      unique(Latin_Name)), sum(Height), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
+                  seedlings=,shseedlings=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), 
+                                      XSpecies), sum(Height), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
-                         herbs=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
+                  herbs=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)),XSpecies),
                                         sum(Percent_Cover)/(unique(numSubPlots)), by=.EACHI],
                                         formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
-                         shrubs=,vines=stop("Cannot do a size based site x species matrix - no size measurement avaialable")
+                  shrubs=,vines=stop("Cannot do a size based site x species matrix - no size measurement avaialable")
               )},
-              presab={OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)), .N, by=.EACHI], 
+              presab={OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies), .N, by=.EACHI], 
                                        formula=fPlot~Latin_Name, value.var="N")
                     for(xx in seq_along(OutData)) {set(OutData, i=which(is.numeric(OutData[[xx]]) & as.numeric(OutData[[xx]])>0), j=xx, value=1)}
                     

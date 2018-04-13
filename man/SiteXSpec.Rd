@@ -23,7 +23,7 @@ SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
 }}
 
 \item{area}{A character vector. Determine if the values in the output are on a per plot or per area basis. This only works with counts, 
-basal areas, and lenght of seedlings.
+basal areas, and length of seedlings.
 \describe{
 \item{"plot"}{The default. Each cell will be ona per plot basis. The only option for \code{values="presab"}.}
 \item{"ha"}{Values will be on a per hectare basis}

@@ -75,12 +75,12 @@ setMethod(f='dens', signature=c(object="list"),
             subplots<-if (is.na(subplots)) getArea(object=object[[1]], group=group, type="count") else subplots
             switch(output,
                    list={OUT<-lapply(object,FUN=dens,group=group,years=years,values=values, density=density, species=species, plots=plots,
-                                    area=area, plotarea=plotarea, subplots=subplots, subplotarea=subplotarea, subplotnumber=subplotnumber, ...)
+                                     area=area, plotarea=plotarea, subplots=subplots, subplotarea=subplotarea, subplotnumber=subplotnumber, ...)
                          names(OUT)<-getNames(object,"code")
                     },
                    
                     dataframe={
-                      ObjectData<-SiteXSpec(object=object, group=group, years=years, values=values,species=species,plots=plots, ...)
+                      ObjectData<-SiteXSpec(object=object, group=group, years=years, values=values,species=species,plots=plots, area=area, ...)
                       subplotdata<-getSubplotCount(object=object,group=group,years=years, plots=plots, subtype="all")
                       OUT<-dens(ObjectData, group=group, values=values, density=density,  plotarea=plotarea, subplots=subplots, 
                                 subplotarea=subplotdata$SubPlotArea, subplotnumber=subplotdata$numSubPlots, ...)

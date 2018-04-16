@@ -113,13 +113,20 @@ setMethod(f="dens", signature=c(object="data.frame"),
     
     switch(values,
       count={
-        NBS<-lapply(X=SpeciesNames, FUN=function(Y,Z){ if(sum(Z[[Y]])==0) return(NULL) else  glm.nb(Z[[Y]]~1+offset(log(Z$subplotarea)))}, Z=TempData)
-        OutData$Mean<-sapply(X=NBS,FUN=function(x){if (is.null(x)) NA else exp(coef(x)+log(10000))}) #this is per ha 
-        OutData[3:4]<-matrix(sapply(X=NBS, FUN=function(x){if(is.null(x)) NA else suppressMessages(exp(confint(x)+log(10000)))}),ncol=2,byrow=TRUE) #again per ha
-
+        if(group !="herbs"){
+          NBS<-lapply(X=SpeciesNames, FUN=function(Y,Z){ if(sum(Z[[Y]])==0) return(NULL) else  glm.nb(Z[[Y]]~1+offset(log(Z$subplotarea)))}, Z=TempData)
+          OutData$Mean<-sapply(X=NBS,FUN=function(x){if (is.null(x)) NA else exp(coef(x)+log(10000))}) #this is per ha 
+          OutData[3:4]<-matrix(sapply(X=NBS, FUN=function(x){if(is.null(x)) NA else suppressMessages(exp(confint(x)+log(10000)))}),ncol=2,byrow=TRUE) #again per ha
         
-        if(!density & group!="herbs") {
-          OutData[2:4]<-OutData[2:4]*(plotarea/10000)
+            if(!density ) {
+            OutData[2:4]<-OutData[2:4]*(plotarea/10000)
+          }
+        }
+        
+        if(group=="herbs"){
+          NBS<-lapply(X=SpeciesNames, FUN=function(Y,Z){ if(sum(Z[[Y]])==0) return(NULL) else  glm.nb(Z[[Y]]~1+offset(log(Z$numSubPlots)))}, Z=TempData)
+          OutData$Mean<-sapply(X=NBS,FUN=function(x){if (is.null(x)) NA else exp(coef(x)+log(subplots))}) 
+          OutData[3:4]<-matrix(sapply(X=NBS, FUN=function(x){if(is.null(x)) NA else suppressMessages(exp(confint(x)+log(subplots)))}),ncol=2,byrow=TRUE) 
         }
       },
                    

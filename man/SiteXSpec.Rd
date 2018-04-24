@@ -6,7 +6,7 @@
 \usage{
 SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
   area = "plot", output = "dataframe", species = NA, plots = NA,
-  Total = TRUE, ...)
+  plot.type, Total = TRUE, ...)
 }
 \arguments{
 \item{object}{either an object of class \code{NPSForVeg} or a list of such objects}
@@ -35,6 +35,14 @@ basal areas, and length of seedlings.
 \item{species}{A character vector of names. Defaults to \code{NA}. When not \code{NA} only species included in \code{species} will be included in the matrix. If a name is in \code{species}, but is not present in the data, it will not appear in the output.}
 
 \item{plots}{A character vector of plot names. Defaults to \code{NA}. When not \code{NA} only plots included in \code{plots} will be included in the matrix. If a plot name is in \code{plots}, but is not present in the data, it will not appear in the output.}
+
+\item{plot.type}{Passed on to \code{\link{getPlotNames}} and used to filter events so that only events from certain plot types are returned. 
+One of three options are availbe (always ineclosed in quotes). 
+\describe{
+\item{"all"}{The default. Events from all types of plots are returned.}
+\item{"active"}{Only returns events from plots which are listed as active in the Plots$Location_Status field.} 
+\item{"retired}{Only returns events from plots which are listed as retired in the Plots$Location_Status field. }
+}}
 
 \item{Total}{Logical value. Determine if a "Total" column will be included in the output. Defaults to TRUE.}
 

@@ -61,11 +61,13 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
             if(group=="trees" | group=="saplings" | group=="shrubs") {
                switch(status,
                             all=XPlants<-XPlants,
-                            alive=XPlants<-(XPlants[XPlants$Status %in% c("Alive Standing", "Alive Broken", "Alive Leaning", 
+                            alive=XPlants<-(XPlants[XPlants$Status %in% c("Alive Standing", "Alive Broken", "Alive Leaning", "Alive Missed",
                                                                           "Alive Fallen","Alive","AB","AF","AL","AM","AS","RB","RF","RL","RS","TR"),]),
-                            dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Fallen","Dead - Human Action","Dead Leaning","Dead Missing", "Dead Standing","Dead - Too Small",
+                            dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Fallen","Dead - Human Action","Dead Leaning","Dead Missing", 
+                              "Dead Standing","Dead - Too Small", "Dead Missed", "Dead Broken","Dead Cut",
                                                                          "DB","DC","DF","DL","DM","DS","DX"),]),
                             other=XPlants<-(XPlants[XPlants$Status %in% c("Missing","Missing - Presumed Dead","Missing - Uncertain",
+                              "Excluded - Other","Excluded - Off Plot","Excluded - Shrank","Excluded",
                                                                           "Downgraded to Non-Sampled","ES","EX","NL","XO","XP","XS"),]),
                             stop("Unknown Plant Status"))
             }

@@ -41,7 +41,7 @@ importNETN<-function(Dir){
             LongName="Acadia National Park", 
             Network="NETN", 
             
-            TPlotSize=c(1,15*15),
+            TPlotSize=c(1,15*15), 
             SapPlotSize=c(3, pi*2*2), 
             SeedPlotSize=c(3, pi*2*2), 
             ShrubPlotSize=c(3, pi*2*2), 

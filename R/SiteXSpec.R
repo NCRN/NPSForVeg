@@ -32,6 +32,7 @@
 #' \item{"retired}{Only returns events from plots which are listed as retired in the Plots$Location_Status field. }
 #' }
 #' @param Total Logical value. Determine if a "Total" column will be included in the output. Defaults to TRUE.
+#' @param common Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names.
 #' @param ... Other arguments passed on to \code{\link{getPlants}}
 #' 
 #' @details This function will first call \code{\link{getPlants}} to retrieve the plant data. Then a SiteXSpecies matrix will be created. 
@@ -47,14 +48,14 @@
 
 
 setGeneric(name="SiteXSpec",function(object,group,years=NA, cycles=NA,values="count",area="plot", output="dataframe",
-              species=NA,plots=NA,plot.type, Total=TRUE,...){standardGeneric("SiteXSpec")}, signature="object")
+              species=NA,plots=NA, plot.type, Total=TRUE,common=F,...){standardGeneric("SiteXSpec")}, signature="object")
 
 setMethod(f="SiteXSpec", signature=c(object="list"),
   function(object,...){
     species<-if(is.na(species)) unique(getPlants(object=object, group=group, years=years, cycles=cycles, species=species, 
-                                                     plots=plots, output="dataframe",...)$Latin_Name) else species
-    OutList<-lapply(X=object, FUN=SiteXSpec, group=group,years=years,cycles=cycles, values=values, area=area, species=species,
-                    plots=plots,Total=Total,...) 
+                                                     plots=plots, common=F, output="dataframe",...)$Latin_Name) else species
+    OutList<-lapply(X=object, FUN=SiteXSpec, group=group, years=years, cycles=cycles, values=values, area=area, species=species,
+                    plots=plots, plot.type=plot.type, Total=Total, common=common, ...) 
            
     switch(output,
           dataframe={
@@ -73,15 +74,14 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
 })
 
 setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"), 
-          function(object, group, years, cycles, values, species, plots,plot.type, ...){
-            
-            XPlants<-data.table(getPlants(object=object,group=group,years=years,cycles=cycles,species=species,plots=plots,...))
+          function(object, group, years, cycles, values, species, plots,plot.type,common, ...){
+            XPlants<-data.table(getPlants(object=object,group=group,years=years,cycles=cycles,species=species,plots=plots,common=common,...))
             XPlots<-if (anyNA(plots)) {getPlotNames(object=object,years=years,type="all")} else {
               plots[plots %in% getPlotNames(object=object,years=years,type="all")] }
             XSubplots<-getSubplotCount(object=object,group=group, years=years, plots=plots, subtype='all',plot.type=plot.type)
             XPlants<-merge(XPlants,XSubplots, by.x=c('Plot_Name','Sample_Year'), by.y=c('Plot_Name','Event_Year'))
             XPlants[,fPlot:=factor(Plot_Name, levels=XPlots)]
-            XSpecies<-if(anyNA(species)) unique(XPlants$Latin_Name) else species
+            XSpecies<-if(anyNA(species)) unique(XPlants$Latin_Name) else getPlantNames(object, names=species, in.style = "Latin", out.style=ifelse(common, "common","Latin"))
             switch(values, 
               count= OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies), .N, 
                                         by=.EACHI], formula=fPlot~Latin_Name, value.var="N"),

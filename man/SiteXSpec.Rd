@@ -6,7 +6,7 @@
 \usage{
 SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
   area = "plot", output = "dataframe", species = NA, plots = NA,
-  plot.type, Total = TRUE, ...)
+  plot.type, Total = TRUE, common = F, ...)
 }
 \arguments{
 \item{object}{either an object of class \code{NPSForVeg} or a list of such objects}
@@ -45,6 +45,8 @@ One of three options are availbe (always ineclosed in quotes).
 }}
 
 \item{Total}{Logical value. Determine if a "Total" column will be included in the output. Defaults to TRUE.}
+
+\item{common}{Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names.}
 
 \item{...}{Other arguments passed on to \code{\link{getPlants}}}
 

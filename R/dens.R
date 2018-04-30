@@ -66,7 +66,7 @@
 ##### uses negative binomial modeling from the MASS package
 ###############################################
 
-setGeneric(name="dens",function(object,group,years,values="count", density=TRUE,species=NA, plots=NA, area="count", plotarea=NA, subplots=NA,
+setGeneric(name="dens",function(object,group, years, values="count", density=TRUE,species=NA, plots=NA, area="count", plotarea=NA, subplots=NA,
                                 subplotarea=NA, subplotnumber=NA, output="dataframe",...){standardGeneric("dens")}, signature="object")
 
 setMethod(f='dens', signature=c(object="list"),
@@ -80,10 +80,11 @@ setMethod(f='dens', signature=c(object="list"),
                     },
                    
                     dataframe={
-                      ObjectData<-SiteXSpec(object=object, group=group, years=years, values=values,species=species,plots=plots, area=area, ...)
-                      subplotdata<-getSubplotCount(object=object,group=group,years=years, plots=plots, subtype="all")
-                      OUT<-dens(ObjectData, group=group, values=values, density=density,  plotarea=plotarea, subplots=subplots, 
-                                subplotarea=subplotdata$SubPlotArea, subplotnumber=subplotdata$numSubPlots, ...)
+                      ObjectData<-SiteXSpec(object=object, group=group, years=years, plots=plots, area=area, values=values, species=species,...)
+                      subplot<-getSubplotCount(object=object, group=group, years=years, plots=plots, subtype="all") %>% arrange(Plot_Name)
+                      OUT<-dens(ObjectData, group=group, values=values, density=density,  plotarea=getArea(object=object, group=group, type="all"),
+                                subplots=getArea(object=object, group=group, type="count"), 
+                                subplotarea=subplot$SubPlotArea, subplotnumber=subplot$numSubPlots)
                     }
             )
             return(OUT)
@@ -94,9 +95,9 @@ setMethod(f="dens", signature=c(object="NPSForVeg"),
     ObjectData<-SiteXSpec(object=object,group=group,years=years,plots=plots,area=area,values=values, species=species,...)
     subplot<-getSubplotCount(object=object, group=group,years=years, plots=plots, subtype='all') %>% arrange(Plot_Name)
     
-    OUT<-dens(ObjectData, group=group, values=values, density=density, subplotarea=subplot$SubPlotArea, 
-              subplotnumber=subplot$numSubPlots, plotarea=getArea(object=object, group=group, type="all"),
-              subplots=getArea(object=object, group=group, type="count"), plots=plots, ...)
+    OUT<-dens(ObjectData, group=group, values=values, density=density, plotarea=getArea(object=object, group=group, type="all"),
+             subplots=getArea(object=object, group=group, type="count"), subplotarea=subplot$SubPlotArea, 
+              subplotnumber=subplot$numSubPlots)
               
               
     return(OUT)
@@ -104,6 +105,7 @@ setMethod(f="dens", signature=c(object="NPSForVeg"),
 
 setMethod(f="dens", signature=c(object="data.frame"), 
   function(object,...){
+    
     object$subplotarea<-subplotarea
     object$numSubPlots<-subplotnumber
     TempData<-object %>% filter((subplotarea>0 | is.na(subplotarea)) & (numSubPlots>0 | is.na(numSubPlots))) 

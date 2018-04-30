@@ -62,8 +62,8 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
                OutDF<-rbindlist(OutList, use.names = TRUE, fill = TRUE)
                OutDF[is.na(OutDF)]<-0
                OutDF<-as.data.frame(OutDF)
-               Colnames<-c("Plot_Name", sort(names(OutDF)[!names(OutDF) %in% c("Plot_Name","Total")]))
-               Colanames<-ifelse(Total, c(Colnames,"Total"), Colnames)
+               Colnames<-c( "Plot_Name", sort(names(OutDF)[!names(OutDF) %in% c("Plot_Name","Total")]) )
+               Colnames<-if(Total)  c(Colnames,"Total") else Colnames 
                return(OutDF[Colnames])
               },
             

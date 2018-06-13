@@ -21,7 +21,7 @@ importMIDN<-function(Dir){
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
   
   InCycles<-read.csv(paste(Dir,"Cycles.csv",sep="/"), as.is=T, header=T)
-  InCycles2<-read.csv(paste(Dir,"Cycles2.csv",sep="/"), as.is=T, header=T)
+  #InCycles2<-read.csv(paste(Dir,"Cycles2.csv",sep="/"), as.is=T, header=T)
 
   InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)

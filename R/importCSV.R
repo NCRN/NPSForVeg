@@ -72,6 +72,7 @@ importCSV<-function(Dir){
              ShSeedlings=if(is.data.frame(InShSeeds)) filter(InShSeeds, Unit_Code==ParkCode) else data.frame(),
              Vines=if(is.data.frame(InVines)) filter(InVines, Unit_Code==ParkCode) else data.frame(),
              Herbs=if(is.data.frame(InHerbs)) filter(InHerbs, Unit_Code==ParkCode) else data.frame(),
+
              Commons=InCommons)
   }
   

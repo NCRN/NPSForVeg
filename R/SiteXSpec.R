@@ -115,6 +115,9 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
                                         sum(Percent_Cover)/(unique(numSubPlots)), by=.EACHI],
                                         formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
+                  cwd=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),
+                                        sum(CWD_Vol), by=.EACHI],
+                                                     formula=fPlot~Latin_Name, value.var="V1", drop=FALSE), #units are m3/ha
                   shrubs=,vines=stop("Cannot do a size based site x species matrix - no size measurement avaialable")
               )},
               presab={OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies), .N, by=.EACHI], 

@@ -31,13 +31,13 @@
 
 
 
-setGeneric(name="getPlants",function(object,group,status="alive", species=NA, cycles=NA, years=NA, plots=NA, crown=NA, size.min=NA, size.max=NA, BA.min=NA, BA.max=NA, host.tree=NA, in.crown=FALSE, common=FALSE, output="dataframe"){standardGeneric("getPlants")}, signature="object")
+setGeneric(name="getPlants",function(object,group,status="alive", species=NA, cycles=NA, years=NA, plots=NA, crown=NA, size.min=NA, size.max=NA, BA.min=NA, BA.max=NA, host.tree=NA, in.crown=FALSE, common=FALSE, decay=NA, output="dataframe"){standardGeneric("getPlants")}, signature="object")
 
 
 
 setMethod(f="getPlants", signature="list",
-          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,common,output) 
-          {OutPlants<-lapply(X=object, FUN=getPlants, group=group, status=status, species=species, cycles=cycles, years=years, plots=plots, crown=crown,size.min=size.min, size.max=size.max, BA.min=BA.min, BA.max=BA.max, host.tree=host.tree, in.crown=in.crown, common=common,output=output)
+          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,common,decay,output) 
+          {OutPlants<-lapply(X=object, FUN=getPlants, group=group, status=status, species=species, cycles=cycles, years=years, plots=plots, crown=crown,size.min=size.min, size.max=size.max, BA.min=BA.min, BA.max=BA.max, host.tree=host.tree, in.crown=in.crown, common=common,decay=decay,output=output)
            switch(output,
                   list=return(OutPlants),
                   dataframe=return(do.call("rbind",OutPlants))
@@ -46,7 +46,7 @@ setMethod(f="getPlants", signature="list",
 
 
 setMethod(f="getPlants", signature=c(object="NPSForVeg"), 
-          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,common,output){
+          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,common,decay, output){
             switch(group,
                 seedlings=XPlants<-(object@Seedlings),
                 shseedlings=XPlants<-(object@ShSeedlings),
@@ -55,6 +55,7 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
                 shrubs=XPlants<-object@Shrubs,
                 vines=XPlants<-object@Vines,
                 herbs=XPlants<-object@Herbs,
+                cwd=XPlants<-object@CWD,
           stop("Unknown Plant Type")
             )
             
@@ -105,6 +106,8 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
             
             if(!sum(is.na(host.tree))>0 & group=="vines") XPlants<-XPlants[XPlants$Host_Latin_Name %in% host.tree,]
             
+            if(!anyNA(decay) & group=='cwd') XPlants<-XPlants[XPlants$Decay_Class %in% decay,]
+                        
             if(in.crown & group =="vines") XPlants<-XPlants[XPlants$Condition=="Vines in the crown",]
             
             if(common){ XPlants$Latin_Name<-getPlantNames(object=object,names=XPlants$Latin_Name)}

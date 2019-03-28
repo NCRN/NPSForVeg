@@ -14,6 +14,13 @@
 #' \item{"size"}{For trees and saplings this is the total basal area in m2 per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
 #' \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
 #' }
+#' #' @param status  A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
+#' \describe{
+#' \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
+#' \item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+#' \item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XO", "XP" or"XS" }
+#' \item{"all"}{Includes all plants}
+#' }
 #' @param area A character vector. Determine if the values in the output are on a per plot or per area basis. This only works with counts, 
 #' basal areas, and length of seedlings.
 #' \describe{
@@ -47,7 +54,7 @@
 
 
 
-setGeneric(name="SiteXSpec",function(object,group,years=NA, cycles=NA,values="count",area="plot", output="dataframe",
+setGeneric(name="SiteXSpec",function(object,group,years=NA, cycles=NA,values="count",status="alive", area="plot", output="dataframe",
               species=NA,plots=NA, plot.type, Total=TRUE,common=F,...){standardGeneric("SiteXSpec")}, signature="object")
 
 setMethod(f="SiteXSpec", signature=c(object="list"),
@@ -75,8 +82,9 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
 })
 
 setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"), 
-          function(object, group, years, cycles, values, species, plots,plot.type,common, ...){
-            XPlants<-data.table(getPlants(object=object,group=group,years=years,cycles=cycles,species=species,plots=plots,common=common,...))
+          function(object, group, years, cycles, values, status,species, plots,plot.type,common, ...){
+            XPlants<-data.table(getPlants(object=object,group=group,years=years,cycles=cycles,species=species,plots=plots,
+                                          common=common,status=status,...))
             XPlots<-if (anyNA(plots)) {getPlotNames(object=object,years=years,type="all")} else {
               plots[plots %in% getPlotNames(object=object,years=years,type="all")] }
             XSubplots<-getSubplotCount(object=object,group=group, years=years, plots=plots, subtype='all',plot.type=plot.type)
@@ -90,7 +98,10 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
                 switch(group,
                   
                   trees=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),
-                                      sum(SumLiveBasalArea_cm2)/10000, by=.EACHI],
+                                      switch(status, 
+                                             alive=sum(SumLiveBasalArea_cm2)/10000,
+                                             dead=sum(SumDeadBasalArea_cm2)/10000,
+                                             all=sum(SumLiveBasalArea_cm2+SumDeadBasalArea_cm2)/10000), by=.EACHI],
                                       formula=fPlot~Latin_Name,value.var="V1", drop=FALSE), #units are m2/ha
                   
                   saplings=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),

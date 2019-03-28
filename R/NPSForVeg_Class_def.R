@@ -13,7 +13,6 @@
 #' @slot ShSeedPlotSize A length 2 numeric vector. The first element is the number of quadrats where shrub seedlings are monitored at each plot. The second element is the size of each of the quadrats in meters squared.
 #' @slot VPlotSize  A length 2 numeric vector. The first element is the number of subplots where vines on trees are monitored at each plot. The second element is the size of each of the subplots in meters squared.
 #' @slot HPlotSize A length 2 numeric vector. The first element is the number of quadrats where herbaceous plants are monitored at each plot. The second element is the size of each of the quadrats in meters squared. Note - these need not be actually herbaceous plants, but it is assumed that cover of each species is measured rather than the dbh or height.
-#' @slot CWDTransectSize a data.frame with information (including percent slope and slope-length) on the CWD transects 
 #' @slot Plots a data.frame with information on the plots
 #' @slot Events a data.frame with information on each sampling event
 #' @slot Trees a data.frame with  tree data 
@@ -23,7 +22,7 @@
 #' @slot ShSeedlings a data.frame with shrub seedling data
 #' @slot Vines a data.frame with vine data
 #' @slot Herbs a data.frame with herbaceous plant data
-#' @slot CWD  a data.frame with coarse woody debris data
+#' @slot CWD  a data.frame with coarse woody debris volume by species data
 #' @slot Commons a data.frame which links common names to Latin names
 #' 
 #' @exportClass NPSForVeg
@@ -42,7 +41,6 @@ setClass(Class="NPSForVeg",           ### Name of the Class
           ShSeedPlotSize="numeric",   ### Number and area of the plots where shub seedings are sampled in m^2
           VPlotSize="numeric",        ### Number and area of the plots where vines are sampled in m^2
           HPlotSize="numeric",        ### Number and area of the plots where herbs are sampled in m^2
-          CWDTransectSize="data.frame", ### Data.frame with CWD transect information 
           
           Plots="data.frame",         ### Data.frame with plot information
           Events="data.frame",        ### Data.farme with event information
@@ -53,7 +51,7 @@ setClass(Class="NPSForVeg",           ### Name of the Class
           ShSeedlings="data.frame",   ### Data.frame with shrub seeling data
           Vines="data.frame",         ### Data.frame with vines on trees data
           Herbs="data.frame",         ### Data.frame with herbaceous/ground cover data
-          CWD="data.frame",           ### Data.frame with coarse woody debris data    
+          CWD="data.frame",           ### Data.frame with coarse woody debris volume by species data    
           Commons="data.frame"        ### Data.frame with Latin and common names
   ), 
   ### The prototype makes sure the correct sort of missing data is used when one of the slots is empyty
@@ -70,7 +68,6 @@ setClass(Class="NPSForVeg",           ### Name of the Class
             ShSeedPlotSize=numeric(),
             VPlotSize=numeric(),
             HPlotSize=numeric(),
-            CWDTransectSize=data.frame(),
             
             Plots=data.frame(),
             Events=data.frame(),

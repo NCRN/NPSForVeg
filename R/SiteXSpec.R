@@ -64,7 +64,10 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
                   
                   trees=,saplings=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
                                       sum(SumLiveBasalArea_cm2), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
-                         
+                  
+                  cwd=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), unique(Latin_Name)),
+                                    sum(CWD_Vol), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
+                  
                          seedlings=,shseedlings=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), 
                                       unique(Latin_Name)), sum(Height), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   

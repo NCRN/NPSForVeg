@@ -14,7 +14,7 @@
 #' \item{"size"}{For trees and saplings this is the total basal area in m2 per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
 #' \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
 #' }
-#' #' @param status  A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
+#' @param status  A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 #' \describe{
 #' \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
 #' \item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
@@ -59,9 +59,9 @@ setGeneric(name="SiteXSpec",function(object,group,years=NA, cycles=NA,values="co
 
 setMethod(f="SiteXSpec", signature=c(object="list"),
   function(object,...){
-    species<-if(is.na(species)) unique(getPlants(object=object, group=group, years=years, cycles=cycles, species=species, 
+    species<-if(is.na(species)) unique(getPlants(object=object, group=group, status=status, years=years, cycles=cycles, species=species, 
                                                      plots=plots, common=F, output="dataframe",...)$Latin_Name) else species
-    OutList<-lapply(X=object, FUN=SiteXSpec, group=group, years=years, cycles=cycles, values=values, area=area, species=species,
+    OutList<-lapply(X=object, FUN=SiteXSpec, group=group, status=status, years=years, cycles=cycles, values=values, area=area, species=species,
                     plots=plots, plot.type=plot.type, Total=Total, common=common, ...) 
            
     switch(output,
@@ -83,8 +83,8 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
 
 setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"), 
           function(object, group, years, cycles, values, status,species, plots,plot.type,common, ...){
-            XPlants<-data.table(getPlants(object=object,group=group,years=years,cycles=cycles,species=species,plots=plots,
-                                          common=common,status=status,...))
+            XPlants<-data.table(getPlants(object=object,group=group,status=status,years=years,cycles=cycles,species=species,plots=plots,
+                                          common=common,...))
             XPlots<-if (anyNA(plots)) {getPlotNames(object=object,years=years,type="all")} else {
               plots[plots %in% getPlotNames(object=object,years=years,type="all")] }
             XSubplots<-getSubplotCount(object=object,group=group, years=years, plots=plots, subtype='all',plot.type=plot.type)

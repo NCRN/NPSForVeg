@@ -33,6 +33,8 @@ importMIDN<-function(Dir){
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
   InCommons$TSN<-as.character(InCommons$TSN)
+  InCWD<-read.csv(paste(Dir,"CWD.csv",sep="/"), as.is=T, header=T) 
+  
   
   APCO<-new("NPSForVeg", 
             ParkCode="APCO", 
@@ -59,7 +61,9 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="APCO",],
             Vines=InVines[InVines$Unit_Code=="APCO",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="APCO",],
+            CWD=InCWD[InCWD$Unit_Code=="APCO",],
             Commons=InCommons)
+  
 
   BOWA<-new("NPSForVeg", 
             ParkCode="BOWA", 
@@ -86,6 +90,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="BOWA",],
             Vines=InVines[InVines$Unit_Code=="BOWA",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="BOWA",],
+            CWD=InCWD[InCWD$Unit_Code=="BOWA",],
             Commons=InCommons)
   
   COLO<-new("NPSForVeg", 
@@ -113,6 +118,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="COLO",],
             Vines=InVines[InVines$Unit_Code=="COLO",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="COLO",],
+            CWD=InCWD[InCWD$Unit_Code=="COLO",],
             Commons=InCommons)
   
   
@@ -141,6 +147,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="FRSP",],
             Vines=InVines[InVines$Unit_Code=="FRSP",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="FRSP",],
+            CWD=InCWD[InCWD$Unit_Code=="FRSP",],
             Commons=InCommons)
   
   GETT<-new("NPSForVeg", 
@@ -168,6 +175,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="GETT",],
             Vines=InVines[InVines$Unit_Code=="GETT",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="GETT",],
+            CWD=InCWD[InCWD$Unit_Code=="GETT",],
             Commons=InCommons)
   
   GEWA<-new("NPSForVeg", 
@@ -195,6 +203,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="GEWA",],
             Vines=InVines[InVines$Unit_Code=="GEWA",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="GEWA",],
+            CWD=InCWD[InCWD$Unit_Code=="GEWA",],
             Commons=InCommons)
   
   HOFU<-new("NPSForVeg", 
@@ -222,6 +231,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="HOFU",],
             Vines=InVines[InVines$Unit_Code=="HOFU",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="HOFU",],
+            CWD=InCWD[InCWD$Unit_Code=="HOFU",],
             Commons=InCommons)
   
   PETE<-new("NPSForVeg", 
@@ -249,6 +259,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="PETE",],
             Vines=InVines[InVines$Unit_Code=="PETE",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="PETE",],
+            CWD=InCWD[InCWD$Unit_Code=="PETE",],
             Commons=InCommons)
   
   RICH<-new("NPSForVeg", 
@@ -276,6 +287,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="RICH",],
             Vines=InVines[InVines$Unit_Code=="RICH",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="RICH",],
+            CWD=InCWD[InCWD$Unit_Code=="RICH",],
             Commons=InCommons)
   
   SAHI<-new("NPSForVeg", 
@@ -303,6 +315,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="SAHI",],
             Vines=InVines[InVines$Unit_Code=="SAHI",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="SAHI",],
+            CWD=InCWD[InCWD$Unit_Code=="SAHI",],
             Commons=InCommons)
   
   THST<-new("NPSForVeg", 
@@ -330,6 +343,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="THST",],
             Vines=InVines[InVines$Unit_Code=="THST",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="THST",],
+            CWD=InCWD[InCWD$Unit_Code=="THST",],
             Commons=InCommons)
   
   VAFO<-new("NPSForVeg", 
@@ -357,6 +371,7 @@ importMIDN<-function(Dir){
             #ShSeedlings=InShSeeds[InShSeeds$ Unit_Code=="VAFO",],
             Vines=InVines[InVines$Unit_Code=="VAFO",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="VAFO",],
+            CWD=InCWD[InCWD$Unit_Code=="VAFO",],
             Commons=InCommons)
     
   return(c(APCO,BOWA,COLO,FRSP,GETT,GEWA,HOFU,PETE,RICH,SAHI,THST,VAFO))

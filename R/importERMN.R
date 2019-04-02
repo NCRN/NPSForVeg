@@ -31,7 +31,7 @@ importERMN<-function(Dir){
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
   InCommons$TSN<-as.character(InCommons$TSN)
-
+  InCWD<-read.csv(paste(Dir,"CWD.csv",sep="/"), as.is=T, header=T) 
   
   ALPO<-new("NPSForVeg", 
             ParkCode="ALPO", 
@@ -52,6 +52,7 @@ importERMN<-function(Dir){
             Saplings=InSaps[InSaps$Unit_Code=="ALPO",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="ALPO",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="ALPO",],
+            CWD=InCWD[InCWD$Unit_Code=="ALPO",],
             Commons=InCommons)
   
   BLUE<-new("NPSForVeg", 
@@ -74,6 +75,7 @@ importERMN<-function(Dir){
             Saplings=InSaps[InSaps$Unit_Code=="BLUE",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="BLUE",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="BLUE",],
+            CWD=InCWD[InCWD$Unit_Code=="BLUE",],
             Commons=InCommons)
   
   DEWA<-new("NPSForVeg", 
@@ -96,6 +98,7 @@ importERMN<-function(Dir){
             Saplings=InSaps[InSaps$Unit_Code=="DEWA",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="DEWA",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="DEWA",],
+            CWD=InCWD[InCWD$Unit_Code=="DEWA",],
             Commons=InCommons)
   
   FONE<-new("NPSForVeg", 
@@ -118,6 +121,7 @@ importERMN<-function(Dir){
             Saplings=InSaps[InSaps$Unit_Code=="FONE",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="FONE",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="FONE",],
+            CWD=InCWD[InCWD$Unit_Code=="FONE",],
             Commons=InCommons)
   
   FRHI<-new("NPSForVeg", 
@@ -140,6 +144,7 @@ importERMN<-function(Dir){
             Saplings=InSaps[InSaps$Unit_Code=="FRHI",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="FRHI",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="FRHI",],
+            CWD=InCWD[InCWD$Unit_Code=="FRHI",],
             Commons=InCommons)
   
   GARI<-new("NPSForVeg",
@@ -162,6 +167,7 @@ importERMN<-function(Dir){
             Saplings=InSaps[InSaps$Unit_Code=="GARI",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="GARI",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="GARI",],
+            CWD=InCWD[InCWD$Unit_Code=="GARI",],
             Commons=InCommons) 
   
   JOFL<-new("NPSForVeg",
@@ -184,6 +190,7 @@ importERMN<-function(Dir){
             Saplings=InSaps[InSaps$Unit_Code=="JOFL",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="JOFL",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="JOFL",],
+            CWD=InCWD[InCWD$Unit_Code=="JOFL",],
             Commons=InCommons) 
   
   NERI<-new("NPSForVeg",
@@ -206,6 +213,7 @@ importERMN<-function(Dir){
             Saplings=InSaps[InSaps$Unit_Code=="NERI",], 
             Seedlings=InSeeds[InSeeds$Unit_Code=="NERI",], 
             Herbs=InHerbs[InHerbs$Unit_Code=="NERI",],
+            CWD=InCWD[InCWD$Unit_Code=="NERI",],
             Commons=InCommons) 
   
   

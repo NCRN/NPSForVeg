@@ -24,14 +24,20 @@ importERMN<-function(Dir){
   
   InCycles<-read.csv(paste(Dir,"Cycles.csv",sep="/"), as.is=T, header=T)
   
-  InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
+  InTrees1<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
+  InTrees<-InTrees1 %>% filter(Equiv_Live_DBH_cm!=999999 & Equiv_Dead_DBH_cm!=999999 &
+                                !is.na(Equiv_Live_DBH_cm) & !is.na(Equiv_Dead_DBH_cm)) %>% 
+                                droplevels()
+  
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
   InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)
   InHerbs<-read.csv(paste(Dir,"Herbs.csv",sep="/"),as.is=T, header=T)
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
   InCommons$TSN<-as.character(InCommons$TSN)
-  InCWD<-read.csv(paste(Dir,"CWD.csv",sep="/"), as.is=T, header=T) 
+  InCWD1<-read.csv(paste(Dir,"CWD.csv",sep="/"), as.is=T, header=T) 
+  InCWD<-InCWD1 %>% filter(Latin_Name!='Not sampled') %>% droplevels()
+  
   
   ALPO<-new("NPSForVeg", 
             ParkCode="ALPO", 

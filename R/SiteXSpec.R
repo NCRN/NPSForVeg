@@ -99,24 +99,24 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
                   
                   trees=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),
                                       switch(status, 
-                                             alive=sum(SumLiveBasalArea_cm2)/10000,
-                                             dead=sum(SumDeadBasalArea_cm2)/10000,
-                                             all=sum(SumLiveBasalArea_cm2+SumDeadBasalArea_cm2)/10000), by=.EACHI],
+                                             alive=sum(SumLiveBasalArea_cm2, na.rm=TRUE)/10000,
+                                             dead=sum(SumDeadBasalArea_cm2, na.rm=TRUE)/10000,
+                                             all=sum(SumLiveBasalArea_cm2+SumDeadBasalArea_cm2, na.rm=TRUE)/10000), by=.EACHI],
                                       formula=fPlot~Latin_Name,value.var="V1", drop=FALSE), #units are m2/ha
                   
                   saplings=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),
-                                      sum(SumLiveBasalArea_cm2)/10000, by=.EACHI],
+                                      sum(SumLiveBasalArea_cm2, na.rm=TRUE)/10000, by=.EACHI],
                                       formula=fPlot~Latin_Name, value.var="V1", drop=FALSE), #units are m2/ha
                          
                   seedlings=,shseedlings=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), 
-                                      XSpecies), sum(Height), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
+                                      XSpecies), sum(Height, na.rm=TRUE), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
                   herbs=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)),XSpecies),
-                                        sum(Percent_Cover)/(unique(numSubPlots)), by=.EACHI],
+                                        sum(Percent_Cover, na.rm=TRUE)/(unique(numSubPlots)), by=.EACHI],
                                         formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
                   cwd=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),
-                                        sum(CWD_Vol), by=.EACHI],
+                                        sum(CWD_Vol, na.rm=TRUE), by=.EACHI],
                                                      formula=fPlot~Latin_Name, value.var="V1", drop=FALSE), #units are m3/ha
                   shrubs=,vines=stop("Cannot do a size based site x species matrix - no size measurement avaialable")
               )},

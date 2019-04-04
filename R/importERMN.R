@@ -24,10 +24,11 @@ importERMN<-function(Dir){
   
   InCycles<-read.csv(paste(Dir,"Cycles.csv",sep="/"), as.is=T, header=T)
   
-  InTrees1<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
-  InTrees<-InTrees1 %>% filter(Equiv_Live_DBH_cm!=999999 & Equiv_Dead_DBH_cm!=999999 &
-                                !is.na(Equiv_Live_DBH_cm) & !is.na(Equiv_Dead_DBH_cm)) %>% 
-                                droplevels()
+  InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
+  InTrees$Equiv_Dead_DBH_cm[InTrees$Equiv_Dead_DBH_cm==999999]<-NA
+  InTrees$Equiv_Live_DBH_cm[InTrees$Equiv_Live_DBH_cm==999999]<-NA
+  InTrees$SumDeadBasalArea_cm2[InTrees$SumDeadBasalArea_cm2==785398000000]<-NA
+  InTrees$SumLiveBasalArea_cm2[InTrees$SumLiveBasalArea_cm2==785398000000]<-NA
   
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
   InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)

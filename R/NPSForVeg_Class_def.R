@@ -22,7 +22,7 @@
 #' @slot ShSeedlings a data.frame with shrub seedling data
 #' @slot Vines a data.frame with vine data
 #' @slot Herbs a data.frame with herbaceous plant data
-#' @slot CWD  a data.frame with coarse woody debris volume by species data 
+#' @slot CWD  a data.frame with coarse woody debris volume by species and decay class data 
 #' @slot Commons a data.frame which links common names to Latin names
 #' 
 #' @exportClass NPSForVeg

@@ -3,9 +3,10 @@
 #' 
 #' @importFrom purrr map
 #' @importFrom dplyr filter
+#' @importFrom magritrr %>%
 #' 
 #' @description  This function imports data from the standard .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: MetaData, 
-#' Plots, Events and CommonNames. The optional .csv files are: Trees, Saplings, Seedlings, Shrubs, Shrub_Seedlings, Vines, and Herbs.
+#' Plots, Events and CommonNames. The optional .csv files are: Trees, Saplings, Seedlings, Shrubs, Shrub_Seedlings, Vines, Herbs, and CWD.
 #' 
 #' @param Dir  The directory where the data is found. Path should not have a trailing slash.
 #' 
@@ -37,24 +38,24 @@ importCSV<-function(Dir){
   InShSeeds<- if(any("Shrub_Seedlings.csv" %in% InFiles)) read.csv(paste(Dir,"Shrub_Seedlings.csv",sep="/"),as.is=T, header=T) else NA
   InVines<- if(any("Vines.csv" %in% InFiles)) read.csv(paste(Dir,"Vines.csv",sep="/"),as.is=T, header=T) else NA
   InHerbs<-  if(any("Herbs.csv" %in% InFiles) )read.csv(paste(Dir,"Herbs.csv",sep="/"),as.is=T, header=T) else NA
+  InCWD<-  if(any("CWD.csv" %in% InFiles) )read.csv(paste(Dir,"CWD.csv",sep="/"),as.is=T, header=T) else NA
   InCommons<- read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
   InCommons$TSN<-as.character(InCommons$TSN)
 
 
-  
  #### MakeObj is a function that will create a new object from input data by filtering the data for each park and putting it int he correct slot
-  MakeObj<-function(ParkCode, MetaData, InPlots, InEvents, InCycles, InTrees, InSaps, InSeeds, InShrubs, InShSeeds, InVines, InHerbs, InCommons){
-    
-    MD<-MetaData %>% filter(ParkCode==ParkCode)
+  MakeObj<-function(PCode, MetaData, InPlots, InEvents, InCycles, InTrees, InSaps, InSeeds, InShrubs, InShSeeds, InVines, InHerbs, InCWD, InCommons){
+
+    MD<-MetaData %>% filter(ParkCode==PCode)
     NewObj<-new("NPSForVeg", 
-             ParkCode=ParkCode, 
+             ParkCode=PCode, 
              ShortName=MD$ShortName, 
              LongName=MD$LongName, 
              Network=MD$Network,
              
              TPlotSize=c(MD$TPlotNum,MD$TPlotSize),
-             SapPlotSize=c(MD$SapPlotNum,MD$SaplPlotSize), 
+             SapPlotSize=c(MD$SapPlotNum, MD$SapPlotSize), 
              SeedPlotSize=c(MD$SeedPlotNum,MD$SeedPlotSize), 
              ShrubPlotSize=c(MD$ShrubPlotNum, MD$ShrubPlotSize), 
              ShSeedPlotSize=c(MD$ShSeedPlotNum,MD$ShSeedPlotSize), 
@@ -62,16 +63,17 @@ importCSV<-function(Dir){
              HPlotSize=c(MD$HPlotNum,MD$HPlotSize),
              Cycles=InCycles,
              
-             Plots=filter(InPlots, Unit_Code==ParkCode), 
-             Events=filter(InEvents, Unit_Code==ParkCode),
+             Plots=filter(InPlots, Unit_Code==PCode), 
+             Events=filter(InEvents, Unit_Code==PCode),
              
-             Trees= if(is.data.frame(InTrees)) filter(InTrees,Unit_Code==ParkCode) else data.frame(), 
-             Saplings=if(is.data.frame(InSaps)) filter(InSaps, Unit_Code==ParkCode) else data.frame(), 
-             Seedlings=if(is.data.frame(InSeeds)) filter(InSeeds, Unit_Code==ParkCode) else data.frame(), 
-             Shrubs=if(is.data.frame(InShrubs)) filter(InShrubs, Unit_Code==ParkCode) else data.frame(), 
-             ShSeedlings=if(is.data.frame(InShSeeds)) filter(InShSeeds, Unit_Code==ParkCode) else data.frame(),
-             Vines=if(is.data.frame(InVines)) filter(InVines, Unit_Code==ParkCode) else data.frame(),
-             Herbs=if(is.data.frame(InHerbs)) filter(InHerbs, Unit_Code==ParkCode) else data.frame(),
+             Trees= if(is.data.frame(InTrees)) filter(InTrees,Unit_Code==PCode) else data.frame(), 
+             Saplings=if(is.data.frame(InSaps)) filter(InSaps, Unit_Code==PCode) else data.frame(), 
+             Seedlings=if(is.data.frame(InSeeds)) filter(InSeeds, Unit_Code==PCode) else data.frame(), 
+             Shrubs=if(is.data.frame(InShrubs)) filter(InShrubs, Unit_Code==PCode) else data.frame(), 
+             ShSeedlings=if(is.data.frame(InShSeeds)) filter(InShSeeds, Unit_Code==PCode) else data.frame(),
+             Vines=if(is.data.frame(InVines)) filter(InVines, Unit_Code==PCode) else data.frame(),
+             Herbs=if(is.data.frame(InHerbs)) filter(InHerbs, Unit_Code==PCode) else data.frame(),
+             CWD=if(is.data.frame(InCWD)) filter(InCWD, Unit_Code==PCode) else data.frame(),
 
              Commons=InCommons)
   }
@@ -87,6 +89,7 @@ importCSV<-function(Dir){
                InShSeeds=InShSeeds, 
                InVines=InVines, 
                InHerbs=InHerbs,
+               InCWD=InCWD,
                InCommons=InCommons)
     
   names(OutList)<-MetaData$ParkCode

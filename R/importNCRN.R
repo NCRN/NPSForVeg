@@ -29,7 +29,7 @@ importNCRN<-function(Dir){
   InShSeeds<-read.csv(paste(Dir,"Shrub_Seedlings.csv",sep="/"),as.is=T, header=T)
   InVines<-read.csv(paste(Dir,"Vines.csv",sep="/"),as.is=T, header=T)
   InHerbs<-read.csv(paste(Dir,"Herbs.csv",sep="/"),as.is=T, header=T)
-  IncWD<-read.csv(paste(Dir,"CWD.csv",sep="/"),as.is=T, header=T)
+  InCWD<-read.csv(paste(Dir,"CWD.csv",sep="/"),as.is=T, header=T)
   InCommons<-read.csv(paste(Dir,"CommonNames.csv",sep="/"), as.is=T, header=T)
   InCommons$Common[InCommons$NCRN_Common!=""]<-InCommons$NCRN_Common[InCommons$NCRN_Common!=""]
   InCommons$TSN<-as.character(InCommons$TSN)

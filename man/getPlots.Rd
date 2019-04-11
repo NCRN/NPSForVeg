@@ -4,8 +4,8 @@
 \alias{getPlots}
 \title{getPlots}
 \usage{
-getPlots(object, type = "active", visits = NA, years = NA, plots = NA,
-  subparks = NA, output = "dataframe")
+getPlots(object, type = "active", visits = NA, years = NA,
+  plots = NA, subparks = NA, output = "dataframe")
 }
 \arguments{
 \item{object}{An NPSForVeg object or a list of such objects.}

@@ -5,8 +5,9 @@
 \title{SiteXSpec}
 \usage{
 SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
-  area = "plot", output = "dataframe", species = NA, plots = NA,
-  plot.type, Total = TRUE, common = F, ...)
+  status = "alive", area = "plot", output = "dataframe",
+  species = NA, plots = NA, plot.type, Total = TRUE, common = F,
+  ...)
 }
 \arguments{
 \item{object}{either an object of class \code{NPSForVeg} or a list of such objects}
@@ -20,6 +21,14 @@ SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
 \item{"count"}{The default. Each cell will include a count of the number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants. For vines, it is the number of trees a vine species grows on. For herbs it will be the number of quadrats the plant occurs in.}
 \item{"size"}{For trees and saplings this is the total basal area in m2 per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
 \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
+}}
+
+\item{status}{A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
+\describe{
+\item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
+\item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+\item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XO", "XP" or"XS" }
+\item{"all"}{Includes all plants}
 }}
 
 \item{area}{A character vector. Determine if the values in the output are on a per plot or per area basis. This only works with counts, 

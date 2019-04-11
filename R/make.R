@@ -9,7 +9,11 @@
 #' @param Network  The network code for the new \code{NPSForVeg} object
 #' @param plots A character vector with plot names. When specified, only data from the given plots will be included in the new \code{NPSForVeg} Object.
 #' 
-#' @details This function creates new \code{NPSForVeg} objects by combining two or more previously existing objects and/or by subsetting existing objects. If more than one object is provided then the data for these objects is combined. The areas associated with the plots (eg. the size and number of sapling microplots) is taken from the first object. WARNING:  If the objects have different sized plots then area based calcuations will be in error. Providing a \code{plots} argument will indicate which plots are in the new object. The user must indicate the new network code, park code and park names. 
+#' @details This function creates new \code{NPSForVeg} objects by combining two or more previously existing objects and/or by subsetting existing 
+#' objects. If more than one object is provided then the data for these objects is combined. The areas associated with the plots
+#'  (eg. the size and number of sapling microplots) is taken from the first object. WARNING:  If the objects have different sized plots 
+#'  then area based calcuations will be in error. Providing a \code{plots} argument will indicate which plots are in the new object. 
+#'  The user must indicate the new network code, park code and park names. 
 #' 
 #' @export
 
@@ -108,6 +112,7 @@ setMethod(f='make', signature=c(object="list"),
               ShSeedlings=getPlants(object,group="shseedlings", status="all", plots=plots, output="dataframe"),
               Vines=getPlants(object,group="vines", status="all", plots=plots, output="dataframe"),
               Herbs=getPlants(object,group="herbs", status="all",plots=plots, output="dataframe"),
+              CWD=getPlants(object,group="CWD", status="all",plots=plots, output="dataframe"),
               Commons=getCommons(object)
           )
           

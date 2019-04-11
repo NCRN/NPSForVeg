@@ -48,4 +48,4 @@ Collate:
     'importSHEN.R'
     'make.R'
     'mapPlants.R'
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

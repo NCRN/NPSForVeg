@@ -5,8 +5,8 @@
 \title{mapPlants}
 \usage{
 mapPlants(object, plots, values, maptype = "basic", colorgroups = 8,
-  radius = 30, opacity = 1, colortype = "quantile", colors = c("cyan",
-  "magenta4", "orangered3"), ...)
+  radius = 30, opacity = 1, colortype = "quantile",
+  colors = c("cyan", "magenta4", "orangered3"), ...)
 }
 \arguments{
 \item{object}{Either an object of class \code{NPSForVeg} or a list of such objects}

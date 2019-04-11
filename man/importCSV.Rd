@@ -14,5 +14,5 @@ Returns a \code{list} of \code{NPSForVeg} objects, each object is a park listed 
 }
 \description{
 This function imports data from the standard .csv files and saves it as \code{NPSForVeg} objects. The required .csv files are: MetaData, 
-Plots, Events and CommonNames. The optional .csv files are: Trees, Saplings, Seedlings, Shrubs, Shrub_Seedlings, Vines, and Herbs.
+Plots, Events and CommonNames. The optional .csv files are: Trees, Saplings, Seedlings, Shrubs, Shrub_Seedlings, Vines, Herbs, and CWD.
 }

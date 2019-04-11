@@ -9,7 +9,7 @@ make(object, ParkCode, ShortName, LongName, Network, plots = NA, ...)
 \arguments{
 \item{object}{Either an \code{NPSForVeg} object or a list of such objects}
 
-\item{ParkCode}{The parkcode for the new \code{NPSForVeg} object}
+\item{ParkCode}{The park code for the new \code{NPSForVeg} object}
 
 \item{ShortName}{The short name for the new \code{NPSForVeg} object}
 
@@ -26,6 +26,9 @@ makes a new \code{NPSForVeg} object from one or more existing objects
 This function creates new \code{NPSForVeg} objects by combining two or more previously existing objects and/or by subsetting existing 
 objects. If more than one object is provided then the data for these objects is combined. The areas associated with the plots
  (eg. the size and number of sapling microplots) is taken from the first object. WARNING:  If the objects have different sized plots 
- then area based calcuations will be in error. Providing a \code{plots} argument will indicate which plots are in the new object. 
+ then area based calculations will be in error. The function also takes the cycles from the first object ans assumes that they are valid 
+ for all objects. 
+ 
+ Providing a \code{plots} argument will indicate which plots are in the new object. 
  The user must indicate the new network code, park code and park names.
 }

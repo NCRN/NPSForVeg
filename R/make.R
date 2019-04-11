@@ -3,7 +3,7 @@
 #' @description makes a new \code{NPSForVeg} object from one or more existing objects
 #' 
 #' @param object Either an \code{NPSForVeg} object or a list of such objects
-#' @param ParkCode The parkcode for the new \code{NPSForVeg} object
+#' @param ParkCode The park code for the new \code{NPSForVeg} object
 #' @param ShortName The short name for the new \code{NPSForVeg} object
 #' @param LongName  The long name for the new \code{NPSForVeg} object 
 #' @param Network  The network code for the new \code{NPSForVeg} object
@@ -12,7 +12,10 @@
 #' @details This function creates new \code{NPSForVeg} objects by combining two or more previously existing objects and/or by subsetting existing 
 #' objects. If more than one object is provided then the data for these objects is combined. The areas associated with the plots
 #'  (eg. the size and number of sapling microplots) is taken from the first object. WARNING:  If the objects have different sized plots 
-#'  then area based calcuations will be in error. Providing a \code{plots} argument will indicate which plots are in the new object. 
+#'  then area based calculations will be in error. The function also takes the cycles from the first object ans assumes that they are valid 
+#'  for all objects. 
+#'  
+#'  Providing a \code{plots} argument will indicate which plots are in the new object. 
 #'  The user must indicate the new network code, park code and park names. 
 #' 
 #' @export
@@ -103,6 +106,7 @@ setMethod(f='make', signature=c(object="list"),
               VPlotSize=VSize,
               HPlotSize=HSize,
               
+              Cycles=getCycles(object[1]),
               Plots=getPlots(object,type="all", plots=plots, output="dataframe"),
               Events=getEvents(object, plots=plots, output="dataframe"),
               Trees=getPlants(object,group="trees", status="all", plots=plots, output="dataframe"),
@@ -112,7 +116,7 @@ setMethod(f='make', signature=c(object="list"),
               ShSeedlings=getPlants(object,group="shseedlings", status="all", plots=plots, output="dataframe"),
               Vines=getPlants(object,group="vines", status="all", plots=plots, output="dataframe"),
               Herbs=getPlants(object,group="herbs", status="all",plots=plots, output="dataframe"),
-              CWD=getPlants(object,group="CWD", status="all",plots=plots, output="dataframe"),
+              CWD=getPlants(object,group="cwd", plots=plots, output="dataframe"),
               Commons=getCommons(object)
           )
           
@@ -137,16 +141,21 @@ setMethod(f='make', signature=c(object="NPSForVeg"),
               SeedPlotSize=c(getArea(object,"seedlings","count"),getArea(object,"seedlings","single")),
               ShrubPlotSize=c(getArea(object,"shrubs","count"),getArea(object,"shrubs","single")),
               ShSeedPlotSize=c(getArea(object,"shseedlings","count"),getArea(object,"shseedlings","single")),
+              VPlotSize=c(getArea(object,"vines","count"),getArea(object,"vines","single")),
+              HPlotSize=c(getArea(object,"herbs","count"),getArea(object,"herbs","single")),
+              
+              Cycles=getCycles(object),
   
-                Plots=getPlots(object,type="all",plots=plots),
-                Events=getEvents(object,plots=plots),
-                Trees=getPlants(object,group="trees", status="all", plots=plots),
-                Saplings=getPlants(object,group="saplings", status="all", plots=plots),
-                Seedlings=getPlants(object,group="seedlings", status="all", plots=plots),
-                Shrubs=getPlants(object,group="shrubs", status="all", plots=plots),
-                ShSeedlings=getPlants(object,group="shseedlings", status="all",plots=plots),
-                Vines=getPlants(object,group="vines", status="all",plots=plots),
-                Herbs=getPlants(object,group="herbs", status="all",plots=plots),
-                Commons=getCommons(object)                                                 
+              Plots=getPlots(object,type="all",plots=plots),
+              Events=getEvents(object,plots=plots),
+              Trees=getPlants(object,group="trees", status="all", plots=plots),
+              Saplings=getPlants(object,group="saplings", status="all", plots=plots),
+              Seedlings=getPlants(object,group="seedlings", status="all", plots=plots),
+              Shrubs=getPlants(object,group="shrubs", status="all", plots=plots),
+              ShSeedlings=getPlants(object,group="shseedlings", status="all",plots=plots),
+              Vines=getPlants(object,group="vines", status="all",plots=plots),
+              Herbs=getPlants(object,group="herbs", status="all",plots=plots),
+              CWD=getPlants(object,group="cwd",plots=plots),
+              Commons=getCommons(object)                                                 
             )  
 })

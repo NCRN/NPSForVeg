@@ -5,7 +5,8 @@
 #' @description Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence
 #' 
 #' @param object either an object of class \code{NPSForVeg} or a list of such objects
-#' @param groups  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings","shrubs", "shseedlings" (indicated shrub seedlings), "vines" or "herbs'.
+#' @param groups  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
+#' "seedlings","shrubs", "shseedlings" (indicated shrub seedlings), "vines","herbs", or "cwd".
 #' @param years Defaults to \code{NA}. A numeric vector indicating which years should be included. This is passed on to \code{\link{getPlants}}.
 #' @param cycles Defaults to \code{NA}. A numeric vector indicating which cycles should be included. This is passed on to \code{\link{getPlants}}.
 #' @param values Determines the data contained in the Site X Species matrix. Possible values are:

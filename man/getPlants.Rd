@@ -16,14 +16,6 @@ getPlants(object, group, status = "alive", species = NA, cycles = NA,
 \item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
 "seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", "herbs", or "cwd'.}
 
-\item{status}{A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
-\describe{
-\item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
-\item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
-\item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XO", "XP" or"XS" }
-\item{"all"}{Includes all plants}
-}}
-
 \item{species}{Defaults to \code{NA}. A character vector of Latin names. When included only those species are selected. This is determined by matching the appropriate \code{Latin_Name} field to  \code{species}}
 
 \item{cycles}{Defaults to \code{NA}. A numeric vector indicating which cycles should be included. This is determined by matching the appropriate \code{Cycle} field to \code{cycles}}

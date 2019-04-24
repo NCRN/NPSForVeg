@@ -2,7 +2,7 @@
 #' @title importNETN
 #' 
 #' @description  This function imports data from the standard NETN .csv files and saves it as \code{NPSForVeg} objects. The required .csv
-#'  files are: Plots, Events, Cycles, Trees, Saplings, Seedlings, and CommonNames.
+#'  files are: Plots, Events, Cycles, Trees, Saplings, Seedlings, CWD and CommonNames.
 #' 
 #' @param Dir  Path to the directory where the data is found, in quotes. Path should not have a trailing slash.
 #' 

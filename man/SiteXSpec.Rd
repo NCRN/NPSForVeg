@@ -59,7 +59,8 @@ One of three options are availbe (always ineclosed in quotes).
 
 \item{...}{Other arguments passed on to \code{\link{getPlants}}}
 
-\item{groups}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings","shrubs", "shseedlings" (indicated shrub seedlings), "vines" or "herbs'.}
+\item{groups}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
+"seedlings","shrubs", "shseedlings" (indicated shrub seedlings), "vines","herbs", or "cwd".}
 }
 \description{
 Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence

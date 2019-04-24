@@ -3,7 +3,7 @@
 #' @title importERMN
 #' 
 #' @description  This function imports data from the standard ERMN .csv files and saves it as \code{NPSForVeg} objects.
-#'  The required .csv files are: Plots, Events, Cycles_ERMN, Trees, Saplings, Seedlings and CommonNames.
+#'  The required .csv files are: Plots, Events, Cycles_ERMN, Trees, Saplings, Seedlings, Herbs, CWD and CommonNames.
 #' 
 #' @param Dir  The directory where the data is found. Path should not have a trailing slash.
 #' 

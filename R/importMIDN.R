@@ -2,7 +2,7 @@
 #' @title importMIDN
 #' 
 #' @description  This function imports data from the standard MIDN .csv files and saves it as \code{NPSForVeg} objects. The required 
-#' .csv files are: Plots, Events, Cycles, Cylces2, Trees, Saplings, Seedlings, Vines, Herbs and CommonNames.
+#' .csv files are: Plots, Events, Cycles, Cylces2, Trees, Saplings, Seedlings, Vines, Herbs, CWD and CommonNames.
 #' 
 #' @param Dir  The directory where the data is found. Path should not have a trailing slash.
 #' 

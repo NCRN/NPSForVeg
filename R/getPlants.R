@@ -8,7 +8,8 @@
 #' @param status  A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 #' \describe{
 #' \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
-#' \item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+#' \item{"dead"}{Includes any plant with a status of "Dead", "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+#' \item{"snag"} {Standing dead tree only, Includes any plant with a status of "Dead", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DL","DM",or"DS" }}
 #' \item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XO", "XP" or"XS" }
 #' \item{"all"}{Includes all plants}
 #' }
@@ -70,11 +71,13 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
                             alive=XPlants<-(XPlants[XPlants$Status %in% c("Alive Standing", "Alive Broken", "Alive Leaning", "Alive Missed",
                                                                           "Alive Fallen","Alive","AB","AF","AL","AM","AS","RB","RF","RL","RS","TR"),]),
                             dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Leaning","Dead Missing", 
-                              "Dead Standing", "Dead Missed", "Dead Broken", "DB","DL","DM","DS"),]),
-                            other=XPlants<-(XPlants[XPlants$Status %in% c("Missing","Missing - Presumed Dead","Missing - Uncertain",
                               "Dead Fallen","Dead - Human Action","Dead - Too Small","Dead Cut","DC","DF","DX",
+                              "Dead Standing", "Dead Missed", "Dead Broken", "DB","DL","DM","DS"),]),
+                            snag= XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Leaning","Dead Missing","Dead - Human Action",
+                              "Dead - Too Small", "Dead Standing", "Dead Missed", "Dead Broken", "DB","DL","DM","DS"),]),
+                            other=XPlants<-(XPlants[XPlants$Status %in% c("Missing","Missing - Presumed Dead","Missing - Uncertain",
                               "Excluded - Other","Excluded - Off Plot","Excluded - Shrank","Excluded", "Other",
-                                                                          "Downgraded to Non-Sampled","ES","EX","NL","XO","XP","XS"),]),
+                              "Downgraded to Non-Sampled","ES","EX","NL","XO","XP","XS"),]),
                             stop("Unknown Plant Status"))
             }
             

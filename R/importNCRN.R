@@ -89,7 +89,7 @@ importNCRN<-function(Dir){
            ShSeedlings=InShSeeds[InShSeeds$Unit_Code=="CATO",],
            Vines=InVines[InVines$Unit_Code=="CATO",], 
            Herbs=InHerbs[InHerbs$Unit_Code=="CATO",],
-           CWD=InCWD[InCWD$Unit_Code=="CWD",],
+           CWD=InCWD[InCWD$Unit_Code=="CATO",],
            Commons=InCommons)
 
 CHOH<-new("NPSForVeg", 

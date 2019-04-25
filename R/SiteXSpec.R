@@ -5,8 +5,8 @@
 #' @description Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence
 #' 
 #' @param object either an object of class \code{NPSForVeg} or a list of such objects
-#' @param groups  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
-#' "seedlings","shrubs", "shseedlings" (indicated shrub seedlings), "vines","herbs", or "cwd".
+#' @param group  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
+#' "seedlings","shrubs", "shseedlings" (indicating shrub seedlings), "vines","herbs", or "cwd".
 #' @param years Defaults to \code{NA}. A numeric vector indicating which years should be included. This is passed on to \code{\link{getPlants}}.
 #' @param cycles Defaults to \code{NA}. A numeric vector indicating which cycles should be included. This is passed on to \code{\link{getPlants}}.
 #' @param values Determines the data contained in the Site X Species matrix. Possible values are:
@@ -19,6 +19,7 @@
 #' \describe{
 #' \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
 #' \item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+#' \item{"snag"}{Standing dead tree only, Includes any plant with a status of "Dead", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DL","DM",or"DS" }
 #' \item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XO", "XP" or"XS" }
 #' \item{"all"}{Includes all plants}
 #' }
@@ -63,7 +64,7 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
     species<-if(is.na(species)) unique(getPlants(object=object, group=group, status=status, years=years, cycles=cycles, species=species, 
                                                      plots=plots, common=F, output="dataframe",...)$Latin_Name) else species
     OutList<-lapply(X=object, FUN=SiteXSpec, group=group, status=status, years=years, cycles=cycles, values=values, area=area, species=species,
-                    plots=plots, plot.type=plot.type, Total=Total, common=common, ...) 
+      plots=plots, plot.type=plot.type, Total=Total, common=common, ...) 
            
     switch(output,
           dataframe={
@@ -79,7 +80,7 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
                 names(OutList)<-getNames(object,name.class="code")
                 return(OutList)
               }
-         )
+    )
 })
 
 setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"), 

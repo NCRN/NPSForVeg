@@ -12,6 +12,9 @@ SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
 \arguments{
 \item{object}{either an object of class \code{NPSForVeg} or a list of such objects}
 
+\item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
+"seedlings","shrubs", "shseedlings" (indicating shrub seedlings), "vines","herbs", or "cwd".}
+
 \item{years}{Defaults to \code{NA}. A numeric vector indicating which years should be included. This is passed on to \code{\link{getPlants}}.}
 
 \item{cycles}{Defaults to \code{NA}. A numeric vector indicating which cycles should be included. This is passed on to \code{\link{getPlants}}.}
@@ -27,6 +30,7 @@ SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
 \describe{
 \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
 \item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+\item{"snag"}{Standing dead tree only, Includes any plant with a status of "Dead", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DL","DM",or"DS" }
 \item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XO", "XP" or"XS" }
 \item{"all"}{Includes all plants}
 }}
@@ -58,9 +62,6 @@ One of three options are availbe (always ineclosed in quotes).
 \item{common}{Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names.}
 
 \item{...}{Other arguments passed on to \code{\link{getPlants}}}
-
-\item{groups}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
-"seedlings","shrubs", "shseedlings" (indicated shrub seedlings), "vines","herbs", or "cwd".}
 }
 \description{
 Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence

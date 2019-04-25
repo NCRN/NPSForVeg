@@ -1,8 +1,8 @@
 Package: NPSForVeg
 Type: Package
 Title: Data anaylsis and graphing for NPS forest vegetation monitoring.
-Version: 0.2.22
-Date: 2019-03-28
+Version: 0.3.0
+Date: 2019-04-25
 Author: John Paul Schmit, Kate Miller, Liz Matthews
 Maintainer: John Paul Schmit <John_Schmit@nps.gov>
 Encoding: UTF-8

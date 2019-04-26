@@ -139,8 +139,13 @@ setMethod(f="getSubplotCount", signature="NPSForVeg",
                             dplyr::select(Plot_Name,Event_Year,numSubPlots, SubPlotArea) else
                               XSubplots %>% dplyr::select(Plot_Name,Event_Year) %>% mutate(numSubPlots=getArea(object, group, "count"),
                                                                                            SubPlotArea=getArea(object, group, "all"))
+                      ),
+      cwd = switch (subtype,
+              area=XSubplots %>% dplyr::select(Plot_Name,Event_Year) %>% mutate(SubPlotArea=1),
+              count=XSubplots %>% dplyr::select(Plot_Name,Event_Year) %>% mutate(numSubPlots=1),
+              all=XSubplots %>% dplyr::select(Plot_Name,Event_Year) %>% mutate(numSubPlots=1,SubPlotArea=1))
       )
-    )
+    
 
     return(XSubplots)
   })

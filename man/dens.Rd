@@ -4,9 +4,10 @@
 \alias{dens}
 \title{dens}
 \usage{
-dens(object, group, years, values = "count", density = TRUE, species = NA,
-  plots = NA, area = "count", plotarea = NA, subplots = NA,
-  subplotarea = NA, subplotnumber = NA, output = "dataframe", ...)
+dens(object, group, years, values = "count", density = TRUE,
+  species = NA, plots = NA, area = "count", plotarea = NA,
+  subplots = NA, subplotarea = NA, subplotnumber = NA,
+  output = "dataframe", ...)
 }
 \arguments{
 \item{object}{Either an object of class \code{NPSForVeg} or a \code{list} of such objects.}

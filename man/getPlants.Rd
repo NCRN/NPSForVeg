@@ -5,19 +5,22 @@
 \title{getPlants}
 \usage{
 getPlants(object, group, status = "alive", species = NA, cycles = NA,
-  years = NA, plots = NA, crown = NA, size.min = NA, size.max = NA,
-  BA.min = NA, BA.max = NA, host.tree = NA, in.crown = FALSE,
-  common = FALSE, output = "dataframe")
+  years = NA, plots = NA, crown = NA, size.min = NA,
+  size.max = NA, BA.min = NA, BA.max = NA, host.tree = NA,
+  in.crown = FALSE, decay = NA, common = FALSE,
+  output = "dataframe")
 }
 \arguments{
 \item{object}{Either an object of class \code{NPSForVeg} or a list of such objects}
 
-\item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", or "herbs".}
+\item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
+"seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", "herbs", or "cwd'.}
 
 \item{status}{A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 \describe{
 \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
-\item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+\item{"dead"}{Includes any plant with a status of "Dead", "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+\item{"snag"}{Standing dead tree only, Includes any plant with a status of "Dead", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DL","DM",or"DS"}
 \item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XO", "XP" or"XS" }
 \item{"all"}{Includes all plants}
 }}
@@ -43,6 +46,8 @@ getPlants(object, group, status = "alive", species = NA, cycles = NA,
 \item{host.tree}{Defaults to \code{NA}. Only meaningful when \code{group} is "vines". A character vector containing Latin names of host trees. Only vines occuring in those hosts will be returned. Determined by matching the \code{Host_Latin_Name} in the \code{Vines} slot.}
 
 \item{in.crown}{Defaults to \code{FALSE}. Only meaningful when \code{group} is "vines". When \code{TRUE} only vines which have reached the crown of the tree are returned. Determined by checking if the \code{Condition} field in the \code{Vines} slot has the text "Vines in the crown".}
+
+\item{decay}{Defaults to \code{NA}. Only meaningful when \code{group} is "cwd". Only cWD with that decay class will be returned.}
 
 \item{common}{Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names. Common names are determined using the \code{getCommons} function.}
 

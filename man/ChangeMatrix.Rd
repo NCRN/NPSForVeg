@@ -4,8 +4,9 @@
 \alias{ChangeMatrix}
 \title{ChangeMatrix}
 \usage{
-ChangeMatrix(object, group, years1, years2, plots = NA, type = "active",
-  species = NA, values = "count", output = "dataframe", ...)
+ChangeMatrix(object, group, years1, years2, plots = NA,
+  type = "active", species = NA, values = "count",
+  output = "dataframe", ...)
 }
 \arguments{
 \item{object}{either an object of class \code{NPSForVeg} or a list of such objects}

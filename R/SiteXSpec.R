@@ -5,7 +5,8 @@
 #' @description Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence
 #' 
 #' @param object either an object of class \code{NPSForVeg} or a list of such objects
-#' @param groups  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings","shrubs", "shseedlings" (indicated shrub seedlings), "vines" or "herbs'.
+#' @param group  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
+#' "seedlings","shrubs", "shseedlings" (indicating shrub seedlings), "vines","herbs", or "cwd".
 #' @param years Defaults to \code{NA}. A numeric vector indicating which years should be included. This is passed on to \code{\link{getPlants}}.
 #' @param cycles Defaults to \code{NA}. A numeric vector indicating which cycles should be included. This is passed on to \code{\link{getPlants}}.
 #' @param values Determines the data contained in the Site X Species matrix. Possible values are:
@@ -13,6 +14,13 @@
 #' \item{"count"}{The default. Each cell will include a count of the number of a given plant species in a given plot. For trees, saplings, seedlings, shrubs and shrub seedlings this is the number of plants. For vines, it is the number of trees a vine species grows on. For herbs it will be the number of quadrats the plant occurs in.}
 #' \item{"size"}{For trees and saplings this is the total basal area in m2 per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
 #' \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
+#' }
+#' @param status  A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
+#' \describe{
+#' \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
+#' \item{"snag"}{Standing dead tree only, Includes any plant with a status of "Dead", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DL","DM",or"DS" }
+#' \item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XO", "XP" or"XS" }
+#' \item{"all"}{Includes all plants}
 #' }
 #' @param area A character vector. Determine if the values in the output are on a per plot or per area basis. This only works with counts, 
 #' basal areas, and length of seedlings.
@@ -47,15 +55,15 @@
 
 
 
-setGeneric(name="SiteXSpec",function(object,group,years=NA, cycles=NA,values="count",area="plot", output="dataframe",
+setGeneric(name="SiteXSpec",function(object,group,years=NA, cycles=NA,values="count",status="alive", area="plot", output="dataframe",
               species=NA,plots=NA, plot.type, Total=TRUE,common=F,...){standardGeneric("SiteXSpec")}, signature="object")
 
 setMethod(f="SiteXSpec", signature=c(object="list"),
   function(object,...){
-    species<-if(is.na(species)) unique(getPlants(object=object, group=group, years=years, cycles=cycles, species=species, 
+    species<-if(is.na(species)) unique(getPlants(object=object, group=group, status=status, years=years, cycles=cycles, species=species, 
                                                      plots=plots, common=F, output="dataframe",...)$Latin_Name) else species
-    OutList<-lapply(X=object, FUN=SiteXSpec, group=group, years=years, cycles=cycles, values=values, area=area, species=species,
-                    plots=plots, plot.type=plot.type, Total=Total, common=common, ...) 
+    OutList<-lapply(X=object, FUN=SiteXSpec, group=group, status=status, years=years, cycles=cycles, values=values, area=area, species=species,
+      plots=plots, plot.type=plot.type, Total=Total, common=common, ...) 
            
     switch(output,
           dataframe={
@@ -71,12 +79,13 @@ setMethod(f="SiteXSpec", signature=c(object="list"),
                 names(OutList)<-getNames(object,name.class="code")
                 return(OutList)
               }
-         )
+    )
 })
 
 setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"), 
-          function(object, group, years, cycles, values, species, plots,plot.type,common, ...){
-            XPlants<-data.table(getPlants(object=object,group=group,years=years,cycles=cycles,species=species,plots=plots,common=common,...))
+          function(object, group, years, cycles, values, status,species, plots,plot.type,common, ...){
+            XPlants<-data.table(getPlants(object=object,group=group,status=status,years=years,cycles=cycles,species=species,plots=plots,
+                                          common=common,...))
             XPlots<-if (anyNA(plots)) {getPlotNames(object=object,years=years,type="all")} else {
               plots[plots %in% getPlotNames(object=object,years=years,type="all")] }
             XSubplots<-getSubplotCount(object=object,group=group, years=years, plots=plots, subtype='all',plot.type=plot.type)
@@ -90,20 +99,26 @@ setMethod(f="SiteXSpec", signature=c(object="NPSForVeg"),
                 switch(group,
                   
                   trees=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),
-                                      sum(SumLiveBasalArea_cm2)/10000, by=.EACHI],
+                                      switch(status, 
+                                             alive=sum(SumLiveBasalArea_cm2, na.rm=TRUE)/10000,
+                                             snag=sum(SumDeadBasalArea_cm2, na.rm=TRUE)/10000,
+                                             all=sum(SumLiveBasalArea_cm2+SumDeadBasalArea_cm2, na.rm=TRUE)/10000), by=.EACHI],
                                       formula=fPlot~Latin_Name,value.var="V1", drop=FALSE), #units are m2/ha
                   
                   saplings=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),
-                                      sum(SumLiveBasalArea_cm2)/10000, by=.EACHI],
+                                      sum(SumLiveBasalArea_cm2, na.rm=TRUE)/10000, by=.EACHI],
                                       formula=fPlot~Latin_Name, value.var="V1", drop=FALSE), #units are m2/ha
                          
                   seedlings=,shseedlings=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), 
-                                      XSpecies), sum(Height), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
+                                      XSpecies), sum(Height, na.rm=TRUE), by=.EACHI],formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
                   herbs=OutData<-dcast.data.table( setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)),XSpecies),
-                                        sum(Percent_Cover)/(unique(numSubPlots)), by=.EACHI],
+                                        sum(Percent_Cover, na.rm=TRUE)/(unique(numSubPlots)), by=.EACHI],
                                         formula=fPlot~Latin_Name,value.var="V1", drop=FALSE),
                   
+                  cwd=OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies),
+                                        sum(CWD_Vol, na.rm=TRUE), by=.EACHI],
+                                                     formula=fPlot~Latin_Name, value.var="V1", drop=FALSE), #units are m3/ha
                   shrubs=,vines=stop("Cannot do a size based site x species matrix - no size measurement avaialable")
               )},
               presab={OutData<-dcast.data.table(setkey(XPlants,fPlot,Latin_Name)[CJ (unique(levels(fPlot)), XSpecies), .N, by=.EACHI], 

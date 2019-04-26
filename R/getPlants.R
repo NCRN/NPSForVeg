@@ -3,11 +3,13 @@
 #' @description Retrieves plant data from an \code{NPSForVeg} object.
 #' 
 #' @param object Either an object of class \code{NPSForVeg} or a list of such objects
-#' @param group  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", "seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", or "herbs". 
+#' @param group  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
+#' "seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", "herbs", or "cwd'. 
 #' @param status  A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 #' \describe{
 #' \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
-#' \item{"dead"}{Includes any plant with a status of "Dead"," "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+#' \item{"dead"}{Includes any plant with a status of "Dead", "Dead Fallen", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DC","DF","DL","DM","DS" or "DX"}
+#' \item{"snag"}{Standing dead tree only, Includes any plant with a status of "Dead", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DL","DM",or"DS"}
 #' \item{"other"}{Includes any plant with a status of "Missing", "Missing - Presumed Dead", "Missing - Uncertain" , "Downgraded to Non-Sampled","ES","EX","NL","XO", "XP" or"XS" }
 #' \item{"all"}{Includes all plants}
 #' }
@@ -22,6 +24,7 @@
 #' @param BA.max Defaults to \code{NA}. A single numeric value that indicates the maximum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field. 
 #' @param host.tree Defaults to \code{NA}. Only meaningful when \code{group} is "vines". A character vector containing Latin names of host trees. Only vines occuring in those hosts will be returned. Determined by matching the \code{Host_Latin_Name} in the \code{Vines} slot. 
 #' @param in.crown Defaults to \code{FALSE}. Only meaningful when \code{group} is "vines". When \code{TRUE} only vines which have reached the crown of the tree are returned. Determined by checking if the \code{Condition} field in the \code{Vines} slot has the text "Vines in the crown".
+#' @param decay Defaults to \code{NA}. Only meaningful when \code{group} is "cwd". Only cWD with that decay class will be returned. 
 #' @param common Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names. Common names are determined using the \code{getCommons} function.
 #' @param output Either "dataframe" or "list". Determines the output type When \code{object} is a list. "Dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be combined into a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that objects \code{ParkCode} slot. 
 #' 
@@ -31,13 +34,16 @@
 
 
 
-setGeneric(name="getPlants",function(object,group,status="alive", species=NA, cycles=NA, years=NA, plots=NA, crown=NA, size.min=NA, size.max=NA, BA.min=NA, BA.max=NA, host.tree=NA, in.crown=FALSE, common=FALSE, output="dataframe"){standardGeneric("getPlants")}, signature="object")
-
+setGeneric(name="getPlants",function(object,group,status="alive", species=NA, cycles=NA, years=NA, plots=NA, crown=NA, size.min=NA, size.max=NA, 
+                                     BA.min=NA, BA.max=NA, host.tree=NA, in.crown=FALSE, decay=NA, common=FALSE,
+                                     output="dataframe"){standardGeneric("getPlants")}, signature="object")
 
 
 setMethod(f="getPlants", signature="list",
-          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,common,output) 
-          {OutPlants<-lapply(X=object, FUN=getPlants, group=group, status=status, species=species, cycles=cycles, years=years, plots=plots, crown=crown,size.min=size.min, size.max=size.max, BA.min=BA.min, BA.max=BA.max, host.tree=host.tree, in.crown=in.crown, common=common,output=output)
+          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,decay,common,output) 
+          {OutPlants<-lapply(X=object, FUN=getPlants, group=group, status=status, species=species, cycles=cycles, years=years, plots=plots, 
+                            crown=crown,size.min=size.min, size.max=size.max, BA.min=BA.min, BA.max=BA.max, host.tree=host.tree,
+                            in.crown=in.crown, decay=decay, common=common,output=output)
            switch(output,
                   list=return(OutPlants),
                   dataframe=return(do.call("rbind",OutPlants))
@@ -46,7 +52,7 @@ setMethod(f="getPlants", signature="list",
 
 
 setMethod(f="getPlants", signature=c(object="NPSForVeg"), 
-          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,common,output){
+          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,decay,common, output){
             switch(group,
                 seedlings=XPlants<-(object@Seedlings),
                 shseedlings=XPlants<-(object@ShSeedlings),
@@ -55,6 +61,7 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
                 shrubs=XPlants<-object@Shrubs,
                 vines=XPlants<-object@Vines,
                 herbs=XPlants<-object@Herbs,
+                cwd=XPlants<-object@CWD,
           stop("Unknown Plant Type")
             )
             
@@ -63,12 +70,14 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
                             all=XPlants<-XPlants,
                             alive=XPlants<-(XPlants[XPlants$Status %in% c("Alive Standing", "Alive Broken", "Alive Leaning", "Alive Missed",
                                                                           "Alive Fallen","Alive","AB","AF","AL","AM","AS","RB","RF","RL","RS","TR"),]),
-                            dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Fallen","Dead - Human Action","Dead Leaning","Dead Missing", 
-                              "Dead Standing","Dead - Too Small", "Dead Missed", "Dead Broken","Dead Cut",
-                                                                         "DB","DC","DF","DL","DM","DS","DX"),]),
+                            dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Leaning","Dead Missing", 
+                              "Dead Fallen","Dead - Human Action","Dead - Too Small","Dead Cut","DC","DF","DX",
+                              "Dead Standing", "Dead Missed", "Dead Broken", "DB","DL","DM","DS"),]),
+                            snag= XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Leaning","Dead Missing","Dead - Human Action",
+                              "Dead - Too Small", "Dead Standing", "Dead Missed", "Dead Broken", "DB","DL","DM","DS"),]),
                             other=XPlants<-(XPlants[XPlants$Status %in% c("Missing","Missing - Presumed Dead","Missing - Uncertain",
-                              "Excluded - Other","Excluded - Off Plot","Excluded - Shrank","Excluded",
-                                                                          "Downgraded to Non-Sampled","ES","EX","NL","XO","XP","XS"),]),
+                              "Excluded - Other","Excluded - Off Plot","Excluded - Shrank","Excluded", "Other",
+                              "Downgraded to Non-Sampled","ES","EX","NL","XO","XP","XS"),]),
                             stop("Unknown Plant Status"))
             }
             
@@ -105,6 +114,8 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
             
             if(!sum(is.na(host.tree))>0 & group=="vines") XPlants<-XPlants[XPlants$Host_Latin_Name %in% host.tree,]
             
+            if(!anyNA(decay) & group=='cwd') XPlants<-XPlants[XPlants$Decay_Class %in% decay,]
+                        
             if(in.crown & group =="vines") XPlants<-XPlants[XPlants$Condition=="Vines in the crown",]
             
             if(common){ XPlants$Latin_Name<-getPlantNames(object=object,names=XPlants$Latin_Name)}

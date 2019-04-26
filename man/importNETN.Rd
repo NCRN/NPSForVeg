@@ -14,5 +14,5 @@ Returns a list with 8 \code{NPSForVeg} objects, one for each park.
 }
 \description{
 This function imports data from the standard NETN .csv files and saves it as \code{NPSForVeg} objects. The required .csv
- files are: Plots, Events, Cycles, Trees, Saplings, Seedlings, and CommonNames.
+ files are: Plots, Events, Cycles, Trees, Saplings, Seedlings, CWD and CommonNames.
 }

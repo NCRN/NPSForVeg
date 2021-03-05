@@ -12,6 +12,7 @@
 #'  \item{"basic"}{The default, uses the basic Park Tiles map, similar to the maps found in park brochures.}
 #'  \item{"imagery"}{The Park Tiles satellite imagery map.}
 #'  \item{"slate"}{The Park Tiles slate map. A very muted and grey base map.}
+#'  \item{"light"}{The Park Tiles light map. A very pale map.}
 #' }
 #' @param colorgroups The number of different colors to display for maps with a \code{colortype} of "bin" or "quantile", or a series of cut points to be used with \code{colortype="bin"} See discussion below.
 #' @param radius The radius in meters, of the circle drawn on the map. When the map is zoomed out the circles will be visible regardless of the value chosen.
@@ -60,10 +61,11 @@ setMethod(f="mapPlants", signature=c(object="NPSForVeg"),
               ColRamp<-colorRampPalette(colors)
               
               BaseMap<-switch(maptype,
-                              basic="//{s}.tiles.mapbox.com/v4/nps.2yxv8n84,nps.jhd2e8lb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibnBzIiwiYSI6IkdfeS1OY1UifQ.K8Qn5ojTw4RV1GwBlsci-Q",
-                              imagery="//{s}.tiles.mapbox.com/v4/nps.map-n9nxe12m,nps.gdipreks,nps.jhd2e8lb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibnBzIiwiYSI6IkdfeS1OY1UifQ.K8Qn5ojTw4RV1GwBlsci-Q",
-                              slate="//{s}.tiles.mapbox.com/v4/nps.68926899,nps.jhd2e8lb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibnBzIiwiYSI6IkdfeS1OY1UifQ.K8Qn5ojTw4RV1GwBlsci-Q"
-                              )
+                              basic="https://atlas-stg.geoplatform.gov/styles/v1/atlas-user/ck58pyquo009v01p99xebegr9/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYXRsYXMtdXNlciIsImEiOiJjazFmdGx2bjQwMDAwMG5wZmYwbmJwbmE2In0.lWXK2UexpXuyVitesLdwUg",
+                              imagery="https://atlas-stg.geoplatform.gov/styles/v1/atlas-user/ck72fwp2642dv07o7tbqinvz4/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYXRsYXMtdXNlciIsImEiOiJjazFmdGx2bjQwMDAwMG5wZmYwbmJwbmE2In0.lWXK2UexpXuyVitesLdwUg",
+                              slate="https://atlas-stg.geoplatform.gov/styles/v1/atlas-user/ck5cpvc2e0avf01p9zaw4co8o/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYXRsYXMtdXNlciIsImEiOiJjazFmdGx2bjQwMDAwMG5wZmYwbmJwbmE2In0.lWXK2UexpXuyVitesLdwUg",
+                              light="https://atlas-stg.geoplatform.gov/styles/v1/atlas-user/ck5cpia2u0auf01p9vbugvcpv/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYXRsYXMtdXNlciIsImEiOiJjazFmdGx2bjQwMDAwMG5wZmYwbmJwbmE2In0.lWXK2UexpXuyVitesLdwUg"
+              )
               
               MapCol<-switch(colortype,
                      quantile=colorQuantile(palette=ColRamp(colorgroups),n=colorgroups,domain=values),

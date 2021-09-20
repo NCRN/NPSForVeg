@@ -4,11 +4,25 @@
 \alias{getPlants}
 \title{getPlants}
 \usage{
-getPlants(object, group, status = "alive", species = NA, cycles = NA,
-  years = NA, plots = NA, crown = NA, size.min = NA,
-  size.max = NA, BA.min = NA, BA.max = NA, host.tree = NA,
-  in.crown = FALSE, decay = NA, common = FALSE,
-  output = "dataframe")
+getPlants(
+  object,
+  group,
+  status = "alive",
+  species = NA,
+  cycles = NA,
+  years = NA,
+  plots = NA,
+  crown = NA,
+  size.min = NA,
+  size.max = NA,
+  BA.min = NA,
+  BA.max = NA,
+  host.tree = NA,
+  in.crown = FALSE,
+  decay = NA,
+  common = FALSE,
+  output = "dataframe"
+)
 }
 \arguments{
 \item{object}{Either an object of class \code{NPSForVeg} or a list of such objects}
@@ -31,13 +45,13 @@ getPlants(object, group, status = "alive", species = NA, cycles = NA,
 
 \item{years}{Defaults to \code{NA}. A numeric vector indicating which years should be included. This is determined by matching the appropriate \code{Sample_Year} field to \code{years}}
 
-\item{plots}{Defaults to \code{NA} A character vector indicating which plots should be included. This is determined by macthing the appropriate \code{Plot_Name} field to \code{plots}.}
+\item{plots}{Defaults to \code{NA} A character vector indicating which plots should be included. This is determined by matching the appropriate \code{Plot_Name} field to \code{plots}.}
 
 \item{crown}{Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by matching the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".}
 
 \item{size.min}{Defaults to \code{NA}. A single numeric value that indicates the minimum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.}
 
-\item{size.max}{Defaults to \code{NA}. A single numeric value that indciates the maximum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.}
+\item{size.max}{Defaults to \code{NA}. A single numeric value that indicates the maximum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.}
 
 \item{BA.min}{Defaults to \code{NA}. A single numeric value that indicates the minimum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field.}
 
@@ -47,7 +61,7 @@ getPlants(object, group, status = "alive", species = NA, cycles = NA,
 
 \item{in.crown}{Defaults to \code{FALSE}. Only meaningful when \code{group} is "vines". When \code{TRUE} only vines which have reached the crown of the tree are returned. Determined by checking if the \code{Condition} field in the \code{Vines} slot has the text "Vines in the crown".}
 
-\item{decay}{Defaults to \code{NA}. Only meaningful when \code{group} is "cwd". Only cWD with that decay class will be returned.}
+\item{decay}{Defaults to \code{NA}. Only meaningful when \code{group} is "cwd". Only CWD with that decay class will be returned.}
 
 \item{common}{Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names. Common names are determined using the \code{getCommons} function.}
 

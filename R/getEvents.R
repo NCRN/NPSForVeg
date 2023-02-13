@@ -1,5 +1,8 @@
 #' @title getEvents
 #' 
+#' @importFrom  dplyr bind_rows filter
+#' @importFrom  purrr map
+#' 
 #' @description This function gets the contents of the "Events" slot of an NPSForVeg object.
 #' 
 #' @param object  Either an NPSForVeg object of a list of such objects.
@@ -22,20 +25,20 @@
 #' @details This function returns the \code{Events} slot of an NPSForVeg object or a list of such objects. This can be filtered by 
 #' specifying \code{plots}, \code{years}, or \code{plot.type}.  If \code{object} is a single NPSForVeg object than a data.frame is returned.
 #'  If \code{object} is a list and \code{output} is "dataframe" then a single data.frame with data from all NPSForVeg objects in the list 
-#'  is returned. If \code{object} is a list and \code{ouput} is "list" then a list will be returned. Each element of the list will be a
+#'  is returned. If \code{object} is a list and \code{output} is "list" then a list will be returned. Each element of the list will be a
 #'  \code{data.frame} with the \code{Events} slot of one of the \code{NPSForVeg} objects.
 #' 
 #' @export
 
 setGeneric(name="getEvents",function(object,plots=NA,years=NA,plot.type="all",output="dataframe"){standardGeneric("getEvents")},signature=c("object") )
 
-setMethod(f="getEvents", signature="list",
-          function(object,plots,years,plot.type,output) 
-          {OutEvents<-lapply(object,getEvents,plots,years)
-          switch(output,
-            list=return(OutEvents),
-            dataframe=return(do.call("rbind",OutEvents))
-          )
+setMethod(f="getEvents", signature="list",function(object,plots,years,plot.type,output){
+  XEvents<-map(object, ~`@`(.x, Events))
+  OutEvents<-switch(output,
+                   list=map(XEvents, ~getEvents(.x,plots,years, plot.type)),
+                   dataframe=getEvents(object=bind_rows(XEvents), plots, years, plot.type)
+  )
+  return(OutEvents)
   })
 
 
@@ -43,11 +46,22 @@ setMethod(f="getEvents", signature="NPSForVeg",
           function(object,plots,years,plot.type){
 
             XEvents<-object@Events
-              
-              
-            if(!anyNA(plots)) XEvents<- XEvents[XEvents$Plot_Name %in% plots,]
             
-            if(!anyNA(years)) XEvents<-XEvents[XEvents$Event_Year %in% years,]
+            OutEvents<-getEvents(XEvents,plots=plots, years=years, plot.type=plot.type )  
             
-            return(XEvents)
+            return(OutEvents)
 })
+
+setMethod(f="getEvents", signature="data.frame",
+          function(object,plots,years,plot.type){
+            
+            if(!anyNA(plots)) object<- filter(object, Plot_Name %in% plots)
+            
+            if(!anyNA(years)) object<-filter(object, Event_Year %in% years)
+            
+            return(object)
+          })
+
+
+
+

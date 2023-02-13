@@ -4,8 +4,15 @@
 \alias{getPlotNames}
 \title{getPlotNames}
 \usage{
-getPlotNames(object, type = "active", visits = NA, years = NA,
-  subparks = NA, output = "vector", ...)
+getPlotNames(
+  object,
+  type = "active",
+  visits = NA,
+  years = NA,
+  subparks = NA,
+  output = "vector",
+  ...
+)
 }
 \arguments{
 \item{object}{An NPSForVeg object or a list of such objects.}

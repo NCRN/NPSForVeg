@@ -4,8 +4,13 @@
 \alias{getEvents}
 \title{getEvents}
 \usage{
-getEvents(object, plots = NA, years = NA, plot.type = "all",
-  output = "dataframe")
+getEvents(
+  object,
+  plots = NA,
+  years = NA,
+  plot.type = "all",
+  output = "dataframe"
+)
 }
 \arguments{
 \item{object}{Either an NPSForVeg object of a list of such objects.}
@@ -37,6 +42,6 @@ This function gets the contents of the "Events" slot of an NPSForVeg object.
 This function returns the \code{Events} slot of an NPSForVeg object or a list of such objects. This can be filtered by 
 specifying \code{plots}, \code{years}, or \code{plot.type}.  If \code{object} is a single NPSForVeg object than a data.frame is returned.
  If \code{object} is a list and \code{output} is "dataframe" then a single data.frame with data from all NPSForVeg objects in the list 
- is returned. If \code{object} is a list and \code{ouput} is "list" then a list will be returned. Each element of the list will be a
+ is returned. If \code{object} is a list and \code{output} is "list" then a list will be returned. Each element of the list will be a
  \code{data.frame} with the \code{Events} slot of one of the \code{NPSForVeg} objects.
 }

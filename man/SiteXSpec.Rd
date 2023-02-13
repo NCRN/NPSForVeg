@@ -4,10 +4,22 @@
 \alias{SiteXSpec}
 \title{SiteXSpec}
 \usage{
-SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
-  status = "alive", area = "plot", output = "dataframe",
-  species = NA, plots = NA, plot.type, Total = TRUE, common = F,
-  ...)
+SiteXSpec(
+  object,
+  group,
+  years = NA,
+  cycles = NA,
+  values = "count",
+  status = "alive",
+  area = "plot",
+  output = "dataframe",
+  species = NA,
+  plots = NA,
+  plot.type,
+  Total = TRUE,
+  common = F,
+  ...
+)
 }
 \arguments{
 \item{object}{either an object of class \code{NPSForVeg} or a list of such objects}

@@ -9,6 +9,7 @@ getPlots(
   type = "active",
   visits = NA,
   years = NA,
+  cycles = NA,
   plots = NA,
   subparks = NA,
   events = NA,
@@ -28,6 +29,8 @@ getPlots(
 \item{visits}{A numeric vector. Returns only data from plots where the number of plot visits matches one of the values in \code{visits} The number of visits to a plot is determined by the \code{Event_Count} column in the \code{Events} slot.}
 
 \item{years}{A numeric vector. Returns only plot data from plots where the years the plot was visited  matches one of the values in \code{years}. The year a visit takes place is determined by the \code{Event_Year} column in the \code{Events} slot.}
+
+\item{cycles}{A numeric vector. Returns only plot data from plots where the cycle the plot was visited  matches one of the values in \code{cycles}. The cycle a visit takes place is determined by the \code{Cycle} column in the \code{Events} slot.}
 
 \item{subparks}{A character vector. Returns only data from plots where the subpark the plot is in matches one of the values in \code{subparks}. The subpark a plot is located in is determined by the \code{SubUnit_Code} column in the \code{Plots} slot.}
 

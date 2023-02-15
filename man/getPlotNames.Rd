@@ -31,10 +31,12 @@ getPlotNames(
 \item{subparks}{A character vector. Returns only data from plots where the subpark the plot is in matches one of the values in \code{subparks}. The subpark a plot is located in is determined by the \code{SubUnit_Code} column in the \code{Plots} slot.}
 
 \item{output}{Either "vector" (the default) or "list". Note that this must be in qutoes. Determines the type of output from the function}
+
+\item{...}{Other arguments that are passed on to \code{getPlots}.}
 }
 \description{
 Returns the names of plots from an \code{NPSForVeg} object that meet various criteria.
 }
 \details{
-This function is a wrapper for \code{getPlots()$Plot_Name}.  It first calls \code{getPlots} and then extracts the \code{Plot_Name} field. It is meant as a convenience function.
+This function is a wrapper for \code{getPlots()$Plot_Name}.  It first calls \code{\link{getPlots}} and then extracts the \code{Plot_Name} field. It is meant as a convenience function.
 }

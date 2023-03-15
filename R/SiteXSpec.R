@@ -61,7 +61,7 @@ setGeneric(name = "SiteXSpec", function(object, group, years = NA, cycles = NA, 
 }, signature = "object")
 
 setMethod(f = "SiteXSpec", signature = c(object = "list"), function(object, ...) {
-  species <- if (is.na(species)) {
+  species <- if (anyNA(species)) {
     unique(getPlants(
       object = object, group = group, status = status, years = years, cycles = cycles, species = species,
       plots = plots, common = F, output = "dataframe", ...

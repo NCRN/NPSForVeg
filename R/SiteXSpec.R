@@ -105,7 +105,9 @@ setMethod(
     XSubplots <- getSubplotCount(object = object, group = group, years = years, cycles = cycles, plots = plots, subtype = "all", plot.type = plot.type)
     XPlants <- merge(XPlants, XSubplots, by.x = c("Plot_Name", "Sample_Year"), by.y = c("Plot_Name", "Event_Year"))
     XPlants[, fPlot := factor(Plot_Name, levels = XPlots)]
-    XSpecies <- if (anyNA(species)) unique(XPlants$Latin_Name) else getPlantNames(object, names = species, in.style = "Latin", out.style = ifelse(common, "common", "Latin"))
+    XSpecies <-#if (anyNA(species)) 
+      unique(XPlants$Latin_Name) 
+    #else    getPlantNames(object, names = species, in.style = "Latin", out.style = ifelse(common, "common", "Latin"))
     switch(values,
       count = OutData <- dcast.data.table(setkey(XPlants, fPlot, Latin_Name)[CJ(unique(levels(fPlot)), XSpecies), .N,
         by = .EACHI

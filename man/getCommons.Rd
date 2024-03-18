@@ -4,8 +4,7 @@
 \alias{getCommons}
 \title{getCommons}
 \usage{
-getCommons(object, species = NA, nativity = "all",
-  output = "dataframe")
+getCommons(object, species = NA, nativity = "all", output = "dataframe")
 }
 \arguments{
 \item{object}{Either a data.frame like that stored in the \code{Commons} slot, an \code{NPSForVeg} object or a list of such objects.}

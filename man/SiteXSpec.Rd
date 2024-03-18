@@ -4,16 +4,28 @@
 \alias{SiteXSpec}
 \title{SiteXSpec}
 \usage{
-SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
-  status = "alive", area = "plot", output = "dataframe",
-  species = NA, plots = NA, plot.type, Total = TRUE, common = F,
-  ...)
+SiteXSpec(
+  object,
+  group,
+  years = NA,
+  cycles = NA,
+  values = "count",
+  status = "alive",
+  area = "plot",
+  output = "dataframe",
+  species = NA,
+  plots = NA,
+  plot.type = "active",
+  Total = TRUE,
+  common = F,
+  ...
+)
 }
 \arguments{
 \item{object}{either an object of class \code{NPSForVeg} or a list of such objects}
 
-\item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
-"seedlings","shrubs", "shseedlings" (indicating shrub seedlings), "vines","herbs", or "cwd".}
+\item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings",
+"seedlings", "shrubs", "shseedlings" (indicating shrub seedlings), "vines", "herbs" or "cwd".}
 
 \item{years}{Defaults to \code{NA}. A numeric vector indicating which years should be included. This is passed on to \code{\link{getPlants}}.}
 
@@ -34,25 +46,25 @@ SiteXSpec(object, group, years = NA, cycles = NA, values = "count",
 \item{"all"}{Includes all plants}
 }}
 
-\item{area}{A character vector. Determine if the values in the output are on a per plot or per area basis. This only works with counts, 
+\item{area}{A character vector. Indicates if the values in the output are on a per plot or per area basis. This only works with counts,
 basal areas, and length of seedlings.
 \describe{
-\item{"plot"}{The default. Each cell will be ona per plot basis. The only option for \code{values="presab"}.}
+\item{"plot"}{The default. Each cell will be on a per plot basis. The only option for \code{values="presab"}.}
 \item{"ha"}{Values will be on a per hectare basis}
-\item{"ac"}{values will be in a per acre basis}
+\item{"ac"}{values will be on a per acre basis}
 }}
 
-\item{output}{Either "dataframe" or "list". Determines the output type When \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be a single large \code{data.frame}, containing all sites and species from all \code{NPSForVeg} objects. "list" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that object's \code{ParkCode} slot.}
+\item{output}{Either "dataframe" or "list". Determines the output type when \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be a single large \code{data.frame}, containing all sites and species from all \code{NPSForVeg} objects. "list" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that object's \code{ParkCode} slot.}
 
 \item{species}{A character vector of names. Defaults to \code{NA}. When not \code{NA} only species included in \code{species} will be included in the matrix. If a name is in \code{species}, but is not present in the data, it will not appear in the output.}
 
 \item{plots}{A character vector of plot names. Defaults to \code{NA}. When not \code{NA} only plots included in \code{plots} will be included in the matrix. If a plot name is in \code{plots}, but is not present in the data, it will not appear in the output.}
 
-\item{plot.type}{Passed on to \code{\link{getPlotNames}} and used to filter events so that only events from certain plot types are returned. 
-One of three options are availbe (always ineclosed in quotes). 
+\item{plot.type}{Passed on to \code{\link{getPlotNames}} and used to filter events so that only events from certain plot types are returned.
+One of three options are availbe (always ineclosed in quotes).
 \describe{
-\item{"all"}{The default. Events from all types of plots are returned.}
-\item{"active"}{Only returns events from plots which are listed as active in the Plots$Location_Status field.} 
+\item{"all"}{Events from all types of plots are returned.}
+\item{"active"}{The default. Only returns events from plots which are listed as active in the Plots$Location_Status field.}
 \item{"retired}{Only returns events from plots which are listed as retired in the Plots$Location_Status field. }
 }}
 
@@ -66,10 +78,10 @@ One of three options are availbe (always ineclosed in quotes).
 Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence
 }
 \details{
-This function will first call \code{\link{getPlants}} to retrieve the plant data. Then a SiteXSpecies matrix will be created. 
-Values in the cells are determined by the option selected with \code{values}. Each row corresponds to a different plot and each column 
-to a different species. 
+This function will first call \code{\link{getPlants}} to retrieve the plant data and \code{\link{getEvents}} to retrieve the event data. Then a site X species matrix will be created.
+Values in the cells are determined by the option selected with \code{values}. Each row corresponds to a different plot and each column
+to a different species.
 
-Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in 
+Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in
 the function call.
 }

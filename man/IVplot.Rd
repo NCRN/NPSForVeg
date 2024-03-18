@@ -4,8 +4,16 @@
 \alias{IVplot}
 \title{IVplot}
 \usage{
-IVplot(object, top = NA, IVargs = NA, parts = FALSE, compare = NA,
-  labels = NA, colors = c("darkgreen", "green", "yellow"), ...)
+IVplot(
+  object,
+  top = NA,
+  IVargs = NA,
+  parts = FALSE,
+  compare = NA,
+  labels = NA,
+  colors = c("darkgreen", "green", "yellow"),
+  ...
+)
 }
 \arguments{
 \item{object}{Either a \code{data.frame} which is the output of \code{\link{IV}}, or an object of class \code{NPSForVeg}, or a \code{list} of objects of class \code{NPSForVeg}.}

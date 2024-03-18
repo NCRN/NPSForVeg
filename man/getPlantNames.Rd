@@ -4,8 +4,13 @@
 \alias{getPlantNames}
 \title{getPlantNames}
 \usage{
-getPlantNames(object, names, out.style = "common", in.style = "Latin",
-  output = "vector")
+getPlantNames(
+  object,
+  names,
+  out.style = "common",
+  in.style = "Latin",
+  output = "vector"
+)
 }
 \arguments{
 \item{object}{An \code{NPSForVeg} object}

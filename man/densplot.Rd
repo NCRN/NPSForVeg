@@ -4,8 +4,15 @@
 \alias{densplot}
 \title{densplot}
 \usage{
-densplot(object, Total = TRUE, top = NA, densargs = NA,
-  compare = NA, labels = NA, ...)
+densplot(
+  object,
+  Total = TRUE,
+  top = NA,
+  densargs = NA,
+  compare = NA,
+  labels = NA,
+  ...
+)
 }
 \arguments{
 \item{object}{Either a \code{data.frame} which is the output of the \code{dens} funciton, an object of class \code{NPSForVeg} or a \code{list} of such objects.}

@@ -106,7 +106,7 @@ setMethod(f='make', signature=c(object="list"),
               VPlotSize=VSize,
               HPlotSize=HSize,
               
-              Cycles=getCycles(object[1]),
+              Cycles=getCycles(object[[1]]),
               Plots=getPlots(object,type="all", plots=plots, output="dataframe"),
               Events=getEvents(object, plots=plots, output="dataframe"),
               Trees=getPlants(object,group="trees", status="all", plots=plots, output="dataframe"),

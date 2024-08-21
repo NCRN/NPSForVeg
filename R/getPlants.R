@@ -1,5 +1,7 @@
 #' @title getPlants
 #' 
+#' @importFrom dplyr filter 
+#' 
 #' @description Retrieves plant data from an \code{NPSForVeg} object.
 #' 
 #' @param object Either an object of class \code{NPSForVeg} or a list of such objects
@@ -19,17 +21,17 @@
 #' @param years  Defaults to \code{NA}. A numeric vector indicating which years should be included. This is determined by matching the appropriate \code{Sample_Year} field to \code{years}
 #' @param plots Defaults to \code{NA} A character vector indicating which plots should be included. This is determined by matching the appropriate \code{Plot_Name} field to \code{plots}.
 #' @param crown Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by matching the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".
-#' @param size.min Defaults to \code{NA}. A single numeric value that indicates the minimum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.
-#' @param size.max Defaults to \code{NA}. A single numeric value that indicates the maximum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.
+#' @param size.min Defaults to \code{NA}. A single numeric value that indicates the minimum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpreted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.
+#' @param size.max Defaults to \code{NA}. A single numeric value that indicates the maximum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpreted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.
 #' @param BA.min Defaults to \code{NA}. A single numeric value that indicates the minimum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field. 
 #' @param BA.max Defaults to \code{NA}. A single numeric value that indicates the maximum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field. 
-#' @param host.tree Defaults to \code{NA}. Only meaningful when \code{group} is "vines". A character vector containing Latin names of host trees. Only vines occuring in those hosts will be returned. Determined by matching the \code{Host_Latin_Name} in the \code{Vines} slot. 
+#' @param host.tree Defaults to \code{NA}. Only meaningful when \code{group} is "vines". A character vector containing Latin names of host trees. Only vines occurring in those hosts will be returned. Determined by matching the \code{Host_Latin_Name} in the \code{Vines} slot. 
 #' @param in.crown Defaults to \code{FALSE}. Only meaningful when \code{group} is "vines". When \code{TRUE} only vines which have reached the crown of the tree are returned. Determined by checking if the \code{Condition} field in the \code{Vines} slot has the text "Vines in the crown".
 #' @param decay Defaults to \code{NA}. Only meaningful when \code{group} is "cwd". Only CWD with that decay class will be returned. 
 #' @param common Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names. Common names are determined using the \code{getCommons} function.
-#' @param output Either "dataframe" or "list". Determines the output type When \code{object} is a list. "Dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be combined into a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that objects \code{ParkCode} slot. 
+#' @param output Either "dataframe" or "list". Determines the output type When \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be combined into a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that objects \code{ParkCode} slot. 
 #' 
-#' @details This function extracts data on plants from an \code{NPSForVeg} object. This function is called by other analysis and graphing functions. \code{getPlants} has a variety of arguments that narrow the response down to plants that match critera such as Latin name, size, crown class etc.
+#' @details This function extracts data on plants from an \code{NPSForVeg} object. This function is called by other analysis and graphing functions. \code{getPlants} has a variety of arguments that narrow the response down to plants that match criteria such as Latin name, size, crown class etc.
 #' 
 #' @export
 
@@ -73,7 +75,7 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
                                                                           "Alive Fallen","Alive", "Recruit Standing", "Recruit Broken",
                                                                           "Recruit Leaning", "Recruit Fallen",
                                                                           "AB","AF","AL","AM","AS","RB","RF","RL","RS"),]),
-                            dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Leaning","Dead Missing", 
+                            dead=XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Leaning","Dead Missing",
                               "Dead Fallen","Dead - Human Action","Dead - Too Small","Dead Cut","DC","DF","DX",
                               "Dead Standing", "Dead Missed", "Dead Broken", "DB","DL","DM","DS"),]),
                             snag= XPlants<-(XPlants[XPlants$Status %in% c("Dead","Dead Leaning","Dead Missing","Dead - Human Action",
@@ -83,7 +85,7 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
                               "Downgraded to Non-Sampled","ES","EX","NL","XO","XP","XS"),]),
                             stop("Unknown Plant Status"))
             }
-            
+
             
             if(!sum(is.na(species))>0) XPlants<-XPlants[XPlants$Latin_Name %in% species,]
             
@@ -126,6 +128,43 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
 })
 
 
+
+setMethod(f="getPlants", signature="data.frame",
+          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,decay,common) 
+          {
+            
+            
+            if(group=="trees" | group=="saplings" | group=="shrubs") {
+              switch(status,
+                     all=object<-object,
+                     alive=object<-filter(object, Status %in% c("Alive Standing", "Alive Broken", "Alive Leaning", "Alive Missed",
+                                                                   "Alive Fallen","Alive", "Recruit Standing", "Recruit Broken",
+                                                                   "Recruit Leaning", "Recruit Fallen",
+                                                                   "AB","AF","AL","AM","AS","RB","RF","RL","RS")),
+                     dead=object<-filter(object, Status %in% c("Dead","Dead Leaning","Dead Missing", 
+                                                                  "Dead Fallen","Dead - Human Action","Dead - Too Small","Dead Cut","DC","DF","DX",
+                                                                  "Dead Standing", "Dead Missed", "Dead Broken", "DB","DL","DM","DS")),
+                     snag= object<-filter(object, Status %in% c("Dead","Dead Leaning","Dead Missing","Dead - Human Action",
+                                                                   "Dead - Too Small", "Dead Standing", "Dead Missed", "Dead Broken", "DB","DL","DM","DS")),
+                     other=object<-filter(object, Status %in% c("Missing","Missing - Presumed Dead","Missing - Uncertain",
+                                                                   "Excluded - Other","Excluded - Off Plot","Excluded - Shrank","Excluded", "Other",
+                                                                   "Downgraded to Non-Sampled","ES","EX","NL","XO","XP","XS")),
+                     stop("Unknown Plant Status"))
+            }
+            
+            if(!anyNA(species)) object <- filter(object, Latin_Name %in% species)
+            
+            if(!anyNA(cycles)) object <- filter(object, Cycle %in% cycles)
+            
+            if(!anyNA(years)) object <- filter(object, Sample_Year %in% years)
+            
+            if(!anyNA(plots)) object <- filter(object, Plot_Name %in% plots)
+            
+            if(!anyNA(crown) & group=="trees") object <- filter(object, Crown_Description %in% crown)
+            
+            
+     return(object)
+          })
 
 
 

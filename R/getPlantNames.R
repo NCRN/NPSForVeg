@@ -20,7 +20,7 @@
 #' 
 #' @details This function will convert the names in \code{names} to the style specified in \code{out.style},
 #'  using the data in the \code{Commons} slot of an object of class \code{NPSForVeg}. Note that if the data in the \code{Commons} slot
-#'  has more than one entry for one or more of the input names, or is not present, the funciton will fail with an error.
+#'  has more than one entry for one or more of the input names, or is not present, the function will fail with an error.
 #'  
 #' If the \code{object} is a list, then the \code{names} can be a list as well. If so then then each element in the list of objects will
 #' be matched with the corresponding element in the list of names, and \code{getPlantNames} will be run. When \code{output} is "vector" the 

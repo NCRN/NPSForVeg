@@ -21,6 +21,7 @@
 #' @param cycles Defaults to \code{NA}. A numeric vector indicating which cycles should be included. This is determined by matching the appropriate \code{Cycle} field to \code{cycles}
 #' @param years  Defaults to \code{NA}. A numeric vector indicating which years should be included. This is determined by matching the appropriate \code{Sample_Year} field to \code{years}
 #' @param plots Defaults to \code{NA} A character vector indicating which plots should be included. This is determined by matching the appropriate \code{Plot_Name} field to \code{plots}.
+#' @param tag Defaults to \code{NA}. A numeric vector indicating which tags should be included. This is determined by matching the \code{Tag} field to \code{tag} for the vegetation data. 
 #' @param crown Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by matching the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".
 #' @param size.min Defaults to \code{NA}. A single numeric value that indicates the minimum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpreted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.
 #' @param size.max Defaults to \code{NA}. A single numeric value that indicates the maximum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpreted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.
@@ -38,13 +39,16 @@
 
 
 
-setGeneric(name="getPlants",function(object,group,status="alive", species=NA, cycles=NA, years=NA, plots=NA, crown=NA, size.min=NA, size.max=NA, 
+setGeneric(name="getPlants",function(object, group, status="alive", species=NA, cycles=NA, years=NA, plots=NA, 
+                                     tag=NA, crown=NA, size.min=NA, size.max=NA, 
                                      BA.min=NA, BA.max=NA, host.tree=NA, in.crown=FALSE, decay=NA, common=FALSE,
                                      output="dataframe"){standardGeneric("getPlants")}, signature="object")
 
 
 setMethod(f="getPlants", signature="list",
-          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,decay,common,output){
+          function(object, group, status, species, cycles, years, plots, tag,
+                   crown, size.min, size.max, BA.min, BA.max, host.tree, 
+                   in.crown, decay, common,output){
             
            
            DataPull<-function(object, group){
@@ -63,9 +67,9 @@ setMethod(f="getPlants", signature="list",
             XPlants<-map(.x=object, .f=~DataPull(.x, group=group))
             
             OutPlants <- switch(output,
-                                list = map(.x=XPlants, .f= ~ getPlants(.x,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,decay)),
+                                list = map(.x=XPlants, .f= ~ getPlants(.x,group,status,species,cycles,years,plots,tag,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,decay)),
                                                                     
-                                dataframe = getPlants(object = bind_rows(XPlants), group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,decay)
+                                dataframe = getPlants(object = bind_rows(XPlants), group,status,species,cycles,years,plots,tag, crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,decay)
                                 )
             
             
@@ -84,7 +88,7 @@ setMethod(f="getPlants", signature="list",
 
 
 setMethod(f="getPlants", signature=c(object="NPSForVeg"), 
-          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,decay,common, output){
+          function(object,group,status,species,cycles,years,plots,tag, crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,decay,common, output){
            
             XPlants<- switch(group,
                 seedlings = object@Seedlings,
@@ -99,9 +103,8 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
             )
 
            XPlants <- getPlants(object=XPlants, group=group, status=status, species=species, cycles=cycles, years=years, plots=plots,
-                                 crown=crown, size.min=size.min, size.max=size.max, 
+                                 tag=tag, crown=crown, size.min=size.min, size.max=size.max, 
                                  BA.min=BA.min, BA.max=BA.max, host.tree=host.tree, in.crown=in.crown, decay=decay)
-            
             
             if(common){ XPlants$Latin_Name<-getPlantNames(object=object,names=XPlants$Latin_Name)}
             return(XPlants)
@@ -110,7 +113,9 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
 
 
 setMethod(f="getPlants", signature="data.frame",
-          function(object,group,status,species,cycles,years,plots,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,decay,common) 
+          function(object, group, status, species, cycles, years, plots, tag, 
+                   crown, size.min, size.max, BA.min, BA.max, host.tree,
+                   in.crown, decay, common) 
           {
             
             
@@ -139,6 +144,8 @@ setMethod(f="getPlants", signature="data.frame",
             if(!anyNA(years)) object <- filter(object, Sample_Year %in% years)
             
             if(!anyNA(plots)) object <- filter(object, Plot_Name %in% plots)
+            
+            if(!anyNA(tag)) object <- filter(object, Tag %in% tag)
             
             if(!anyNA(crown) & group=="trees") object <- filter(object, Crown_Description %in% crown)
             

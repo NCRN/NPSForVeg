@@ -12,6 +12,7 @@ getPlants(
   cycles = NA,
   years = NA,
   plots = NA,
+  tag = NA,
   crown = NA,
   size.min = NA,
   size.max = NA,
@@ -47,6 +48,8 @@ getPlants(
 \item{years}{Defaults to \code{NA}. A numeric vector indicating which years should be included. This is determined by matching the appropriate \code{Sample_Year} field to \code{years}}
 
 \item{plots}{Defaults to \code{NA} A character vector indicating which plots should be included. This is determined by matching the appropriate \code{Plot_Name} field to \code{plots}.}
+
+\item{tag}{Defaults to \code{NA}. A numeric vector indicating which tags should be included. This is determined by matching the \code{Tag} field to \code{tag} for the vegetation data.}
 
 \item{crown}{Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by matching the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".}
 

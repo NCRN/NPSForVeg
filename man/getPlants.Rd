@@ -64,7 +64,7 @@ getPlants(
 
 \item{decay}{Defaults to \code{NA}. Only meaningful when \code{group} is "cwd". Only CWD with that decay class will be returned.}
 
-\item{common}{Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names. Common names are determined using the \code{getCommons} function.}
+\item{common}{Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names. Common names are determined using the \code{getCommons} function. Only works when \code{obejct} is an \code{NPSForVeg} object of a \code{list} of such objects}
 
 \item{output}{Either "dataframe" or "list". Determines the output type When \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be combined into a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that objects \code{ParkCode} slot.}
 }

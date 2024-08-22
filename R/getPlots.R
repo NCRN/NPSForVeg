@@ -1,6 +1,7 @@
 #' @title getPlots
 #'
 #' @importFrom dplyr filter semi_join
+#' @importFrom purrr map map2
 #'
 #' @description Returns the contents of the \code{Plots} slot of an NPSForVeg object. The returned data can be filtered to meet various criteria.
 #'

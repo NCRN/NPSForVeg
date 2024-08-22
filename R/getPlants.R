@@ -23,6 +23,7 @@
 #' @param plots Defaults to \code{NA} A character vector indicating which plots should be included. This is determined by matching the appropriate \code{Plot_Name} field to \code{plots}.
 #' @param tag Defaults to \code{NA}. A numeric vector indicating which tags should be included. This is determined by matching the \code{Tag} field to \code{tag} for the vegetation data. 
 #' @param crown Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by matching the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".
+#' @param stems Defaults to \code{NA}. A numeric vector indicating the number of stems a plant can have an be included in the output. Deteremien by matching to the \code{Stems} field in the vegetation data. 
 #' @param size.min Defaults to \code{NA}. A single numeric value that indicates the minimum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpreted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.
 #' @param size.max Defaults to \code{NA}. A single numeric value that indicates the maximum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpreted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.
 #' @param BA.min Defaults to \code{NA}. A single numeric value that indicates the minimum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field. 
@@ -40,14 +41,14 @@
 
 
 setGeneric(name="getPlants",function(object, group, status="alive", species=NA, cycles=NA, years=NA, plots=NA, 
-                                     tag=NA, crown=NA, size.min=NA, size.max=NA, 
+                                     tag=NA, crown=NA, stems=NA, size.min=NA, size.max=NA, 
                                      BA.min=NA, BA.max=NA, host.tree=NA, in.crown=FALSE, decay=NA, common=FALSE,
                                      output="dataframe"){standardGeneric("getPlants")}, signature="object")
 
 
 setMethod(f="getPlants", signature="list",
           function(object, group, status, species, cycles, years, plots, tag,
-                   crown, size.min, size.max, BA.min, BA.max, host.tree, 
+                   crown, stems, size.min, size.max, BA.min, BA.max, host.tree, 
                    in.crown, decay, common,output){
             
            
@@ -67,9 +68,13 @@ setMethod(f="getPlants", signature="list",
             XPlants<-map(.x=object, .f=~DataPull(.x, group=group))
             
             OutPlants <- switch(output,
-                                list = map(.x=XPlants, .f= ~ getPlants(.x,group,status,species,cycles,years,plots,tag,crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,decay)),
+                                list = map(.x=XPlants, .f= ~ getPlants(.x,group,status,species,
+                                          cycles,years,plots,tag,crown,stems,size.min,size.max,
+                                          BA.min, BA.max,host.tree,in.crown,decay)),
                                                                     
-                                dataframe = getPlants(object = bind_rows(XPlants), group,status,species,cycles,years,plots,tag, crown,size.min,size.max,BA.min, BA.max,host.tree,in.crown,decay)
+                                dataframe = getPlants(object = bind_rows(XPlants), group,status,species,
+                                    cycles,years,plots,tag, crown, stems,size.min,size.max,
+                                    BA.min, BA.max,host.tree,in.crown,decay)
                                 )
             
             
@@ -88,7 +93,7 @@ setMethod(f="getPlants", signature="list",
 
 
 setMethod(f="getPlants", signature=c(object="NPSForVeg"), 
-          function(object,group,status,species,cycles,years,plots,tag, crown,size.min,size.max,BA.min,BA.max,host.tree,in.crown,decay,common, output){
+          function(object,group,status,species,cycles,years,plots,tag, crown,stems, size.min,size.max,BA.min,BA.max,host.tree,in.crown,decay,common, output){
            
             XPlants<- switch(group,
                 seedlings = object@Seedlings,
@@ -103,7 +108,7 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
             )
 
            XPlants <- getPlants(object=XPlants, group=group, status=status, species=species, cycles=cycles, years=years, plots=plots,
-                                 tag=tag, crown=crown, size.min=size.min, size.max=size.max, 
+                                 tag=tag, crown=crown, stems=stems, size.min=size.min, size.max=size.max, 
                                  BA.min=BA.min, BA.max=BA.max, host.tree=host.tree, in.crown=in.crown, decay=decay)
             
             if(common){ XPlants$Latin_Name<-getPlantNames(object=object,names=XPlants$Latin_Name)}
@@ -114,7 +119,7 @@ setMethod(f="getPlants", signature=c(object="NPSForVeg"),
 
 setMethod(f="getPlants", signature="data.frame",
           function(object, group, status, species, cycles, years, plots, tag, 
-                   crown, size.min, size.max, BA.min, BA.max, host.tree,
+                   crown, stems, size.min, size.max, BA.min, BA.max, host.tree,
                    in.crown, decay, common) 
           {
             
@@ -148,6 +153,8 @@ setMethod(f="getPlants", signature="data.frame",
             if(!anyNA(tag)) object <- filter(object, Tag %in% tag)
             
             if(!anyNA(crown) & group=="trees") object <- filter(object, Crown_Description %in% crown)
+            
+            if(!anyNA(stems)) object <- filter(object, Stems %in% stems)
             
             if(!is.na(size.min)) switch(group,
                                         trees=,saplings= object<-filter(object, Equiv_Live_DBH_cm>=size.min & !is.na(Equiv_Live_DBH_cm)),

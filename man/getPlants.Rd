@@ -14,6 +14,7 @@ getPlants(
   plots = NA,
   tag = NA,
   crown = NA,
+  stems = NA,
   size.min = NA,
   size.max = NA,
   BA.min = NA,
@@ -52,6 +53,8 @@ getPlants(
 \item{tag}{Defaults to \code{NA}. A numeric vector indicating which tags should be included. This is determined by matching the \code{Tag} field to \code{tag} for the vegetation data.}
 
 \item{crown}{Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by matching the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".}
+
+\item{stems}{Defaults to \code{NA}. A numeric vector indicating the number of stems a plant can have an be included in the output. Deteremien by matching to the \code{Stems} field in the vegetation data.}
 
 \item{size.min}{Defaults to \code{NA}. A single numeric value that indicates the minimum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpreted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.}
 

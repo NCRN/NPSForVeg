@@ -157,22 +157,34 @@ setMethod(f="getPlants", signature="data.frame",
             if(!anyNA(stems)) object <- filter(object, Stems %in% stems)
             
             if(!is.na(size.min)) switch(group,
-                                        trees=,saplings= object<-filter(object, Equiv_Live_DBH_cm>=size.min & !is.na(Equiv_Live_DBH_cm)),
+                                        trees=object<-if (status %in% c("dead","snag")){
+                                          filter(object, Equiv_Dead_DBH_cm>=size.min & !is.na(Equiv_Dead_DBH_cm)) } else {
+                                            filter(object, Equiv_Live_DBH_cm>=size.min & !is.na(Equiv_Live_DBH_cm))},
+                                        saplings= object<-filter(object, Equiv_Live_DBH_cm>=size.min & !is.na(Equiv_Live_DBH_cm)),
                                         seedlings=,shseedlings= object<-filter(object, Height>=size.min & !is.na(Height)),
                                         herbs=object<-filter(object, Percent_Cover>=size.min & !is.na(Percent_Cover)))
             
             if(!is.na(size.max)) switch(group,
-                                        trees=,saplings= object<-filter(object, Equiv_Live_DBH_cm<=size.max  & !is.na(Equiv_Live_DBH_cm)),
+                                        trees=object<-if (status %in% c("dead","snag")){
+                                          filter(object, Equiv_Dead_DBH_cm<=size.max & !is.na(Equiv_Dead_DBH_cm)) } else {
+                                            filter(object, Equiv_Live_DBH_cm<=size.max & !is.na(Equiv_Live_DBH_cm))},
+                                        saplings= object<-filter(object, Equiv_Live_DBH_cm<=size.max  & !is.na(Equiv_Live_DBH_cm)),
                                         seedlings=,shseedlings= object<-filter(object, Height<=size.max & !is.na(Height)),
                                         herbs=object<-filter(object, Percent_Cover<=size.max & !is.na(Percent_Cover)))
             
             if(!is.na(BA.min)) switch(group,
-                                      trees=,saplings= object<-filter(object, SumLiveBasalArea_cm2>=BA.min & !is.na(SumLiveBasalArea_cm2)),
+                                      trees=object<-if (status %in% c("dead","snag")){
+                                        filter(object, SumDeadBasalArea_cm2>=BA.min & !is.na(SumDeadBasalArea_cm2)) } else {
+                                          filter(object,  SumLiveBasalArea_cm2>=BA.min & !is.na(SumLiveBasalArea_cm2))},
+                                      saplings= object<-filter(object, SumLiveBasalArea_cm2>=BA.min & !is.na(SumLiveBasalArea_cm2)),
                                       seedlings=,shseedlings= stop("Seedlings don't have a basal area", call. = FALSE),
                                       herbs=stop("Herbs don't have a basal area", call. = FALSE))
             
             if(!is.na(BA.max)) switch(group,
-                                      trees=,saplings= object<-filter(object, SumLiveBasalArea_cm2<=BA.max & !is.na(SumLiveBasalArea_cm2)),
+                                      trees=object<-if (status %in% c("dead","snag")){
+                                        filter(object, SumDeadBasalArea_cm2<=BA.max & !is.na(SumDeadBasalArea_cm2)) } else {
+                                          filter(object,  SumLiveBasalArea_cm2<=BA.max & !is.na(SumLiveBasalArea_cm2))},
+                                      saplings= object<-filter(object, SumLiveBasalArea_cm2<=BA.max & !is.na(SumLiveBasalArea_cm2)),
                                       seedlings=,shseedlings= stop("Seedlings don't have a basal area", call. = FALSE),
                                       herbs=stop("Herbs don't have a basal area", call. = FALSE))
             

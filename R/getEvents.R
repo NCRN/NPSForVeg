@@ -29,6 +29,17 @@
 #'  is returned. If \code{object} is a list and \code{output} is "list" then a list will be returned. Each element of the list will be a
 #'  \code{data.frame} with the \code{Events} slot of one of the \code{NPSForVeg} objects.
 #'
+#' @examples
+#' \dontrun{
+#'
+#' netn <- importNETN("C:/Data/")
+#' MABI_p1_c5 <- getEvents(netn, plots = "MABI-001", cycles = 5)
+#'
+#' ACAD_latest <- getEvents(netn, years = 2021:2024) |>
+#'   dplyr::filter(!(Panel == 3 & Event_Year == 2021))
+#'
+#' }
+#'
 #' @export
 
 setGeneric(name = "getEvents", function(object, plots = NA, years = NA, cycles = NA, plot.type = "all", output = "dataframe") {
@@ -38,19 +49,19 @@ setGeneric(name = "getEvents", function(object, plots = NA, years = NA, cycles =
 setMethod(f = "getEvents", signature = "list", function(object, plots, years, cycles, plot.type, output) {
 
   XEvents <- map(object, ~ `@`(.x, Events))
-  
+
   # update the plots argument to match the requirements from plot.type
   if(!plot.type=="all") {
     Plot_Vec<-getPlotNames(object,years=years, cycles=cycles, plots=plots, type=plot.type)
-    
+
     if(!anyNA(plots)) {plots<-intersect(Plot_Vec, plots)} else(plots<-Plot_Vec)
   }
-  
+
   OutEvents <- switch(output,
     list = map(XEvents, ~ getEvents(.x, plots, years, cycles, plot.type)),
     dataframe = getEvents(object = bind_rows(XEvents), plots, years, cycles, plot.type)
   )
-  
+
 
   return(OutEvents)
 })
@@ -64,10 +75,10 @@ setMethod(
     # update the plots argument to match the requirements from plot.type
     if(!plot.type=="all") {
       Plot_Vec<-getPlotNames(object,years=years, cycles=cycles, plots=plots, type=plot.type)
-      
+
       if(!anyNA(plots)) {plots<-intersect(Plot_Vec, plots)} else(plots<-Plot_Vec)
     }
-    
+
     OutEvents <- getEvents(XEvents, plots = plots, years = years, cycles=cycles, plot.type = plot.type)
 
     return(OutEvents)
@@ -78,11 +89,11 @@ setMethod(
   f = "getEvents", signature = "data.frame",
   function(object, plots, years, cycles) {
     if (!anyNA(plots)) object <- filter(object, Plot_Name %in% plots)
-    
+
     if (!anyNA(years)) object <- filter(object, Event_Year %in% years)
 
     if (!anyNA(cycles)) object <- filter(object, Cycle %in% cycles)
-    
+
     return(object)
   }
 )

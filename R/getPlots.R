@@ -17,15 +17,24 @@
 #' @param cycles A numeric vector. Returns only plot data from plots where the cycle the plot was visited  matches one of the values in \code{cycles}. The cycle a visit takes place is determined by the \code{Cycle} column in the \code{Events} slot.
 #' @param parks A character vector. Returns only data from plots where the park the plot is in matches one of the values in \code{parks}. The park a plot is located in is determined by the \code{Unit_Code} column in the \code{Plots} slot.
 #' @param subparks A character vector. Returns only data from plots where the sub-park the plot is in matches one of the values in \code{subparks}. The sub-park a plot is located in is determined by the \code{Subunit_Code} column in the \code{Plots} slot.
-#' @param events A \code{data.frame} of events data like that produced by \code{getEvents}. Only used by the \code{data.frame} method when filtering by \code{year} or \code{cycle}. Typically this is automatically generated directly from the \code{NPSForVeg} objects. 
+#' @param events A \code{data.frame} of events data like that produced by \code{getEvents}. Only used by the \code{data.frame} method when filtering by \code{year} or \code{cycle}. Typically this is automatically generated directly from the \code{NPSForVeg} objects.
 #' @param output Either "dataframe" (the default) or "list". Note that this must be in quotes. Determines the type of output from the function. Only used when the input \code{object} is a list.
 #'
 #' @details This function returns plot data either from a single NPSForVeg object or a list of such objects. The default output is a data.frame. However, if \code{object} is a list and \code{output} is "list" then a list of data.frames will be returned.
 #'
+#' @examples
+#' \dontrun{
+#' netn <- importNETN("C:/NETN/R_Dev/data/NPSForVeg/NETN")
+#'
+#' acad_mdiE <- getPlots(netn, subparks = "ACAD_MDI_East")
+#'
+#' SARA22 <- getPlots(netn, years = 2022) |> dplyr::filter(Unit_Code == "SARA")
+#'}
+#'
 #' @export
 
 
-setGeneric(name = "getPlots", function(object, type = "active", visits = NA, years = NA, cycles=NA, 
+setGeneric(name = "getPlots", function(object, type = "active", visits = NA, years = NA, cycles=NA,
                                        plots = NA, parks=NA, subparks = NA, events = NA, output = "dataframe") {
   standardGeneric("getPlots")
 }, signature = "object")
@@ -83,13 +92,13 @@ setMethod(
     if (!anyNA(visits)) object <- filter(object, Event_Count %in% visits)
 
     if (!anyNA(plots)) object <- filter(object, Plot_Name %in% plots)
-    
+
     if (!anyNA(parks)) object <- filter(object, Unit_Code %in% parks)
 
     if (!anyNA(subparks)) object <- filter(object, Subunit_Code %in% subparks)
 
     if (!anyNA(years)) object <- semi_join(object, filter(events, Event_Year %in% years), by = "Plot_Name")
-    
+
     if (!anyNA(cycles)) object <- semi_join(object, filter(events, Cycle %in% cycles), by = "Plot_Name")
 
     return(object)

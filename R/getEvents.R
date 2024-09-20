@@ -20,6 +20,8 @@
 #' @param output  Used type when \code{object} is a list to determine if the output is a data.frame or a list. Can be either
 #'  "dataframe" (the default), or "list". Needs to be in quotes.
 #'
+#' @param ... Other arguments that are passed on to \code{getEvents}.
+#'
 #' @return The contents of an "Events" slot from one or more NPSForVeg objects either as a data.frame or a list. The output can be filtered by
 #'  using the "plots", "years" or "plot.type" arguments.
 #'
@@ -33,26 +35,27 @@
 #' \dontrun{
 #'
 #' netn <- importNETN("C:/Data/")
-#' MABI_p1_c5 <- getEvents(netn, plots = "MABI-001", cycles = 5)
-#'
-#' ACAD_latest <- getEvents(netn, years = 2021:2024) |>
+#' ACAD_latest <- getEvents(netn, years = 2021:2024, parks = 'ACAD') |>
 #'   dplyr::filter(!(Panel == 3 & Event_Year == 2021))
+#'
+#' ncrn <- importNCRN("C:/Data/")
+#' prwi_active <- getEvents(ncrn, parks = "PRWI", plot.type = 'active')
 #'
 #' }
 #'
 #' @export
 
-setGeneric(name = "getEvents", function(object, plots = NA, years = NA, cycles = NA, plot.type = "all", output = "dataframe") {
+setGeneric(name = "getEvents", function(object, plots = NA, years = NA, cycles = NA, plot.type = "all", output = "dataframe", ...) {
   standardGeneric("getEvents")
 }, signature = c("object"))
 
-setMethod(f = "getEvents", signature = "list", function(object, plots, years, cycles, plot.type, output) {
+setMethod(f = "getEvents", signature = "list", function(object, plots, years, cycles, plot.type, output, ...) {
 
   XEvents <- map(object, ~ `@`(.x, Events))
 
   # update the plots argument to match the requirements from plot.type
   if(!plot.type=="all") {
-    Plot_Vec<-getPlotNames(object,years=years, cycles=cycles, plots=plots, type=plot.type)
+    Plot_Vec<-getPlotNames(object,years=years, cycles=cycles, plots=plots, type=plot.type, ...)
 
     if(!anyNA(plots)) {plots<-intersect(Plot_Vec, plots)} else(plots<-Plot_Vec)
   }

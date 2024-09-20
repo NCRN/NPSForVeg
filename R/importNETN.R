@@ -8,6 +8,11 @@
 #'
 #' @return Returns a list with 8 \code{NPSForVeg} objects, one for each park.
 #'
+#' @examples
+#' \dontrun{
+#' netn <- importNETN("C:/Data/MIDN/")
+#' }
+#'
 #' @export
 #'
 
@@ -16,12 +21,9 @@ importNETN<-function(Dir){
   InPlots<-read.csv(paste(Dir,"Plots.csv",sep="/"),as.is=T, header=T)
   InPlots$Event_Earliest<-as.Date(as.character(InPlots$Event_Earliest), format="%Y%m%d")
   InPlots$Event_Latest<-as.Date(as.character(InPlots$Event_Latest),format="%Y%m%d")
-
   InEvents<-read.csv(paste(Dir,"Events.csv", sep="/"),as.is=T, header=T)
   InEvents$Event_Date<-as.Date(as.character(InEvents$Event_Date_Txt), format="%Y%m%d")
-
-  #InCycles<-read.csv(paste(Dir,"Cycles.csv",sep="/"), as.is=T, header=T)
-
+  InCycles<-read.csv(paste(Dir,"Cycles.csv",sep="/"), as.is=T, header=T)
   InTrees<-read.csv(paste(Dir,"Trees.csv",sep="/"),as.is=T, header=T)
   InSaps<-read.csv(paste(Dir,"Saplings.csv",sep="/"),as.is=T, header=T)
   InSeeds<-read.csv(paste(Dir,"Seedlings.csv",sep="/"),as.is=T, header=T)
@@ -49,15 +51,9 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2),
             VPlotSize=c(1,15*15),
             HPlotSize=c(8,1),
-            Cycles = data.frame(Cycle = c(1, 2, 3, 4, 5),
-                                Name = c("Cycle 1", "Cycle 2", "Cycle 3", "Cycle 4", "Latest Data"),
-                                YearStart = c(2006, 2010, 2014, 2018, 2021),
-                                YearEnd =   c(2009, 2013, 2017, 2021, 2024),
-                                PanelStart = c(1, 1, 1, 1, 4)),
-
+            Cycles=InCycles[InCycles$Unit_Code=="ACAD",],
             Plots=InPlots[InPlots$Unit_Code=="ACAD",],
             Events=InEvents[InEvents$Unit_Code=="ACAD",],
-
             Trees=InTrees[InTrees$Unit_Code=="ACAD",],
             Saplings=InSaps[InSaps$Unit_Code=="ACAD",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="ACAD",],
@@ -73,7 +69,6 @@ importNETN<-function(Dir){
             ShortName="Marsh-Billings-Rockefeller",
             LongName="Marsh-Billings-Rockefeller National Historical Park",
             Network="NETN",
-
             TPlotSize=c(1,20*20),
             SapPlotSize=c(3, pi*2*2),
             SeedPlotSize=c(3, pi*2*2),
@@ -81,16 +76,9 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2),
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
-            Cycles = data.frame(Cycle = c(1, 2, 3, 4, 5),
-                                Name = c("Cycle 1", "Cycle 2", "Cycle 3", "Cycle 4", "Latest Data"),
-                                YearStart = c(2006, 2010, 2014, 2018, 2022),
-                                YearEnd =   c(2009, 2013, 2017, 2022, 2024),
-                                PanelStart = c(1, 1, 1, 1, 3)),
-
-
+            Cycles=InCycles[InCycles$Unit_Code=="MABI",],
             Plots=InPlots[InPlots$Unit_Code=="MABI",],
             Events=InEvents[InEvents$Unit_Code=="MABI",],
-
             Trees=InTrees[InTrees$Unit_Code=="MABI",],
             Saplings=InSaps[InSaps$Unit_Code=="MABI",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="MABI",],
@@ -106,7 +94,6 @@ importNETN<-function(Dir){
             ShortName="Minute Man",
             LongName="Minute Man National Historical Park",
             Network="NETN",
-
             TPlotSize=c(1,20*20),
             SapPlotSize=c(3, pi*2*2),
             SeedPlotSize=c(3, pi*2*2),
@@ -114,15 +101,9 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2),
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
-            Cycles = data.frame(Cycle = c(1, 2, 3, 4, 5),
-                                Name = c("Cycle 1", "Cycle 2", "Cycle 3", "Cycle 4", "Latest Data"),
-                                YearStart = c(2006, 2010, 2014, 2018, 2022),
-                                YearEnd =   c(2009, 2013, 2017, 2022, 2024),
-                                PanelStart = c(1, 1, 1, 1, 3)),
-
+            Cycles=InCycles[InCycles$Unit_Code=="MIMA",],
             Plots=InPlots[InPlots$Unit_Code=="MIMA",],
             Events=InEvents[InEvents$Unit_Code=="MIMA",],
-
             Trees=InTrees[InTrees$Unit_Code=="MIMA",],
             Saplings=InSaps[InSaps$Unit_Code=="MIMA",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="MIMA",],
@@ -138,7 +119,6 @@ importNETN<-function(Dir){
             ShortName="Morristown",
             LongName="Morristown National Historical Park",
             Network="NETN",
-
             TPlotSize=c(1,20*20),
             SapPlotSize=c(3, pi*2*2),
             SeedPlotSize=c(3, pi*2*2),
@@ -146,15 +126,9 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2),
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
-            Cycles = data.frame(Cycle = c(1, 2, 3, 4, 5),
-                                Name = c("Cycle 1", "Cycle 2", "Cycle 3", "Cycle 4", "Latest Data"),
-                                YearStart = c(2006, 2010, 2014, 2018, 2022),
-                                YearEnd =   c(2009, 2013, 2017, 2022, 2024),
-                                PanelStart = c(1, 1, 1, 1, 4)),
-
+            Cycles=InCycles[InCycles$Unit_Code=="MORR",],
             Plots=InPlots[InPlots$Unit_Code=="MORR",],
             Events=InEvents[InEvents$Unit_Code=="MORR",],
-
             Trees=InTrees[InTrees$Unit_Code=="MORR",],
             Saplings=InSaps[InSaps$Unit_Code=="MORR",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="MORR",],
@@ -170,7 +144,6 @@ importNETN<-function(Dir){
             ShortName="Roosevelt-Vanderbilt",
             LongName="Roosevelt-Vanderbilt National Historic Sites",
             Network="NETN",
-
             TPlotSize=c(1,20*20),
             SapPlotSize=c(3, pi*2*2),
             SeedPlotSize=c(3, pi*2*2),
@@ -178,15 +151,9 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2),
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
-            Cycles = data.frame(Cycle = c(1, 2, 3, 4, 5),
-                                Name = c("Cycle 1", "Cycle 2", "Cycle 3", "Cycle 4", "Latest Data"),
-                                YearStart = c(2006, 2010, 2014, 2018, 2022),
-                                YearEnd =   c(2009, 2013, 2017, 2022, 2024),
-                                PanelStart = c(1, 1, 1, 1, 4)),
-
+            Cycles=InCycles[InCycles$Unit_Code=="ROVA",],
             Plots=InPlots[InPlots$Unit_Code=="ROVA",],
             Events=InEvents[InEvents$Unit_Code=="ROVA",],
-
             Trees=InTrees[InTrees$Unit_Code=="ROVA",],
             Saplings=InSaps[InSaps$Unit_Code=="ROVA",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="ROVA",],
@@ -202,7 +169,6 @@ importNETN<-function(Dir){
             ShortName="Saint-Gaudens",
             LongName="Saint-Gaudens National Historic Site",
             Network="NETN",
-
             TPlotSize=c(1,20*20),
             SapPlotSize=c(3, pi*2*2),
             SeedPlotSize=c(3, pi*2*2),
@@ -210,15 +176,9 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2),
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
-            Cycles = data.frame(Cycle = c(1, 2, 3, 4, 5),
-                                Name = c("Cycle 1", "Cycle 2", "Cycle 3", "Cycle 4", "Latest Data"),
-                                YearStart = c(2006, 2010, 2014, 2018, 2022),
-                                YearEnd =   c(2009, 2013, 2017, 2022, 2024),
-                                PanelStart = c(1, 1, 1, 1, 3)),
-
+            Cycles=InCycles[InCycles$Unit_Code=="SAGA",],
             Plots=InPlots[InPlots$Unit_Code=="SAGA",],
             Events=InEvents[InEvents$Unit_Code=="SAGA",],
-
             Trees=InTrees[InTrees$Unit_Code=="SAGA",],
             Saplings=InSaps[InSaps$Unit_Code=="SAGA",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="SAGA",],
@@ -234,7 +194,6 @@ importNETN<-function(Dir){
             ShortName="Saratoga",
             LongName="Saratoga National Historical Park",
             Network="NETN",
-
             TPlotSize=c(1,20*20),
             SapPlotSize=c(3, pi*2*2),
             SeedPlotSize=c(3, pi*2*2),
@@ -242,15 +201,9 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2),
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
-            Cycles = data.frame(Cycle = c(1, 2, 3, 4, 5),
-                                Name = c("Cycle 1", "Cycle 2", "Cycle 3", "Cycle 4", "Latest Data"),
-                                YearStart = c(2006, 2010, 2014, 2018, 2022),
-                                YearEnd =   c(2009, 2013, 2017, 2022, 2024),
-                                PanelStart = c(1, 1, 1, 1, 3)),
-
+            Cycles=InCycles[InCycles$Unit_Code=="SARA",],
             Plots=InPlots[InPlots$Unit_Code=="SARA",],
             Events=InEvents[InEvents$Unit_Code=="SARA",],
-
             Trees=InTrees[InTrees$Unit_Code=="SARA",],
             Saplings=InSaps[InSaps$Unit_Code=="SARA",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="SARA",],
@@ -266,7 +219,6 @@ importNETN<-function(Dir){
             ShortName="Weir Farm",
             LongName="Weir Farm National Historic Site",
             Network="NETN",
-
             TPlotSize=c(1,20*20),
             SapPlotSize=c(3, pi*2*2),
             SeedPlotSize=c(3, pi*2*2),
@@ -274,15 +226,9 @@ importNETN<-function(Dir){
             ShSeedPlotSize=c(3, pi*2*2),
             VPlotSize=c(1,20*20),
             HPlotSize=c(8,1),
-            Cycles = data.frame(Cycle = c(1, 2, 3, 4, 5),
-                                Name = c("Cycle 1", "Cycle 2", "Cycle 3", "Cycle 4", "Latest Data"),
-                                YearStart = c(2006, 2010, 2014, 2018, 2022),
-                                YearEnd =   c(2009, 2013, 2017, 2022, 2024),
-                                PanelStart = c(1, 1, 1, 1, 4)),
-
+            Cycles=InCycles[InCycles$Unit_Code=="WEFA",],
             Plots=InPlots[InPlots$Unit_Code=="WEFA",],
             Events=InEvents[InEvents$Unit_Code=="WEFA",],
-
             Trees=InTrees[InTrees$Unit_Code=="WEFA",],
             Saplings=InSaps[InSaps$Unit_Code=="WEFA",],
             Seedlings=InSeeds[InSeeds$Unit_Code=="WEFA",],

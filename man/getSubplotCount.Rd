@@ -11,7 +11,7 @@ getSubplotCount(object, group, subtype = "all", ...)
 
 \item{group}{Indicates which plant groups the area should correspond to. Acceptable values are "trees","saplings","seedlings", "shrubs" and "herbs"}
 
-\item{subtype}{Indicates the type of area to be returned, and should be enclosed in quotes. Acceptable values are 
+\item{subtype}{Indicates the type of area to be returned, and should be enclosed in quotes. Acceptable values are
 \describe{
  \item{"all"}{(the default) Returns the total area and number of subplots sampled per plot event for that group.}
  \item{"area"}{ Returns the total area sampled per plot event for that group.}
@@ -21,9 +21,19 @@ getSubplotCount(object, group, subtype = "all", ...)
 \item{...}{Additional arguments passed on to \code{getEvents}.}
 }
 \value{
-A \code{data.frame} with the columns corresponding to the plot name, event year,number of subplots sampled, and area of the 
+A \code{data.frame} with the columns corresponding to the plot name, event year,number of subplots sampled, and area of the
 sampled subplots.
 }
 \description{
 This function gets the the counts and/or areas of quadrats or microplots sampled in the "Events" slot of an NPSForVeg object.
+}
+\examples{
+\dontrun{
+
+midn <- importMIDN("C:/Data")
+seed_quads <- getSubplotCount(midn, group = 'seedlings')
+
+}
+
+
 }

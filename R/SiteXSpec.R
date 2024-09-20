@@ -2,7 +2,7 @@
 #'
 #' @import  data.table
 #'
-#' @description Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence
+#' @description Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/absence
 #'
 #' @param object either an object of class \code{NPSForVeg} or a list of such objects
 #' @param group  A required character string indicating which group of plants should be selected. Options are: "trees", "saplings",
@@ -15,7 +15,7 @@
 #' \item{"size"}{For trees and saplings this is the total basal area in m2 per ha. For tree seedlings and shrub seedlings it is the total height, and for herbs it is the average percent cover across all sampled quadrats. For shrubs and vines there is no defined size and the function will terminate with an error.}
 #' \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
 #' }
-#' @param status  A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
+#' @param status  A required character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 #' \describe{
 #' \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
 #' \item{"snag"}{Standing dead tree only, Includes any plant with a status of "Dead", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DL","DM",or"DS" }
@@ -49,6 +49,18 @@
 #'
 #' Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in
 #' the function call.
+#'
+#' @examples
+#' \dontrun{
+#' ncrn <- importNCRN("C:/Data")
+#' trees4yr <- SiteXSpec(ncrn, group = "trees", years = 2021:2024)
+#' saps4yr <- SiteXSpec(ncrn, group = "saplings", years = 2021:2024)
+#'
+#' midn <- importMIDN("C:/Data/")
+#' vafo <- midn[[13]]
+#' vafo_herb4 <- SiteXSpec(vafo, group = "herbs", years = 2022:2024)
+#'
+#' }
 #'
 #' @export
 #'
@@ -105,8 +117,8 @@ setMethod(
     XSubplots <- getSubplotCount(object = object, group = group, years = years, cycles = cycles, plots = plots, subtype = "all", plot.type = plot.type)
     XPlants <- merge(XPlants, XSubplots, by.x = c("Plot_Name", "Sample_Year"), by.y = c("Plot_Name", "Event_Year"))
     XPlants[, fPlot := factor(Plot_Name, levels = XPlots)]
-    XSpecies <-#if (anyNA(species)) 
-      unique(XPlants$Latin_Name) 
+    XSpecies <-#if (anyNA(species))
+      unique(XPlants$Latin_Name)
     #else    getPlantNames(object, names = species, in.style = "Latin", out.style = ifelse(common, "common", "Latin"))
     switch(values,
       count = OutData <- dcast.data.table(setkey(XPlants, fPlot, Latin_Name)[CJ(unique(levels(fPlot)), XSpecies), .N,

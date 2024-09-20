@@ -28,7 +28,7 @@
 #'
 #' acad_mdiE <- getPlots(netn, subparks = "ACAD_MDI_East")
 #'
-#' SARA22 <- getPlots(netn, years = 2022) |> dplyr::filter(Unit_Code == "SARA")
+#' SARA22 <- getPlots(netn, years = 2022, parks = "SARA")
 #'}
 #'
 #' @export

@@ -29,7 +29,7 @@ getPlants(
 \arguments{
 \item{object}{Either an object of class \code{NPSForVeg} or a list of such objects}
 
-\item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
+\item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings",
 "seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", "herbs", or "cwd'.}
 
 \item{status}{A required character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
@@ -79,4 +79,30 @@ Retrieves plant data from an \code{NPSForVeg} object.
 }
 \details{
 This function extracts data on plants from an \code{NPSForVeg} object. This function is called by other analysis and graphing functions. \code{getPlants} has a variety of arguments that narrow the response down to plants that match criteria such as Latin name, size, crown class etc.
+
+getPlants
+}
+\examples{
+\dontrun{
+netn <- importNETN("C:/NETN/R_Dev/data/NPSForVeg/NETN")
+
+acad_plots <- getPlotNames(netn, parks = "ACAD")
+acad_trees <- getPlants(netn, group = "trees", status = "alive") |>
+  dplyr::filter(Plot_Name \%in\% acad_trees)
+
+canopy_trees <- getPlants(netn, group = "trees",
+  crown = c("Dominant", "Co-dominant", "Intermediate"))
+
+MABI_saplings <- getPlants(netn, group = "saplings",
+  status = "alive", years = 2021:2024) |> dplyr::filter(Unit_Code == "MABI")
+
+MORR_exotic_herbs <- getPlants(netn, group = "herbs") |>
+  dplyr::filter(Exotic == TRUE) |>
+  dplyr::filter(Unit_Code == "MORR")
+
+cwd <- getPlants(netn, group = "cwd", years = 2021:2024)
+
+}
+
+
 }

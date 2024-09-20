@@ -38,6 +38,14 @@ getPlotNames(
 Returns the names of plots from an \code{NPSForVeg} object that meet various criteria.
 }
 \details{
-This function is a wrapper for \code{getPlots()$Plot_Name}.  It first calls \code{\link{getPlots}} and 
+This function is a wrapper for \code{getPlots()$Plot_Name}.  It first calls \code{\link{getPlots}} and
 then extracts the \code{Plot_Name} field. It is meant as a convenience function.
+}
+\examples{
+\dontrun{
+midn <- importMIDN("C:/NETN/R_Dev/data/NPSForVeg/MIDN")
+
+APCO_latest <- getPlotNames(midn, years = 2022:2024, parks = "APCO")
+}
+
 }

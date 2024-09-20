@@ -1,6 +1,6 @@
 #' @title getNames
 #'
-#' @description Retreives park names from an NPSForVeg object of a list of such objects.
+#' @description Retrieves park names from an NPSForVeg object of a list of such objects.
 #'
 #' @param object Either an NPSForVeg object or a list of such objects
 #' @param name.class Type of name to return. One of three options, in quotes.

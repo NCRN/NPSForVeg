@@ -11,7 +11,7 @@ getArea(object, group, type = "all")
 
 \item{group}{Indicates which plant groups the area should correspond to, as different groups are monitored on different size plots. The name of the group should be enclosed in quotes. Acceptable values are" "trees", "saplings", "seedlings","shrubs", "shseedlings","vines", "herbs".}
 
-\item{type}{Indicates the type of area to be returned, and should be enclosed in quotes. Acceptable values are 
+\item{type}{Indicates the type of area to be returned, and should be enclosed in quotes. Acceptable values are
 \describe{
  \item{"all"}{(the default) Returns the total area sampled per plot for that group.}
  \item{"single"}{Returns the area of one of the subsamples (eg. microplot or quadrat).If there is only one sample of that group, such as trees sample over an entire plot, than "single" and "all" will produce identical results}
@@ -23,4 +23,26 @@ For a single NPSForVeg object getArea returns a vector of length one. For a list
 }
 \description{
 Retrieves the number and area of various plot sizes from an object of class NPSForVeg.
+}
+\examples{
+\dontrun{
+ netn <- importNETN("C:/NETN/R_Dev/data/NPSForVeg/NETN")
+
+# single microplot area
+sap_area <- getArea(netn, group = "saplings", type = "single")
+
+# full sapling area sampled
+sap_area <- getArea(netn, group = "saplings", type = "all")
+
+# Num. sapling plots
+sap_count <- getArea(netn, group = "saplings", type = 'count')
+
+# area for seedlings
+seed_area <- getArea(netn, group = "seedlings", type = 'all')
+
+# Tree plot area per park
+park_plot_area <- cbind(area = getArea(netn, group = "trees"),
+                        parks = getNames(netn, name.class = 'code'))
+}
+
 }

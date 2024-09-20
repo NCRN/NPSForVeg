@@ -47,3 +47,13 @@ Returns the contents of the \code{Plots} slot of an NPSForVeg object. The return
 \details{
 This function returns plot data either from a single NPSForVeg object or a list of such objects. The default output is a data.frame. However, if \code{object} is a list and \code{output} is "list" then a list of data.frames will be returned.
 }
+\examples{
+\dontrun{
+netn <- importNETN("C:/NETN/R_Dev/data/NPSForVeg/NETN")
+
+acad_mdiE <- getPlots(netn, subparks = "ACAD_MDI_East")
+
+SARA22 <- getPlots(netn, years = 2022, parks = "SARA")
+}
+
+}

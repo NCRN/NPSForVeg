@@ -41,7 +41,9 @@
 #' \dontrun{
 #' netn <- importNETN("C:/NETN/R_Dev/data/NPSForVeg/NETN")
 #'
-#' trees <- getPlants(netn, group = "trees", status = "alive")
+#' acad_plots <- getPlotNames(netn, parks = "ACAD")
+#' acad_trees <- getPlants(netn, group = "trees", status = "alive") |>
+#'   dplyr::filter(Plot_Name %in% acad_trees)
 #'
 #' canopy_trees <- getPlants(netn, group = "trees",
 #'   crown = c("Dominant", "Co-dominant", "Intermediate"))

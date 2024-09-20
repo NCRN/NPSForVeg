@@ -39,9 +39,22 @@ Returns a barchart
 Makes a barchart of IV values
 }
 \details{
-This function uses the \code{barchart} function in the \pkg{lattice} package to create a horizontal barchart that displays IV values. The format of the display varies depending on the type of data to be displayed. If only a single dataset is considered (\code{compare=NA}), and \code{parts=FALSE}, then a simple horizontal bar chart is produced. If \code{parts=TRUE} a stacked bar chart is produced. Each component of IV: density, size and distribution, is shown in a different color. 
+This function uses the \code{barchart} function in the \pkg{lattice} package to create a horizontal barchart that displays IV values. The format of the display varies depending on the type of data to be displayed. If only a single dataset is considered (\code{compare=NA}), and \code{parts=FALSE}, then a simple horizontal bar chart is produced. If \code{parts=TRUE} a stacked bar chart is produced. Each component of IV: density, size and distribution, is shown in a different color.
 
 If two or more datasets are used, and \code{parts=FALSE} then all results are graphed in a single panel. Each dataset is a different color, and the legend uses the contents of \code{labels} to identify each dataset. If \code{parts=TRUE} then each dataset is plotted in a separate panel, and the panel title is determined by \code{labels}. Within each panel, the three components of IV will each have a separate color, which will be consistent between panels.
+}
+\examples{
+\dontrun{
+midn <- importMIDN("C:/Data/")
+# APCO tree IV plot
+IVplot(midn[[1]], top = 10, IVargs = list(group = "trees", years = 2021:2024))
+
+COLO seedling IV plot
+IVplot(midn[[4]], top = 10, IVargs = list(group = 'seedlings', years = 2022:2024))
+
+}
+
+
 }
 \seealso{
 \code{\link{IV}}

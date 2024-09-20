@@ -27,10 +27,18 @@ Either a \code{data.frame} or a \code{list} containing the contents of the "Comm
 gets the common names \code{data.frame} from one or more \code{NPSForVeg} objects.
 }
 \details{
-When the "object" is a single \code{NPSForVeg} object this function will return the \code{data.frame} in the "Commons" slot.  
-When "object" is a \code{list} and "output" is "dataframe" a combined \code{data.frame} with the "Commons" slot from all NPSForVeg 
+When the "object" is a single \code{NPSForVeg} object this function will return the \code{data.frame} in the "Commons" slot.
+When "object" is a \code{list} and "output" is "dataframe" a combined \code{data.frame} with the "Commons" slot from all NPSForVeg
 elements is returned. This \code{data.frame} is filtered so that identical rows are not returned. If a species is present in more than
-one of the \code{data.frame}s, and the metadata for the speices (e.g. native vs exotic) differs between them, then the species will 
+one of the \code{data.frame}s, and the metadata for the species (e.g. native vs exotic) differs between them, then the species will
 be returned twice, once with each set of metadata.  If the "object" is a \code{list} and "output" is "list" then a \code{list} is
 returned. Each element of the  \code{list} will be the "Commons" slot from one the input \code{NPForVeg} objects.
+}
+\examples{
+\dontrun{
+ncrn <- importNCRN("C:/Data/")
+plant_list <- getCommons(ncrn)
+
+}
+
 }

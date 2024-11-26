@@ -38,7 +38,7 @@ SiteXSpec(
 \item{"presab"}{Produces a presence/absence matrix. When a plant species is present in a given plot the corresponding cell value will 1, otherwise it is 0.}
 }}
 
-\item{status}{A requried character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
+\item{status}{A required character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
 \describe{
 \item{"alive"}{The default. Includes any plant with a status of "Alive", "Alive Standing", "Alive Broken", "Alive Leaning" ,"Alive Fallen","AB","AF","AL","AM","AS","RB","RF","RL","RS" or "TR"}
 \item{"snag"}{Standing dead tree only, Includes any plant with a status of "Dead", "Dead - Human Action", "Dead Leaning", "Dead Missing", "Dead Standing", "Dead - Too Small","DB","DL","DM",or"DS" }
@@ -75,7 +75,7 @@ One of three options are availbe (always ineclosed in quotes).
 \item{...}{Other arguments passed on to \code{\link{getPlants}}}
 }
 \description{
-Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/abscence
+Produces a Site X Species matrix. Each cell can contain a count, a measure of size or 1/0 indicating presence/absence
 }
 \details{
 This function will first call \code{\link{getPlants}} to retrieve the plant data and \code{\link{getEvents}} to retrieve the event data. Then a site X species matrix will be created.
@@ -84,4 +84,17 @@ to a different species.
 
 Note that \code{species} can be a vector of common or Latin names. If common names are used then \code{common=TRUE} must be included in
 the function call.
+}
+\examples{
+\dontrun{
+ncrn <- importNCRN("C:/Data")
+trees4yr <- SiteXSpec(ncrn, group = "trees", years = 2021:2024)
+saps4yr <- SiteXSpec(ncrn, group = "saplings", years = 2021:2024)
+
+midn <- importMIDN("C:/Data/")
+vafo <- midn[[13]]
+vafo_herb4 <- SiteXSpec(vafo, group = "herbs", years = 2022:2024)
+
+}
+
 }

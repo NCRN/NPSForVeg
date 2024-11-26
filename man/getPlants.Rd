@@ -12,7 +12,9 @@ getPlants(
   cycles = NA,
   years = NA,
   plots = NA,
+  tag = NA,
   crown = NA,
+  stems = NA,
   size.min = NA,
   size.max = NA,
   BA.min = NA,
@@ -27,7 +29,7 @@ getPlants(
 \arguments{
 \item{object}{Either an object of class \code{NPSForVeg} or a list of such objects}
 
-\item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings", 
+\item{group}{A required character string indicating which group of plants should be selected. Options are: "trees", "saplings",
 "seedlings", "shrubs" "shseedlings"(indicates shrub seedlings), "vines", "herbs", or "cwd'.}
 
 \item{status}{A required character string indicating if user wants data from living or dead plants. Used only for trees, saplings and shrubs. Values of this argument are matched to the \code{Status} field in the \code{Tree}, \code{Saplings} or \code{Shrubs} slot.  Acceptable options are:
@@ -48,29 +50,59 @@ getPlants(
 
 \item{plots}{Defaults to \code{NA} A character vector indicating which plots should be included. This is determined by matching the appropriate \code{Plot_Name} field to \code{plots}.}
 
+\item{tag}{Defaults to \code{NA}. A numeric vector indicating which tags should be included. This is determined by matching the \code{Tag} field to \code{tag} for the vegetation data.}
+
 \item{crown}{Defaults to \code{NA}. A character vector indicating which crown classes should be included. This is determined by matching the appropriate \code{crown_Description} field to \code{crown}. Options include "Co-dominant", "Dominant", "Edge Tree", "Intermediate", "Light Gap Exploiter","Open-grown" and "Overtopped".}
 
-\item{size.min}{Defaults to \code{NA}. A single numeric value that indicates the minimum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.}
+\item{stems}{Defaults to \code{NA}. A numeric vector indicating the number of stems a plant can have an be included in the output. Deteremien by matching to the \code{Stems} field in the vegetation data.}
 
-\item{size.max}{Defaults to \code{NA}. A single numeric value that indicates the maximum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpeted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.}
+\item{size.min}{Defaults to \code{NA}. A single numeric value that indicates the minimum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpreted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.}
+
+\item{size.max}{Defaults to \code{NA}. A single numeric value that indicates the maximum plant size that should be included. For trees and saplings this will be interpreted as diameter in the \code{Equiv_Live_DBH_cm} field, for tree and shrub seedlings it is interpreted as height in the \code{Height} field and for herbs it is interpreted as percent cover in the \code{Percent_Cover} field. This has no effect on shrubs and vines.}
 
 \item{BA.min}{Defaults to \code{NA}. A single numeric value that indicates the minimum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field.}
 
 \item{BA.max}{Defaults to \code{NA}. A single numeric value that indicates the maximum basal area a plant must have to be included. This is only implemented for trees and saplings, and is interpreted as basal area in the \code{SumLiveBasalArea_cm2} field.}
 
-\item{host.tree}{Defaults to \code{NA}. Only meaningful when \code{group} is "vines". A character vector containing Latin names of host trees. Only vines occuring in those hosts will be returned. Determined by matching the \code{Host_Latin_Name} in the \code{Vines} slot.}
+\item{host.tree}{Defaults to \code{NA}. Only meaningful when \code{group} is "vines". A character vector containing Latin names of host trees. Only vines occurring in those hosts will be returned. Determined by matching the \code{Host_Latin_Name} in the \code{Vines} slot.}
 
 \item{in.crown}{Defaults to \code{FALSE}. Only meaningful when \code{group} is "vines". When \code{TRUE} only vines which have reached the crown of the tree are returned. Determined by checking if the \code{Condition} field in the \code{Vines} slot has the text "Vines in the crown".}
 
 \item{decay}{Defaults to \code{NA}. Only meaningful when \code{group} is "cwd". Only CWD with that decay class will be returned.}
 
-\item{common}{Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names. Common names are determined using the \code{getCommons} function.}
+\item{common}{Defaults to \code{FALSE}. Indicates if common names should be used rather than Latin names. Common names are determined using the \code{getCommons} function. Only works when \code{obejct} is an \code{NPSForVeg} object of a \code{list} of such objects}
 
-\item{output}{Either "dataframe" or "list". Determines the output type When \code{object} is a list. "Dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be combined into a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that objects \code{ParkCode} slot.}
+\item{output}{Either "dataframe" or "list". Determines the output type When \code{object} is a list. "dataframe", the default, indicates the output from all of \code{NSPForVeg} objects should be combined into a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} from a single \code{NPSForVeg} object, and each element is named based on that objects \code{ParkCode} slot.}
 }
 \description{
 Retrieves plant data from an \code{NPSForVeg} object.
 }
 \details{
-This function extracts data on plants from an \code{NPSForVeg} object. This function is called by other analysis and graphing functions. \code{getPlants} has a variety of arguments that narrow the response down to plants that match critera such as Latin name, size, crown class etc.
+This function extracts data on plants from an \code{NPSForVeg} object. This function is called by other analysis and graphing functions. \code{getPlants} has a variety of arguments that narrow the response down to plants that match criteria such as Latin name, size, crown class etc.
+
+getPlants
+}
+\examples{
+\dontrun{
+netn <- importNETN("C:/NETN/R_Dev/data/NPSForVeg/NETN")
+
+acad_plots <- getPlotNames(netn, parks = "ACAD")
+acad_trees <- getPlants(netn, group = "trees", status = "alive") |>
+  dplyr::filter(Plot_Name \%in\% acad_trees)
+
+canopy_trees <- getPlants(netn, group = "trees",
+  crown = c("Dominant", "Co-dominant", "Intermediate"))
+
+MABI_saplings <- getPlants(netn, group = "saplings",
+  status = "alive", years = 2021:2024) |> dplyr::filter(Unit_Code == "MABI")
+
+MORR_exotic_herbs <- getPlants(netn, group = "herbs") |>
+  dplyr::filter(Exotic == TRUE) |>
+  dplyr::filter(Unit_Code == "MORR")
+
+cwd <- getPlants(netn, group = "cwd", years = 2021:2024)
+
+}
+
+
 }

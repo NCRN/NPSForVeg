@@ -20,8 +20,16 @@ Either a \code{data.frame} or a \code{list} containing the contents of the "Cycl
 Gets the cycles \code{data.frame} from one or more \code{NPSForVeg} objects.
 }
 \details{
-When the "object" is a \code{data.frame} or a single \code{NPSForVeg} object this function will return the \code{data.frame} in 
-the "Cycles" \code{slot}. This \code{data.frame} will be filtered as specified in the other arguments. When "object" is a \code{list} 
+When the "object" is a \code{data.frame} or a single \code{NPSForVeg} object this function will return the \code{data.frame} in
+the "Cycles" \code{slot}. This \code{data.frame} will be filtered as specified in the other arguments. When "object" is a \code{list}
 then a \code{list} is returned. Each element of the \code{list} will be the filtered \code{data.frame} from "Cycles" \code{slot} from
 the input \code{NPForVeg} objects.
+}
+\examples{
+\dontrun{
+ncrn <- importNCRN("C:/Data")
+latest_data <- getCycles(ncrn, cycles = 5)
+
+}
+
 }

@@ -10,7 +10,8 @@ getEvents(
   years = NA,
   cycles = NA,
   plot.type = "all",
-  output = "dataframe"
+  output = "dataframe",
+  ...
 )
 }
 \arguments{
@@ -23,20 +24,22 @@ will be returned.}
 
 \item{cycles}{A numeric vector containing one or more sampling cycles. Defaults to NA. If not NA then only events from the given sampling cycles will be returned.}
 
-\item{plot.type}{Passed on to \code{\link{getPlotNames}} and used to filter events so that only events from certain plot types are returned.
-One of three options are availbe (always ineclosed in quotes).
+\item{plot.type}{Only used when \code{object} is a \code{data.frame} or a \code{list}. Passed on to \code{\link{getPlotNames}} and used to filter events so that only events from certain plot types are returned.
+One of three options are available (always in quotes).
 \describe{
 \item{"all"}{The default. Events from all types of plots are returned.}
 \item{"active"}{Only returns events from plots which are listed as active in the Plots$Location_Status field.}
-\item{"retired}{Only returns events from plots which are listed as retired in the Plots$Location_Status field. }
+\item{"retired"}{Only returns events from plots which are listed as retired in the Plots$Location_Status field. }
 }}
 
 \item{output}{Used type when \code{object} is a list to determine if the output is a data.frame or a list. Can be either
 "dataframe" (the default), or "list". Needs to be in quotes.}
+
+\item{...}{Other arguments that are passed on to \code{getEvents}.}
 }
 \value{
 The contents of an "Events" slot from one or more NPSForVeg objects either as a data.frame or a list. The output can be filtered by
- using the "plots", "years" or "plot.type" arguements.
+ using the "plots", "years" or "plot.type" arguments.
 }
 \description{
 This function gets the contents of the "Events" slot of an NPSForVeg object.
@@ -47,4 +50,17 @@ specifying \code{plots}, \code{years}, or \code{plot.type}.  If \code{object} is
  If \code{object} is a list and \code{output} is "dataframe" then a single data.frame with data from all NPSForVeg objects in the list
  is returned. If \code{object} is a list and \code{output} is "list" then a list will be returned. Each element of the list will be a
  \code{data.frame} with the \code{Events} slot of one of the \code{NPSForVeg} objects.
+}
+\examples{
+\dontrun{
+
+netn <- importNETN("C:/Data/")
+ACAD_latest <- getEvents(netn, years = 2021:2024, parks = 'ACAD') |>
+  dplyr::filter(!(Panel == 3 & Event_Year == 2021))
+
+ncrn <- importNCRN("C:/Data/")
+prwi_active <- getEvents(ncrn, parks = "PRWI", plot.type = 'active')
+
+}
+
 }

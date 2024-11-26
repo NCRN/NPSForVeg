@@ -13,6 +13,12 @@ importMIDN(Dir)
 Returns a list with 12 \code{NPSForVeg} objects, one for each park.
 }
 \description{
-This function imports data from the standard MIDN .csv files and saves it as \code{NPSForVeg} objects. The required 
-.csv files are: Plots, Events, Cycles, Cylces2, Trees, Saplings, Seedlings, Vines, Herbs, CWD and CommonNames.
+This function imports data from the standard MIDN .csv files and saves it as \code{NPSForVeg} objects. The required
+.csv files are: Plots, Events, Cycles, Trees, Saplings, Seedlings, Vines, Herbs, CWD and CommonNames.
+}
+\examples{
+\dontrun{
+midn <- importMIDN("C:/Data/MIDN/")
+}
+
 }

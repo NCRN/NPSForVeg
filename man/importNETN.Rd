@@ -16,3 +16,9 @@ Returns a list with 8 \code{NPSForVeg} objects, one for each park.
 This function imports data from the standard NETN .csv files and saves it as \code{NPSForVeg} objects. The required .csv
  files are: Plots, Events, Cycles, Trees, Saplings, Seedlings, CWD and CommonNames.
 }
+\examples{
+\dontrun{
+netn <- importNETN("C:/Data/MIDN/")
+}
+
+}

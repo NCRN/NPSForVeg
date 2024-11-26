@@ -3,14 +3,22 @@
 #' @description Returns the names of plots from an \code{NPSForVeg} object that meet various criteria.
 #'
 #' @inheritParams getPlots
-#' @param output Either "vector" (the default) or "list". Note that this must be in qutoes. Determines the type of output from the function
+#' @param output Either "vector" (the default) or "list". Note that this must be in quotes. Determines the type of output from the function
 #' @param ... Other arguments that are passed on to \code{getPlots}.
 #'
-#' @details This function is a wrapper for \code{getPlots()$Plot_Name}.  It first calls \code{\link{getPlots}} and then extracts the \code{Plot_Name} field. It is meant as a convenience function.
+#' @details This function is a wrapper for \code{getPlots()$Plot_Name}.  It first calls \code{\link{getPlots}} and
+#' then extracts the \code{Plot_Name} field. It is meant as a convenience function.
+#'
+#' @examples
+#' \dontrun{
+#' midn <- importMIDN("C:/NETN/R_Dev/data/NPSForVeg/MIDN")
+#'
+#' APCO_latest <- getPlotNames(midn, years = 2022:2024, parks = "APCO")
+#'}
 #'
 #' @export
 
-setGeneric(name = "getPlotNames", function(object, type = "active", visits = NA, years = NA, subparks = NA, output = "vector", ...) {
+setGeneric(name = "getPlotNames", function(object, type = "all", visits = NA, years = NA, subparks = NA, output = "vector", ...) {
   standardGeneric("getPlotNames")
 }, signature = "object")
 

@@ -12,7 +12,7 @@ dens(
   density = TRUE,
   species = NA,
   plots = NA,
-  area = "count",
+  area = "plot",
   plotarea = NA,
   subplots = NA,
   subplotarea = NA,
@@ -35,21 +35,21 @@ dens(
 \item{"presab"}{A presence-absence matrix. When a plant species is present in a given plot, the corresponding cell value will be 1. Otherwise it will be 0.}
 }}
 
-\item{density}{Logical Value, Only used when \code{values="count"}. Defaults to \code{TRUE}, presents results on per hectare basis. \code{FALSE} presents results on a per plot basis. For \code{values="presab"} this is always treated as \code{FALSE} and results are always a proportion of plots.}
+\item{density}{Deprecated. No longer does anyting, use \code{area} instead.}
 
-\item{species}{Character vector, defaults to \code{NA}. Passed on to \code{\link{SiteXSpec}} and from there to \code{\link{getPlants}} to limit hte output to one or more designated species.}
+\item{species}{Character vector, defaults to \code{NA}. Passed on to \code{\link{SiteXSpec}} and from there to \code{\link{getPlants}} to limit the output to one or more designated species.}
 
-\item{plots}{Character vecltor, defaults to \code{NA}. When not \code{NA} indicates which plots should be used in the analysis. Otherwise all plots are sused}
+\item{plots}{Character vector, defaults to \code{NA}. When not \code{NA} indicates which plots should be used in the analysis. Otherwise all plots are used.}
 
 \item{area}{A character vector. Used when \code{values="size"} Determines if the values in the output are on a per plot or per area basis. This only works with counts, 
 basal areas, and length of seedlings.
 \describe{
-\item{"plot"}{The default. Each cell will be ona per plot basis. The only option for \code{values="presab"}.}
+\item{"plot"}{The default. Each cell will be on a per plot basis. The only option for \code{values="presab"}.}
 \item{"ha"}{Values will be on a per hectare basis}
 \item{"ac"}{values will be in a per acre basis}
 }}
 
-\item{plotarea}{Single number. Defaults to \code{NA}. Used when the input object is a \code{list} and the ouput is a \code{data.frame} and is on a per plot basis.
+\item{plotarea}{Single number. Defaults to \code{NA}. Used when the input object is a \code{list} and the output is a \code{data.frame} and is on a per plot basis.
 This  indicates how big the total sampled area per plots is assuemed to be. If \code{NA}#' the plot size from the first object in the list is used.}
 
 \item{subplots}{Single number. Defaults to \code{NA}. Used when the input object is a \code{list} and the ouput is a \code{data.frame} and values are "presab". 
@@ -57,9 +57,9 @@ This  indicates how may subplot are assumed to be sampled. If \code{NA} the numb
 
 \item{subplotarea}{Vector of numbers. Indicates how many subplots were sampled for each plot. If left as \code{NA} will be automatically determined using \code{getSubplotCount}}
 
-\item{subplotnumber}{Vector of number Inidcates how large an area was sampled for each plot. If left as \code{NA} will be automatically determined using \code{getSubplotCount}}
+\item{subplotnumber}{Vector of number Indicates how large an area was sampled for each plot. If left as \code{NA} will be automatically determined using \code{getSubplotCount}}
 
-\item{output}{Either "dataframe" or "list". Determines the output type When \code{object} is a list. "Dataframe",the default, indicates the \code{NSPForVeg} objects should combined and treated as a single dataset and return a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} with resutls from a  single \code{NSPForVeg} object, and each element is named based on that object's \code{ParkCode} slot.}
+\item{output}{Either "dataframe" or "list". Determines the output type When \code{object} is a list. "Dataframe",the default, indicates the \code{NSPForVeg} objects should combined and treated as a single dataset and return a single \code{data.frame}. "List" will return a \code{list} where each element of the list is a \code{data.frame} with results from a  single \code{NSPForVeg} object, and each element is named based on that object's \code{ParkCode} slot.}
 
 \item{...}{Any additional arguments which are valid for either \code{SiteXSpec} or \code{getPlants}.}
 }
@@ -70,14 +70,14 @@ Returns a \code{data.frame},or a \code{list} or them, which indicate the mean an
 calculates  mean "density" in abundance, size and occupancy and 95\% confidence intervals.
 }
 \details{
-This function calculates the mean and 95\% confidence values for a given measurement for one or more object of class \code{NPSForVeg}. The raw data for this calculation is acquired by calling \code{SiteXSpec} which will in turn call \code{getPlants}. The method of calculating the results depends on the \code{values} argument. If \code{values="count"} the data is assuemd to follow a negative binomial distribution. The mean and the intervals are calculated using the \code{glm.nb} function in the \pkg{MASS} package. Note that when a species if found in few of the plots, this function will often return a \code{warning}. 
+This function calculates the mean and 95\% confidence values for a given measurement for one or more object of class \code{NPSForVeg}. The raw data for this calculation is acquired by calling \code{SiteXSpec} which will in turn call \code{getPlants}. The method of calculating the results depends on the \code{values} argument. If \code{values="count"} the data is assumed to follow a negative binomial distribution. The mean and the intervals are calculated using the \code{glm.nb} function in the \pkg{MASS} package. Note that when a species if found in few of the plots, this function will often return a \code{warning}. 
 If \code{values="size"} no distribution is assumed for the underlying data. Instead, confidence intervals and determined using 1000 bootstrap replicates. Note that if a species is relatively rare this can lead to the 95% bootstrap confidence interval including 0.
-If \code{values="presab"} data is treat as being binomial and confidence intervals are detemined using \code{glm}.  
+If \code{values="presab"} data is treat as being binomial and confidence intervals are determined using \code{glm}.  
 
 Complications arise when the sampling effort is uneven in the data you are analyzing. This can happen in a variety of ways. If a 
-subplot is not sampled during an event, perhaps due to a safety concern, the the analysis need to take into account that some of the
-data is missing. Similarly, if the design of the plot changes, adding or remving subplots or changing the area sampled similar problems occur.
-Finally, if you are combining data from  areas with differnt plot designs, this also must be taken into account.
+subplot is not sampled during an event, perhaps due to a safety concern, then the analysis needs to take into account that some of the
+data is missing. Similarly, if the design of the plot changes, adding or removing subplots or changing the area sampled similar problems occur.
+Finally, if you are combining data from areas with different plot designs, this also must be taken into account.
 
 When working with a single park, or a list of parks when \code{output="list"}, the function will use an offset of area sampled when 
 \code{values = "count"}, will use input data on a per ha or per acre basis (determined by \code{area}) when \code{values="size"} and 
@@ -85,7 +85,7 @@ will use an offset based on subplots sampled when \code{values="presab"}. Areas 
 \code{subplotarea} and \code{subplotnumber} argurments, but will be automatically determined with a call to \code{getSubplotCount}
 if left as \code{NA}
 
-When the input is a list, \code{output="list"} data from muliple parks are combined. Differences in sampled area are accounted for
+When the input is a list, \code{output="list"} data from multiple parks are combined. Differences in sampled area are accounted for
 in the same manner as above. However, if the output is desired on a per plot basis rather than a per area basis (always the case when
 \code{values="preasb"}), then it is necessary to assume a particular plot size or number of subplots. This is particularly true
 when combining parks with different areas sampled. This is done through the \code{plotarea} and \code{subplots} arguments.

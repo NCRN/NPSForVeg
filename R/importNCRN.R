@@ -235,7 +235,7 @@ MONO<-new("NPSForVeg",
 NACE<-new("NPSForVeg",
           ParkCode="NACE",
           ShortName="Nat.Cap.Parks - East",
-          LongName="National Captial Parks-East", 
+          LongName="National Capital Parks-East", 
           Network="NCRN", 
           
           TPlotSize=c(1,pi*15*15),
